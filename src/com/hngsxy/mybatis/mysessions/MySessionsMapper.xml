@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hngsxy.mybatis.mysessions.MySessionsMapper">
+	<!-- 添加一个session -->
+	<insert id="insertDoCreate" parameterType="MySessions">
+		INSERT INTO my_sessions(`id`,`session`)
+		VALUES (#{id},#{session})
+	</insert>
+
+	<select id="selectDoReadSession" parameterType="MySessions" resultType="String">
+		SELECT `session` FROM `my_sessions`
+		WHERE id = #{id}
+	</select>
+	
+	<update id="updateDoUpdate" parameterType="MySessions">
+		UPDATE `my_sessions` 
+		SET session = #{session} where id = #{id}
+	</update>
+	
+	<delete id="deleteDoDelete" parameterType="MySessions">
+		delete from `my_sessions` where id = #{id}
+	</delete>
+
+</mapper>

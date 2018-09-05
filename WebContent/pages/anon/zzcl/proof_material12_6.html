@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=Edge">
+		<link rel="shortcut icon" href="http://124.228.83.236/r3/imgs/sign/bitbug_favicon.ico" />
+		<title>佐证材料</title>
+		<link rel="stylesheet" href="/r3/layui-v2.3.0/layui/css/layui.css" />
+		<link rel="stylesheet" href="/r3/zTree-zTree_v3-master/zTree_v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+		<link rel="stylesheet" href="/r3/css/anonCss.css" />
+		<link rel="stylesheet" href="../../../r3/zTree-zTree_v3-master/zTree_v3/css/demo.css" type="text/css">
+		<style>
+			body {
+				margin: 0px;
+				background: url(/r3/imgs/index_scy_jyb_banner.jpg)no-repeat;
+			}
+			.Headerdiv{
+				width:100%; 
+				height:216px; 
+			}
+			
+			.Headerdiv_1{
+				margin:0 auto; 
+				width:1220px; 
+				height:216px; 
+				background: url(/r3/imgs/gxy/gxy_title_img.jpg)no-repeat;
+				background-size:100%;
+			}
+			.body1 {
+				margin: 0 auto;
+				width: 1200px;
+				min-height: 800px;
+				background-color: white;
+				padding: 10px;
+				/*border-radius:5px 0;border:1px solid #c2c2c2;*/
+			}
+			.body1_1{
+					width: 860px;
+					min-height: 800px;
+					padding: 10px;
+					float: left;
+			}
+			.body1_2{
+					width: 860px;
+					height: 700px;
+					padding: 10px;
+					float: left;
+					overflow :auto;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<!--描述： 头部-->
+		<div class="Headerdiv">
+			<div class="Headerdiv_1">
+				<img style="position: absolute; padding-left: 100px; padding-top: 10px;height: 50px;" src="/r3/imgs/DZBGS/dzbgs_tt_img.png" />
+				<img style="position: absolute; padding-left: 400px; padding-top: 91px;height: 80px;" src="/r3/imgs/ziti/zt_zzcl.png" />
+			</div>
+		</div>
+		<div class="jgdiv"></div>
+		<div class="body1">
+<!--			<div class="content_wrap" style="width: 280px;">
+				<div class="zTreeDemoBackground left">
+					<ul id="treeDemo" class="ztree" style="height: 600px;"></ul>
+				</div>
+			</div>-->
+			
+			<div class="body1_1" style="width: 300px;">
+				<div class="content_wrap" style="width: 280px;">
+					<div class="zTreeDemoBackground left">
+						<ul id="treeDemo" class="ztree" style="height: 600px;"></ul>
+					</div>
+				</div>
+			</div>
+			<div class="body1_2" id="body1_2">
+			<!--	<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/chb/chb1.jpg" />-->
+			</div>
+		</div>
+		<div class="jgdiv"></div>
+		<div class="bottom_diji">
+			<div class="bottom_diji_neir">
+				Copyright 2009-2020 http://www.hngsxy.com All Rights Reserved <br />
+				版权所有： 湖南工商职业学院 电话：0734-8593338 8593358 传真：0734-8593325 <br />
+				地址：湖南省衡阳市石鼓区松木塘 邮编：421001   <br />
+				湘教QS4_201212_040024   湘ICP备12013408号 <br />
+				<img src="/r3/imgs/gonggongImg/beianbgs.png" style="width: 20px; height: 20px;"/>
+				<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=43040702000117" target="_blank">湘公网安备 43040702000117号</a> <br />
+			</div>
+		</div>
+		
+		
+		
+		
+		
+	</body>
+	<script src="/r3/jquery/jquery-1.8.2.js" type="text/javascript"></script>
+	<script type="text/javascript" src="/r3/zTree-zTree_v3-master/zTree_v3/js/jquery.ztree.core.js"></script>
+	<script src="/r3/layui-v2.3.0/layui/layui.js"></script>
+	<script>
+		
+		var zNodes =[																																		
+			{ id:"hngszyxy", name:"财经商贸类专业群", open:true,isParent:true, iconOpen:"/r3/zTree-zTree_v3-master/zTree_v3/css/zTreeStyle/img/diy/1_open.png", iconClose:"/r3/zTree-zTree_v3-master/zTree_v3/css/zTreeStyle/img/diy/1_close.png"},
+
+			{ id:"zzcl4", pId:"hngszyxy", name:"2-6 群内骨干教师",open:true,isParent:true, icon:"/r3/zTree-zTree_v3-master/zTree_v3/css/zTreeStyle/img/diy/2.png"},
+
+			{ id:"qnggls1", pId:"zzcl4", name:"张俭",icon:"/r3/zTree-zTree_v3-master/zTree_v3/css/zTreeStyle/img/diy/3.png"},
+			{ id:"qnggls2", pId:"zzcl4", name:"李东升",icon:"/r3/zTree-zTree_v3-master/zTree_v3/css/zTreeStyle/img/diy/3.png"}
+
+		];
+		$(function(){
+			var setting = {
+				data: {
+					simpleData: {
+						enable: true,
+						idKey: "id",
+						pIdKey: "pId",
+						rootPId: null
+					}
+				},
+				view: {
+					dblClickExpand: false,
+					selectedMulti: false
+				},
+				callback: {
+					onClick: zTreeOnClick
+				}
+			};
+			
+			$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+
+			
+
+			
+		});
+
+		function zTreeOnClick(event, treeId, treeNode) {
+		    //console.log(treeNode.id + ", " + treeNode.name);
+		    
+		    if(treeNode.id == 'jsjbqk1'){
+		    	$("#body1_2").html("");
+					var img ='<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/chb/chb1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/chb/chb2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/chb/chb3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/chb/chb4.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jsjbqk2'){
+		    	$("#body1_2").html("");
+					var img ='<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/fjz/fjz1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/fjz/fjz2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/fjz/fjz3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/fjz/fjz4.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jsjbqk3'){
+		    	$("#body1_2").html("");
+					var img ='<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/lds/lds1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/lds/lds2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/lds/lds3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/lds/lds4.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jsjbqk4'){
+		    	$("#body1_2").html("");
+					var img ='<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/lhs/lhs1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/lhs/lhs2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/lhs/lhs3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/lhs/lhs4.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/lhs/lhs5.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jsjbqk5'){
+		    	$("#body1_2").html("");
+					var img ='<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/lll/lll1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/lll/lll2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/lll/lll3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/lll/lll4.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/lll/lll5.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jsjbqk6'){
+		    	$("#body1_2").html("");
+					var img ='<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/mwy/mwy1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/mwy/mwy2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/mwy/mwy3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/mwy/mwy4.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/mwy/mwy5.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jsjbqk7'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/ndx/ndx1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/ndx/ndx2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/ndx/ndx3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/ndx/ndx4.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jsjbqk8'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/wjl/wjl1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/wjl/wjl2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/wjl/wjl3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/wjl/wjl4.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/wjl/wjl5.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/wjl/wjl6.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jsjbqk9'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/ww/ww1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/ww/ww2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/ww/ww3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/ww/ww4.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/ww/ww5.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/ww/ww6.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jsjbqk10'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/wxj/wxj1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/wxj/wxj2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/wxj/wxj3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/wxj/wxj4.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jsjbqk11'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/wh/wh1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/wh/wh2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/wh/wh3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/wh/wh4.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jsjbqk12'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/yll/yll1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/yll/yll2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/yll/yll3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/yll/yll4.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/yll/yll5.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jsjbqk13'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/yhw/yhw1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/yhw/yhw2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/yhw/yhw3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/yhw/yhw4.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jsjbqk14'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/zj/zj1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/zj/zj2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/zj/zj3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/zj/zj4.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/zj/zj5.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jsjbqk15'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/zqn/zqn1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/zqn/zqn2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/zqn/zqn3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/zqn/zqn5.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/zqn/zqn6.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jsjbqk16'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/zxh/zxh1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/zxh/zxh2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/zxh/zxh3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/zxh/zxh4.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jsjbqk17'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/zp/zp1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/zp/zp2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/zp/zp3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/zp/zp4.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/zp/zp5.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jsjbqk18'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/zym/zym1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/zym/zym2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/zym/zym3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/zym/zym4.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/zym/zym5.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jsjbqk19'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/lc/lc1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/lc/lc2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/lc/lc3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnzrjsjbqk/lc/lc4.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'ljrc1'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/ljrc/lds/lds1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/ljrc/lds/lds2.bmp" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/ljrc/lds/lds3.bmp" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/ljrc/lds/lds4.bmp" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'zydtr1'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/zydtr/zj/zj1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/zydtr/zj/zj2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/zydtr/zj/zj3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/zydtr/zj/zj4.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/zydtr/zj/zj5.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/zydtr/zj/zj6.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/zydtr/zj/zj7.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'qnggls1'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/zydtr/zj/zj1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/zydtr/zj/zj2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/zydtr/zj/zj3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/zydtr/zj/zj4.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/zydtr/zj/zj5.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/zydtr/zj/zj6.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/zydtr/zj/zj7.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'qnggls2'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/ljrc/lds/lds1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/ljrc/lds/lds2.bmp" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/ljrc/lds/lds3.bmp" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/ljrc/lds/lds4.bmp" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jzls1'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/dmf/d1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/dmf/d2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/dmf/d3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/dmf/d4.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jzls2'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/fxp/f1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/fxp/f2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/fxp/f3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/fxp/f4.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jzls3'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/hcx/h1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/hcx/h2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/hcx/h3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/hcx/h4.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/hcx/h5.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jzls4'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/jh/j1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/jh/j2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/jh/j3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/jh/j4.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/jh/j5.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jzls5'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/lfg/l1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/lfg/l2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/lfg/l3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/lfg/l4.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/lfg/l5.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jzls6'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/lzw/l1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/lzw/l2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/lzw/l3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/lzw/l4.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/lzw/l5.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jzls7'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/njm/n1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/njm/n2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/njm/n3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/njm/n4.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jzls8'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/yg/y1.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/yg/y2.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/yg/y3.jpg" />'+
+										'<img width="100%" height="100%" src="/r3/imgs/zccl/qnjzjs/yg/y4.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'jshj1'){
+		    	$("#body1_2").html("");
+					var img = '<img width="100%" height="100%" src="/r3/imgs/zccl/jsjxjshj/zj/jz1.jpg" />';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'qnjxxm1'){
+		    	$("#body1_2").html("");
+		    	var img = '<iframe src="/r3/imgs/zccl/qnjxxm/qnjxxm1.pdf" width="800" height="700"></iframe>';
+						//var img = '<a target="_blank" href="/r3/imgs/zccl/qnjxxm/qnjxxm1.pdf">制造业上市公司管理层权力</a>';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'qnjxxm2'){
+		    	$("#body1_2").html("");
+		    	var img = '<iframe src="/r3/imgs/zccl/qnjxxm/qnjxxm2.pdf" width="800" height="700"></iframe>';
+					//var img = '<a target="_blank" href="/r3/imgs/zccl/qnjxxm/qnjxxm2.doc">专著，设施园艺</a>';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'sjkyxm1'){
+		    	$("#body1_2").html("");
+		    	var img = '<iframe src="/r3/imgs/zccl/sjkyxm/sjkyxm1.pdf" width="800" height="700"></iframe>';
+						//var img = '<a target="_blank" href="/r3/imgs/zccl/sjkyxm/sjkyxm1.pdf">06-2013教育厅立项文</a>';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'sjkyxm2'){
+		    	$("#body1_2").html("");
+		    	var img = '<iframe src="/r3/imgs/zccl/sjkyxm/sjkyxm2.pdf" width="800" height="700"></iframe>';
+						//var img = '<a target="_blank" href="/r3/imgs/zccl/sjkyxm/sjkyxm2.pdf">07-2013年度湖南省哲学社会科学基金项目的通知</a>';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'sjkyxm3'){
+		    	$("#body1_2").html("");
+		    	var img = '<iframe src="/r3/imgs/zccl/sjkyxm/sjkyxm3.pdf" width="800" height="700"></iframe>';
+						//var img = '<a target="_blank" href="/r3/imgs/zccl/sjkyxm/sjkyxm3.pdf">09-2015年网络教育资源建设项目立项的通知</a>';
+		    	$("#body1_2").append(img);
+		    }else if(treeNode.id == 'sjkyxm4'){
+		    	$("#body1_2").html("");
+		    				var img = '<iframe src="/r3/imgs/zccl/sjkyxm/sjkyxm4.pdf" width="800" height="700"></iframe>';
+						//var img = '<a target="_blank" href="/r3/imgs/zccl/sjkyxm/sjkyxm4.pdf">省社科2015，李冬生</a>';
+		    	$("#body1_2").append(img);
+		    }
+		    
+		
+		    
+		    
+		    
+		};
+		
+		
+	</script>
+</html>

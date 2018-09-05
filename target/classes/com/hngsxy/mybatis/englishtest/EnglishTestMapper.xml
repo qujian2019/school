@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hngsxy.mybatis.englishtest.EnglishTestMapper">
+
+	<!-- 新增考生信息 -->
+	<insert id="insertEnglishTest" parameterType="GsxyEnglishExaminationTable">
+		INSERT INTO `gsxy_english_examination_table`
+		(`id`,`idcard`,`studentName`,`studentsex`,`campus`,`college`,`factions`,`classNumber`,`schoolNumber`,`enrollmentYear`,`major`,`examinationStatus`,`photo`,`insertTime`,`examination`)
+		VALUES 
+		(REPLACE(UUID(),"-",""),#{idcard},#{studentName},#{studentsex},#{campus},#{college},#{factions},#{classNumber},#{schoolNumber},#{enrollmentYear},#{major},'1',#{photo},NOW(),#{examination})
+	</insert>
+	<!-- 修改考生信息 -->
+	<update id="updateEnglishTest" parameterType="GsxyEnglishExaminationTable">
+		UPDATE `gsxy_english_examination_table` 
+		SET `idcard` =#{idcard},`studentName`=#{studentName},`studentsex`=#{studentsex},`campus`=#{campus},`factions`=#{factions},`classNumber`=#{classNumber},`enrollmentYear`=#{enrollmentYear},`major`=#{major},`photo`=#{photo},`college`=#{college},`examination`=#{examination}
+		WHERE `id` = #{id}
+	</update>
+
+	<select id="findEnglishExamination" parameterType="map" resultType="GsxyEnglishExaminationTable">
+		SELECT * 
+		FROM `gsxy_english_examination_table`
+		where `examinationStatus` in ('1','2','3')
+		<include refid="EnglishTest_sql"></include>
+		ORDER BY `insertTime` DESC
+		LIMIT #{page},#{limit}
+	</select>
+	<!-- 用于Excel导出 -->
+	<select id="findEnglishExaminationExcel" parameterType="map" resultType="GsxyEnglishExaminationTable">
+		SELECT * 
+		FROM `gsxy_english_examination_table`
+		where `examinationStatus` = '1'
+		<include refid="EnglishTest_sql"></include>
+		ORDER BY `insertTime` DESC
+	</select>
+
+	<!-- 模糊查询文件-1 -->
+	<sql id="EnglishTest_sql">
+		<if test="examination!=null and examination!=''">
+			and examination = #{examination}
+		</if>
+		<if test="idcard!=null and idcard!=''">
+			and idcard like '%${idcard}%'
+		</if>
+	</sql>
+	
+	
+	<update id="updateExaminationStatus" parameterType="GsxyEnglishExaminationTable">
+		UPDATE `gsxy_english_examination_table` SET `examinationStatus` = '0'
+		WHERE `id` = #{id}
+	</update>
+	
+	<select id="selectGsxyEnglishExaminationTableOne" parameterType="GsxyEnglishExaminationTable" resultType="GsxyEnglishExaminationTable">
+		SELECT * 
+		FROM `gsxy_english_examination_table`
+		WHERE `id` = #{id}
+	</select>
+
+	<!-- 修改文件 状态 用于逻辑删除  
+	 制定这个也报错  parameterType="array"
+	-->
+	<update id="updateEnglishTestState">
+			UPDATE `gsxy_english_examination_table`  
+			SET `examinationStatus` = '0'
+			WHERE id IN 
+		    <foreach collection="ids" index="index" item="ids" open="(" separator="," close=")">  
+		            #{ids}   
+		    </foreach>   
+	</update>
+	<!-- 严重身份证号是否存在 -->
+	<select id="selectEnglishTestIdCard" parameterType="GsxyEnglishExaminationTable" resultType="int">
+		SELECT COUNT(1)
+		FROM `gsxy_english_examination_table`
+		WHERE `idcard` = #{idcard} and `examination` = #{examination} and `examinationStatus` in ('1','2','3')
+	</select>
+	
+	<!-- 学期查询 -->
+	<select id="findSemester" parameterType="map" resultType="GsxySemester">
+		SELECT * 
+		FROM `gsxy_semester`
+		where `status` = '1'
+		ORDER BY `insertTime` DESC
+		LIMIT #{page},#{limit}
+	</select>
+	
+	<!-- 新增考期 -->
+	<insert id="insertSemester" parameterType="GsxySemester">
+		INSERT INTO `gsxy_semester`
+		(`id`,`name`,`status`,`insertTime`)
+		VALUES 
+		(REPLACE(UUID(),"-",""),#{name},'1',NOW())
+	</insert>
+	
+	<!-- 删除一个考期 -->
+	<update id="updateSemesterStatus" parameterType="GsxySemester">
+		UPDATE `gsxy_semester` SET `status` = '0'
+		WHERE `id` = #{id}
+	</update>
+	
+	<!-- 修改一个考期 -->
+	<update id="updateSemesterName" parameterType="GsxySemester">
+		UPDATE `gsxy_semester` SET `name` = #{name}
+		WHERE `id` = #{id}
+	</update>
+	
+	<select id="selectSemesterByTow" resultType="GsxySemester">
+		SELECT * 
+		FROM `gsxy_semester`
+		WHERE `status` = '1'
+		ORDER BY `insertTime` desc
+		LIMIT 0,2
+	</select>
+	
+	<!-- 通过审核 -->
+	<update id="updateEnglishTestStateByAdopt" parameterType="GsxyEnglishExaminationTable">
+		UPDATE `gsxy_english_examination_table` 
+		SET `examinationStatus` = '3',`unqualifiedReason` =#{unqualifiedReason}
+		WHERE `id` = #{id}
+	</update>
+	
+	<!-- 不通过理由 -->
+	<update id="updateEnglishTestUnqualifiedReason" parameterType="GsxyEnglishExaminationTable">
+		UPDATE `gsxy_english_examination_table` SET `unqualifiedReason` =#{unqualifiedReason},`examinationStatus` = '2'
+		WHERE `id` = #{id}
+	</update>
+	
+	<!-- 查询报考状态 -->
+	<select id="findEnglishTestByIdCard" parameterType="GsxyEnglishExaminationTable" resultType="GsxyEnglishExaminationTable">
+		SELECT * 
+		FROM `gsxy_english_examination_table`
+		WHERE `idcard` = #{idcard} AND `examinationStatus` IN ('1','2','3')
+	</select>
+	
+	<!-- 根据身份证修改 考试编号,和作为编号 -->
+	<update id="updateAdmissionTicket" parameterType="GsxyEnglishExaminationTable">
+		UPDATE `gsxy_english_examination_table` SET `admissionTicket` = #{admissionTicket},`centreNo` = #{centreNo}
+		WHERE idcard = #{idcard} and examinationStatus = '1'
+	</update>
+	
+	
+	
+	
+</mapper>

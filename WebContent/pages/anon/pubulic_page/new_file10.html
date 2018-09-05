@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div id="loading_img">点击加载</div>
+	</body>
+
+</html>
+<script type="text/javascript" src="../../../r3/jquery/jquery-1.8.2.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#loading_img").click(
+			function() {
+				$.ajax({
+					type: "GET",
+					url: "demo.php",
+					data: "name=wuxiaoyong",
+					beforeSend: loading, //执行ajax前执行loading函数.直到success 
+					success: Response //成功时执行Response函数 
+				})
+			}
+		)
+	});
+
+	function loading() {
+		$('#loading_img').html('<img src="images/loading.gif"/>');
+	}
+
+	function Response(data) {
+		$('#loading_img').html(data);
+	}
+</script>

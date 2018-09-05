@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<!-- 全局配置参数 -->
+	<settings>
+		<!-- 在全局范围内启用或禁用延迟加载.禁用时,所有协会将热加载. -->
+		<setting name="lazyLoadingEnabled" value="true" />
+		<!-- 启用时,有延迟加载熟悉的对象将被完全加载后调用懒惰的任何属性. 否则,每一个属性是按需加载. -->
+		<setting name="aggressiveLazyLoading" value="false" />
+		<!-- 在全局范围内启用或禁用缓存配置任何映射器在此配置下. 开启二级缓存总开关 -->
+		<setting name="cacheEnabled" value="true" />
+
+	</settings>
+
+	<!-- 定义类型别名 -->
+
+	<typeAliases>
+		<!-- 单个别名定义 -->
+		<!-- <typeAlias type="cn.ick.op.User" alias="User"/> -->
+		<!-- 批量别名定义, 扫描实体包，为该包下的所有实体类指定别名，实体的别名就是该类的类名 -->
+		<package name="com.hngsxy.web.bean" />
+
+	</typeAliases>
+
+	<!-- 类型处理器 -->
+	<!-- <typeHandlers> </typeHandlers> -->
+
+</configuration>
+

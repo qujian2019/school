@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hngsxy.mybatis.gsxyworklog.GsxyWorkLogMapper">
+	<!-- 新增员工日志 -->
+	<insert id="insertGsxyWorkLog" parameterType="GsxyWorkLog">
+		INSERT INTO `gsxy_work_log` 
+		(workLogId,userId,workName,deptId,deptName,writeTime,week1,week2,urgent,commonly,timeSlot1,timeSlot2,timeSlot3,timeSlot4,timeSlot5,jobContent1,jobContent2,jobContent3,jobContent4,jobContent5,completeTime1,completeTime2,completeTime3,completeTime4,completeTime5,ratifiedTime1,ratifiedTime2,ratifiedTime3,ratifiedTime4,ratifiedTime5,selfVerification,personnelVerification,notCompleted,problem,Improvement,leadershipVerification,workLogStatus)
+		VALUES 
+		(UUID(),#{userId},#{workName},#{deptId},#{deptName},#{writeTime},#{week1},#{week2},#{urgent},#{commonly},#{timeSlot1},#{timeSlot2},#{timeSlot3},#{timeSlot4},#{timeSlot5},#{jobContent1},#{jobContent2},#{jobContent3},#{jobContent4},#{jobContent5},#{completeTime1},#{completeTime2},#{completeTime3},#{completeTime4},#{completeTime5},#{ratifiedTime1},#{ratifiedTime2},#{ratifiedTime3},#{ratifiedTime4},#{ratifiedTime5},#{selfVerification},#{personnelVerification},#{notCompleted},#{problem},#{Improvement},#{leadershipVerification},'1')
+	</insert>
+	<!-- 修改员工日志 -->
+	<update id="updateGsxyWorkLog" parameterType="GsxyWorkLog">
+		UPDATE `gsxy_work_log` 
+		SET
+		workName = #{workName},deptName = #{deptName},writeTime = #{writeTime},week1 = #{week1},week2 = #{week2},urgent = #{urgent},commonly = #{commonly},
+		timeSlot1 = #{timeSlot1},timeSlot2 = #{timeSlot2},timeSlot3 = #{timeSlot3},timeSlot4 = #{timeSlot4},timeSlot5 = #{timeSlot5},
+		jobContent1 = #{jobContent1},jobContent2 = #{jobContent2},jobContent3 = #{jobContent3},jobContent4 = #{jobContent4},jobContent5 = #{jobContent5},
+		completeTime1 = #{completeTime1},completeTime2 = #{completeTime2},completeTime3 = #{completeTime3},completeTime4 = #{completeTime4},completeTime5 = #{completeTime5},
+		ratifiedTime1 = #{ratifiedTime1},ratifiedTime2 = #{ratifiedTime2},ratifiedTime3 = #{ratifiedTime3},ratifiedTime4 = #{ratifiedTime4},ratifiedTime5 = #{ratifiedTime5},
+		selfVerification = #{selfVerification},personnelVerification = #{personnelVerification},notCompleted = #{notCompleted},problem = #{problem},Improvement = #{Improvement},
+		leadershipVerification = #{leadershipVerification}
+		WHERE workLogId = #{workLogId}
+	</update>
+	
+	
+	<!-- 新增员工日志 -->
+	<select id="findGsxyWorkLog" parameterType="GsxyWorkLog" resultType="GsxyWorkLog">
+		SELECT *
+		FROM (SELECT *
+		FROM (SELECT workLogId,writeTime,deptName,workName,workLogStatus,weeks FROM `gsxy_work_log`
+		where
+		<if test="workLogStatus!=null and workLogStatus!=''">
+		 	 workLogStatus = #{workLogStatus}
+		</if>
+		<if test="userId!=null and userId!=''">
+		 	and userId = #{userId}
+		</if>
+		ORDER BY writeTime DESC
+		LIMIT #{page},#{limit}) aa
+		<include refid="GsxyWorkLog_sql"></include>
+		)aaa
+		<include refid="GsxyWorkLog_sql2"></include>
+	</select>
+	
+	<!-- 新增员工日志总数  COUNT(1)-->
+	<select id="findGsxyWorkLogTotal" parameterType="GsxyWorkLog" resultType="int">
+		SELECT COUNT(1)
+		FROM (SELECT *
+		FROM (SELECT workLogId,writeTime,deptName,workName,workLogStatus,weeks FROM `gsxy_work_log`
+		where
+		<if test="workLogStatus!=null and workLogStatus!=''">
+		 	 workLogStatus = #{workLogStatus}
+		</if>
+		<if test="userId!=null and userId!=''">
+		 	and userId = #{userId}
+		</if>
+		ORDER BY writeTime DESC) aa
+		<include refid="GsxyWorkLog_sql"></include>
+		)aaa
+		<include refid="GsxyWorkLog_sql2"></include>
+	</select>
+	<sql id="GsxyWorkLog_sql">
+		<where>
+			<if test="writeTime!=null and writeTime!=''and time2!=null and time2!=''">
+			 	writeTime BETWEEN #{writeTime} AND #{time2}
+			</if>
+		</where>
+	</sql>
+	<sql id="GsxyWorkLog_sql2">
+		<where>
+			<if test="deptName!=null and deptName!=''">
+			 	and deptName = #{deptName}
+			</if>
+			<if test="workName!=null and workName!=''">
+			 	and workName = #{workName}
+			</if>
+			<if test="weeks!=null and weeks!=''">
+			 	and weeks = #{weeks}
+			</if>
+		</where>
+	</sql>
+	
+	<update id="updateWorkLogStatus" parameterType="GsxyWorkLog">
+		UPDATE `gsxy_work_log` SET workLogStatus = '0'
+		WHERE workLogId = #{workLogId}
+	</update>
+	
+	<select id="selectGsxyWorkLogOne" parameterType="GsxyWorkLog" resultType="GsxyWorkLog">
+		SELECT * FROM `gsxy_work_log` 
+		WHERE workLogId = #{workLogId}
+	</select>
+	
+	<update id="updateGsxyWorkLogState">
+		UPDATE `gsxy_work_log`
+		SET workLogStatus = '0'
+		WHERE workLogId IN 
+	    <foreach collection="workLogIds" index="index" item="workLogIds" open="(" separator="," close=")">  
+	            #{workLogIds}   
+	    </foreach>   
+	</update>
+	
+	<!-- 查询选中的多个日志日志信息 -->
+	<select id="selectGsxyWorkLogS" resultType="GsxyWorkLog">
+		SELECT * 
+		FROM `gsxy_work_log`
+		WHERE workLogId IN 
+	    <foreach collection="workLogIds" index="index" item="workLogIds" open="(" separator="," close=")">  
+	            #{workLogIds}   
+	    </foreach>   
+	</select>
+	
+	<!-- 新增一个员工日志总结 -->
+	<insert id="insertYGRZZJ" parameterType="GsxyWorkLog">
+		INSERT INTO `gsxy_work_log` 
+		(workLogId,workLogStatus,jobKey,jobOther,personnelVerification2,weeks,deptName,workName,writeTime)
+		VALUES 
+		(UUID(),'2',#{jobKey},#{jobOther},#{personnelVerification2},#{weeks},#{deptName},#{workName},NOW());
+	</insert>
+	
+	<update id="updateYGRZZJ" parameterType="GsxyWorkLog">
+		UPDATE `gsxy_work_log` SET jobKey = #{jobKey},jobOther = #{jobOther},personnelVerification2 = #{personnelVerification2},weeks = #{weeks},deptName = #{deptName},workName = #{workName}
+		WHERE workLogId = #{workLogId}
+	</update>
+	<!-- 查询月周数 -->
+	<select id="findyzs" resultType="GsxyWorkLog">
+		SELECT DISTINCT weeks
+		FROM `gsxy_work_log`
+		WHERE workLogStatus = '2'
+		ORDER BY writeTime DESC
+		LIMIT 0,12
+	</select>
+	<!-- 查询工作日志总结table -->
+	<select id="findGsxyWorkLogTable" parameterType="GsxyWorkLog" resultType="GsxyWorkLog">
+		SELECT *
+		FROM `gsxy_work_log`
+		WHERE workLogStatus = '2' AND weeks = #{weeks}
+		<if test="deptName!=null and deptName!=''">
+		 	and deptName = #{deptName}
+		</if>
+		ORDER BY writeTime DESC,deptName DESC
+	</select>
+	
+	
+	
+	
+</mapper>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hngsxy.mybatis.gsxysunshineservice.GsxySunshineServiceMapper">
+
+	<!-- 查询阳光服务信息公布 -->
+	<select id="selectSunshineServiceByPublish" resultType="GsxySunshineService">
+		SELECT * 
+		FROM `gsxy_sunshine_service`
+		WHERE sunshineState IN ('0','1','2')
+		ORDER BY sunshineLetterTime DESC
+		LIMIT 0,20
+	</select>
+	
+	<!-- 阳光服务结办 -->
+	<update id="updateSunshineStateBySunshineEnd" parameterType="GsxySunshineService">
+		UPDATE `gsxy_sunshine_service` SET sunshineState = '2'
+		WHERE `sunshineEnd` = #{sunshineEnd}
+	</update>
+
+	<!-- 通过阳光服务编号 查询阳光服务 -->
+	<select id="findSunshineServiceBySunshineNumber" parameterType="GsxySunshineService" resultType="GsxySunshineService">
+		SELECT * FROM gsxy_sunshine_service
+		WHERE sunshineNumber =  #{sunshineNumber}
+	</select>
+
+	<!-- 服务信息审理 -->
+	<select id="findSunshineServiceHear" parameterType="map" resultType="GsxySunshineService">
+		SELECT * 
+		FROM `gsxy_sunshine_service`
+		WHERE sunshineState IN ('0','1','2') 
+		<include refid="fenye1_sql"></include>
+		ORDER BY sunshineLetterTime DESC
+		LIMIT #{page},#{limit}
+	</select>
+	<!-- 服务信息审理总数 -->
+	<select id="findSunshineServiceHearTotal" parameterType="map" resultType="int">
+		SELECT COUNT(1)
+		FROM `gsxy_sunshine_service`
+		WHERE sunshineState IN ('0','1','2')
+		<include refid="fenye1_sql"></include>
+		ORDER BY sunshineLetterTime DESC
+	</select>
+	<!-- 模糊查询文件-1 <include refid="fenye1_sql"></include> -->
+	<sql id="fenye1_sql">
+			<if test="sunshineTitle!=null and sunshineTitle!=''">
+				AND sunshineTitle like '%${sunshineTitle}%'
+			</if>
+	</sql>
+	
+	<!-- 删除一个阳光服务 -->
+	<update id="deleteSunshineServiceOne" parameterType="GsxySunshineService">
+		UPDATE gsxy_sunshine_service SET  sunshineState = 4
+		WHERE sunshineId = #{sunshineId}
+	</update>
+	
+	<!-- 批量删除阳光服务信息 -->
+	<update id="deleteSunshineServiceBatch" parameterType="GsxySunshineService">
+		UPDATE gsxy_sunshine_service
+		SET sunshineState = 4
+		WHERE sunshineId IN 
+	    <foreach collection="sunshineIds" index="index" item="sunshineIds" open="(" separator="," close=")">  
+	            #{sunshineIds}   
+	    </foreach>   
+	</update>
+
+
+
+	<!-- 查询用户文件01 findeNews-->
+	<select id="findSunshineServiceNews" parameterType="map" resultType="GsxySunshineServiceNews">
+		SELECT * 
+		FROM gsxy_sunshine_service_news
+		WHERE newsAuditStatus = '1' AND userId = #{userId}
+		<include refid="fenye_sql"></include>
+		ORDER BY newsReleaseTime DESC
+		LIMIT #{page},#{limit}
+	</select>
+	
+	<!-- 查询用户文件01 -->
+	<select id="findSunshineServiceNewsTotal" parameterType="map" resultType="int">
+		SELECT COUNT(1)
+		FROM gsxy_sunshine_service_news
+		WHERE newsAuditStatus = '1' AND userId = #{userId}
+		<include refid="fenye_sql"></include>
+		ORDER BY newsReleaseTime DESC
+	</select>
+	<!-- 模糊查询文件-1 <include refid="fenye_sql"></include> -->
+	<sql id="fenye_sql">
+			<if test="newsTitle!=null and newsTitle!=''">
+				AND newsTitle like '%${newsTitle}%'
+			</if>
+<!-- 			<if test="newsReleaseUser!=null and newsReleaseUser!=''">
+				AND newsReleaseUser like '%${newsReleaseUser}%'
+			</if> -->
+	</sql>
+	
+	<!-- 逻辑删除阳光新闻 -->
+	<update id="deleteSunshineServiceNews" parameterType="GsxySunshineServiceNews">
+		UPDATE gsxy_sunshine_service_news SET newsAuditStatus = 0
+		WHERE newsId = #{newsId}
+	</update>
+	<!-- 修改新闻时间 -->
+	<update id="updateNewsReleaseTime" parameterType="GsxySunshineServiceNews">
+		UPDATE gsxy_sunshine_service_news SET newsReleaseTime = #{newsReleaseTime}
+		WHERE newsId = #{newsId}
+	</update>
+	<!-- 批量删除阳光新闻 -->
+	<update id="updateGsxySunshineServiceNewsState" parameterType="GsxySunshineServiceNews">
+		UPDATE gsxy_sunshine_service_news
+		SET newsAuditStatus = 0
+		WHERE newsId IN 
+	    <foreach collection="newsIds" index="index" item="newsIds" open="(" separator="," close=")">  
+	            #{newsIds}   
+	    </foreach>   
+	</update>
+	<!-- 添加阳光服务 -->
+	<insert id="insertGsxySunshineService" parameterType="GsxySunshineService" >
+			<![CDATA[
+				INSERT INTO 
+				`gsxy_sunshine_service` 
+				(`sunshineNumber`,`sunshineLetter`,`sunshineLetterTime`,`sunshineServiceType`,`sunshineAdmissible`,
+				`sunshineState`,`sunshineTitle`,`sunshineContent`,`sunshinePalindrome`,`sunshineHandlingTime`,
+				`sunshineResults`,`sunshineName`,`sunshinePhone`,`sunshineMailbox`,`sunshineSex`,
+				`sunshineAddress`,`sunshineCategory`,`sunshinePublic`,`sunshineEnclosure`,`sunshineEnd`)
+				VALUES
+				(#{sunshineNumber},#{sunshineLetter},NOW(),#{sunshineServiceType},
+				#{sunshineAdmissible},'0',#{sunshineTitle},#{sunshineContent},
+				#{sunshinePalindrome},#{sunshineHandlingTime},#{sunshineResults},#{sunshineName},
+				#{sunshinePhone},#{sunshineMailbox},#{sunshineSex},#{sunshineAddress},
+				#{sunshineCategory},#{sunshinePublic},#{sunshineEnclosure},#{sunshineEnd})
+			]]>
+	</insert>
+	<!-- 添加阳光新闻 -->
+	<insert id="insertGsxySunshineServiceNews" parameterType="GsxySunshineServiceNews" >
+			<![CDATA[
+				INSERT INTO 
+				gsxy_sunshine_service_news 
+				(userId,deptId,newsTitle,newsSource,newsReleaseUser,
+				newType,newsReleaseTime,newsVisitConut,newsAuditStatus,
+				newsContext,newsCarouselPath,newTypeText)
+				VALUES
+				(#{userId},#{deptId},#{newsTitle},#{newsSource},
+				#{newsReleaseUser},#{newType},NOW(),#{newsVisitConut},
+				'1',#{newsContext},#{newsCarouselPath},#{newTypeText})
+			]]>
+	</insert>
+	<!-- 查询一条阳光新闻信息 -->
+	<select id="findGsxySunshineServiceNewsOne" parameterType="GsxySunshineServiceNews" resultType="GsxySunshineServiceNews">
+		SELECT * 
+		FROM `gsxy_sunshine_service_news`
+		WHERE newsId = #{newsId}
+	</select>
+	
+	<select id="findGsxySunshineServiceNewsTypeIs" parameterType="GsxySunshineServiceNews" resultType="GsxySunshineServiceNews">
+		SELECT * 
+		FROM gsxy_sunshine_service_news
+		WHERE newType = #{newType} AND newsAuditStatus = '1'
+		ORDER BY newsReleaseTime DESC 
+		LIMIT 0,10
+	</select>
+	
+	<select id="selectGsxySunshineServiceNewsTypeIs0" resultType="GsxySunshineServiceNews" parameterType="GsxySunshineServiceNews">
+		SELECT * FROM gsxy_sunshine_service_news
+		WHERE newType = #{newType} AND newsAuditStatus = '1'
+		ORDER BY newsReleaseTime DESC
+	</select>
+	
+	<select id="findSunshineServiceOne" parameterType="GsxySunshineService" resultType="GsxySunshineService">
+		SELECT * 
+		FROM gsxy_sunshine_service 
+		WHERE sunshineId = #{sunshineId}
+	</select>
+	
+	<!-- 回文信息 -->
+	<update id="updatePalindromeInformation" parameterType="GsxySunshineService">
+		UPDATE gsxy_sunshine_service SET sunshineResults = #{sunshineResults}, sunshineHandlingTime = now(),sunshineState = '1'
+		WHERE sunshineId = #{sunshineId}
+	</update>
+	
+	
+</mapper>

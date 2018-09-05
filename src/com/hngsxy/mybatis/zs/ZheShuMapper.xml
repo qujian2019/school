@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace：必须与对应的接口全类名一致 id:必须与对应接口的某个对应的方法名一致 -->
+<mapper namespace="com.hngsxy.mybatis.zs.ZheShuMapper">
+
+	<!-- 新增证书 -->
+	<insert id="insertZheShu" parameterType="ZhenShu">
+		INSERT INTO `gsxy_zs_table`
+		(`id`,`title`,`pic`,`content`,`classid`,`adddate`,`idcard`,`data`,`sex`,`zsStatus`,`birthday`)
+		VALUES 
+		(UUID(),#{title},#{pic},#{content},#{classid},#{adddate},#{idcard},#{data},#{sex},'1',#{birthday})
+	</insert>
+	<!-- 修改证书 -->
+	<update id="updateZhenShu" parameterType="ZhenShu">
+		UPDATE `gsxy_zs_table` 
+		SET `title` = #{title}, `pic` = #{pic}, `content` = #{content}, `classid` = #{classid}, `adddate` = #{adddate}, `idcard` = #{idcard}, `data` = #{data}, `sex` = #{sex},`birthday` = #{birthday}
+		WHERE `id` = #{id}
+	</update>
+	
+	<!-- 查询一个证书信息 -->
+	<select id="selectZsById" parameterType="ZhenShu" resultType="ZhenShu">
+		SELECT * 
+		FROM `gsxy_zs_table` 
+		WHERE `id` = #{id}
+	</select>
+	
+	<!-- 查询证书信息 -->
+	<select id="selectZS" parameterType="ZhenShu" resultType="ZhenShu">
+		SELECT `title`,`pic`,`content`,`classid`,`adddate`,idcard,`data`,`sex`,`yy`,`mm`,`dd`,`birthday`
+		FROM `gsxy_zs_table`
+		WHERE title = #{title} and idcard = #{idcard}
+	</select>
+
+	<!-- 查询证书管理 -->
+	<select id="findZhenShu" resultType="ZhenShu" parameterType="map">
+		SELECT * 
+		FROM `gsxy_zs_table`
+		where zsStatus = '1'
+		<include refid="GsxyWskxImg_sql"></include>
+		ORDER BY `adddate`  
+		LIMIT #{page},#{limit}
+	</select>
+	
+	<!-- 模糊查询文件-1 -->
+	<sql id="GsxyWskxImg_sql">
+		<if test="content!=null and content!=''">
+			and content like '%${content}%'
+		</if>
+		<if test="idcard!=null and idcard!=''">
+			and idcard = #{idcard}
+		</if>
+		<if test="title!=null and title!=''">
+			and title = #{title}
+		</if>
+	</sql>
+
+	<!-- 查询证书管理 -->
+	<select id="findZhenShuTotal" resultType="int" parameterType="map">
+		SELECT COUNT(1)
+		FROM `gsxy_zs_table`
+		where zsStatus = '1'
+	</select>
+	
+	<!-- 查询证书专业管理 -->
+	<select id="findZhenShuMajor" resultType="ZhenShu" parameterType="map">
+		SELECT * 
+		FROM `gsxy_zs_major_table`
+		where zsMajorStatus = '1'
+		ORDER BY `addTime`  
+		LIMIT #{page},#{limit}
+	</select>
+	
+	<!-- 查询证书专业管理总数 -->
+	<select id="findZhenShuMajorTotal" resultType="int" parameterType="map">
+		SELECT COUNT(1)
+		FROM `gsxy_zs_major_table`
+		where zsMajorStatus = '1'
+	</select>
+	<!-- 新增一个专业 -->
+	<insert id="insertMajor" parameterType="GsxyZsMajorTable">
+		INSERT INTO `gsxy_zs_major_table`
+		(`id`,`title`,`zsMajorStatus`,`addTime`)
+		VALUES 
+		(UUID(),#{title},'1',NOW())
+	</insert>
+	<!-- 删除一个专业名称 -->
+	<update id="updateMajorZsMajorStatus" parameterType="GsxyZsMajorTable">
+		UPDATE `gsxy_zs_major_table` SET `zsMajorStatus` = '0'
+		WHERE `id` = #{id}
+	</update>
+	<!-- 修改一个专业名称 -->
+	<update id="updateMajorZsMajorTitle" parameterType="GsxyZsMajorTable">
+		UPDATE `gsxy_zs_major_table` SET `title` = #{title}
+		WHERE `id` = #{id}
+	</update>
+	<!-- 查询专业给学生 -->
+	<select id="selectMajor" resultType="GsxyZsMajorTable">
+		SELECT * 
+		FROM `gsxy_zs_major_table`
+		WHERE `zsMajorStatus` = '1'
+	</select>
+	<!-- 删除一个学生信息 -->
+	<update id="updateZhenShuStatus" parameterType="ZhenShu">
+		UPDATE `gsxy_zs_table` SET `zsStatus` = '0'
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 查询证书管理 -->
+	<select id="findGsxyFactions" resultType="GsxyFactions" parameterType="map">
+		SELECT * 
+		FROM `gsxy_factions`
+		where `status` = '1'
+		ORDER BY `insertTime`
+		LIMIT #{page},#{limit}
+	</select>
+	<!-- 新增系别 -->
+	<insert id="insertFactions" parameterType="GsxyFactions">
+		INSERT INTO `gsxy_factions`
+		(`id`,`name`,`status`,`insertTime`)
+		VALUES 
+		(REPLACE(UUID(),"-",""),#{name},'1',NOW())
+	</insert>
+	
+	<update id="updateStatus" parameterType="GsxyFactions">
+		UPDATE `gsxy_factions` SET `status` = '0'
+		WHERE `id` = #{id}
+	</update>
+	
+	<update id="updateFactionsName" parameterType="GsxyFactions">
+		UPDATE `gsxy_factions` SET `name` = #{name}
+		WHERE `id` = #{id}
+	</update>
+	<!-- 查询给学生选择系别 -->
+	<select id="selectFactions" resultType="GsxyFactions">
+		SELECT * 
+		FROM `gsxy_factions`
+		WHERE `status` = '1'
+	</select>
+	
+</mapper>

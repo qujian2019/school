@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=Edge">
+		<link rel="stylesheet" href="/r3/layui-v2.2.5/layui/css/layui.css" />
+		<link rel="stylesheet" href="/r3/css/anonCss.css" />
+		<link rel="shortcut icon" href="http://124.228.83.236/r3/imgs/sign/bitbug_favicon.ico" />
+		<title>财务处</title>
+		<style>
+			body {
+				margin: 0px;
+				background: url(/r3/imgs/index_scy_jyb_banner.jpg)no-repeat;
+			}
+			.layui-nav .layui-nav-item {
+			    position: relative;
+			    display: inline-block;
+			    vertical-align: middle;
+			    line-height: 40px;
+			}
+			.layui-nav .layui-nav-item a {
+			    display: block;
+			    padding: 0 20px;
+			    color: #fff;
+			   	font-weight: 900;
+			    /* color: rgba(255, 255, 255, .7); style="background-color: #009688;" */
+			    transition: all .3s;
+			    -webkit-transition: all .3s;
+			}
+			.layui-nav-child {
+			    display: none;
+			    position: absolute;
+			    left: 0;
+			    top: 50px;
+			    min-width: 100%;
+			    line-height: 36px;
+			    padding: 5px 0;
+			    box-shadow: 0 2px 4px rgba(0,0,0,.12);
+			    border: 1px solid #d2d2d2;
+			    background-color: #E38D13;
+			    z-index: 100;
+			    border-radius: 2px;
+			    white-space: nowrap;
+			}
+			.layui-nav .layui-this:after, .layui-nav-bar, .layui-nav-tree .layui-nav-itemed:after {
+			    position: absolute;
+			    left: 0;
+			    top: 0;
+			    width: 0;
+			    height: 5px;
+			    background-color: #393D49;
+			    transition: all .2s;
+			    -webkit-transition: all .2s;
+			}
+			
+			.Headerdiv{
+				width:100%; 
+				height:216px; 
+			}
+			
+			.Headerdiv_1{
+				margin:0 auto; 
+				width:1000px; 
+				height:216px; 
+				background: url(/r3/imgs/xsgzc/xsgzc1.png)no-repeat;
+				background-size:100%;
+			}
+
+			.Navigation{
+				margin:0 auto; 
+				width:1000px; 
+				height:40px; 
+				background-color: #6A6A6A;
+				
+			}
+			
+			.Navigation_1{
+				margin:0 auto; 
+				width:1000px; 
+				height:40px; 
+				
+			}
+			.body1 {
+				margin: 0 auto;
+				width: 980px;
+				min-height: 915px;
+				background-color: white;
+				padding: 10px;
+				/*border-radius:5px 0;border:1px solid #c2c2c2;*/
+			}
+			.boxheaddiv {
+			    font-size: 15px;
+			    text-indent: 2em;
+			    line-height: 36px;
+			    width: 100%;
+			    height: 36px;
+			    background-image: url(/r3/imgs/cwc/boxtitle.jpg);
+			    background-color: #f1f4fd;
+			    background-repeat: no-repeat;
+			    font-weight: bold;
+			    border-bottom: solid 2px #CCC;
+			}
+				.body1_1{
+					width: 482px;
+					height: 300px;
+					background-color: #eee;
+					border-radius:5px 0;border:1px solid #c2c2c2;
+				}
+		</style>
+	</head>
+	<body>
+		<!--描述： 头部-->
+		<div class="Headerdiv">
+			<div class="Headerdiv_1">
+				<img style="position: absolute; padding-left: 100px; padding-top: 10px;height: 50px;" src="/r3/imgs/DZBGS/dzbgs_tt_img.png" />
+				<img style="position: absolute; padding-left: 400px; padding-top: 91px;height: 80px;" src="/r3/imgs/cwc/gsxy_title_cwc_1.png" />
+			</div>
+		</div>
+		<!--描述： 导航-->
+		<div class="Navigation">
+			<div class="Navigation_1">
+				<ul class="layui-nav" lay-filter="" style="background-color: #738ce9;">
+				  <li class="layui-nav-item">
+				  	<a href="Finance.html">首页</a>
+				    <dl class="layui-nav-child" > <!-- 二级菜单 -->
+				      <dd><a href="/index.html" class="ztjc">学院首页</a></dd>
+				    </dl>
+				  </li>
+				  <li class="layui-nav-item">
+				  	<a href="Finance2.html?newType=CWC1">部门简介</a>
+				  </li>
+				  <li class="layui-nav-item">
+				  	<a href="Finance2.html?newType=CWC2">规章制度</a>
+				  </li>
+				  <li class="layui-nav-item">
+				  	<a href="Finance2.html?newType=CWC3">岗位职责</a>
+				  </li>
+				  <li class="layui-nav-item">
+				  	<a href="Finance2.html?newType=CWC4">服务指南</a>
+				  </li>
+				  <li class="layui-nav-item">
+				  	<a href="Finance2.html?newType=CWC5">下载中心</a>
+				  </li>
+				</ul>
+			</div>
+		</div>
+		<div class="jgdiv"></div>
+		<div class="body1">
+			<div class="body1_1" style="float: left; margin-right: 10px;">
+				<div class="boxheaddiv">通知公告
+					<span style="float: right;">
+						<a href="Finance2.html?newType=CWC7" target="_blank">更多>>></a>
+					</span>
+				</div>
+				<script id="demoCWC7" type="text/html">
+					<ul>
+						{{# layui.each(d.list, function(index, item){ }} {{# if(index == 8){return true;} }}
+						<li class="liclass">
+							<span class="spandiv">{{ item.newsReleaseTime.substring(0,10)}}</span>
+							<a onclick="selectOne({{ item.newsId}})" title="{{item.newsTitle}}">{{ item.newsTitle.substring(0,25) }}</a>
+						</li>
+						{{# }); }} {{# if(d.list.length === 0){ }} 无数据 {{# } }}
+					</ul>
+				</script>
+				<div id="newsTypeIsCWC7" class="xwxx"></div>
+			</div>
+			
+			<div class="body1_1" style="float: left;">
+				<div class="boxheaddiv">新闻动态
+					<span style="float: right;">
+						<a href="Finance2.html?newType=CWC6" target="_blank">更多>>></a>
+					</span>
+				</div>
+				<script id="demoCWC6" type="text/html">
+					<ul>
+						{{# layui.each(d.list, function(index, item){ }} {{# if(index == 8){return true;} }}
+						<li class="liclass">
+							<span class="spandiv">{{ item.newsReleaseTime.substring(0,10)}}</span>
+							<a onclick="selectOne({{ item.newsId}})" title="{{item.newsTitle}}">{{ item.newsTitle.substring(0,25) }}</a>
+						</li>
+						{{# }); }} {{# if(d.list.length === 0){ }} 无数据 {{# } }}
+					</ul>
+				</script>
+				<div id="newsTypeIsCWC6" class="xwxx"></div>
+			</div>
+			
+			<div class="body1_1" style="float: left; margin: 10px 10px 10px 0px;">
+				<div class="boxheaddiv">规章制度
+					<span style="float: right;">
+						<a href="Finance2.html?newType=CWC2" target="_blank">更多>>></a>
+					</span>
+				</div>
+				<script id="demoCWC2" type="text/html">
+					<ul>
+						{{# layui.each(d.list, function(index, item){ }} {{# if(index == 8){return true;} }}
+						<li class="liclass">
+							<span class="spandiv">{{ item.newsReleaseTime.substring(0,10)}}</span>
+							<a onclick="selectOne({{ item.newsId}})" title="{{item.newsTitle}}">{{ item.newsTitle.substring(0,25) }}</a>
+						</li>
+						{{# }); }} {{# if(d.list.length === 0){ }} 无数据 {{# } }}
+					</ul>
+				</script>
+				<div id="newsTypeIsCWC2" class="xwxx"></div>
+			</div>
+			
+			<div class="body1_1" style="float: left; margin: 10px 0px 10px 0px;">
+				<div class="boxheaddiv">岗位职责
+					<span style="float: right;">
+						<a href="Finance2.html?newType=CWC3" target="_blank">更多>>></a>
+					</span>
+				</div>
+				<script id="demoCWC3" type="text/html">
+					<ul>
+						{{# layui.each(d.list, function(index, item){ }} {{# if(index == 8){return true;} }}
+						<li class="liclass">
+							<span class="spandiv">{{ item.newsReleaseTime.substring(0,10)}}</span>
+							<a onclick="selectOne({{ item.newsId}})" title="{{item.newsTitle}}">{{ item.newsTitle.substring(0,25) }}</a>
+						</li>
+						{{# }); }} {{# if(d.list.length === 0){ }} 无数据 {{# } }}
+					</ul>
+				</script>
+				<div id="newsTypeIsCWC3" class="xwxx"></div>
+			</div>
+			
+			<div class="body1_1" style="float: left;">
+				<div class="boxheaddiv">下载中心
+					<span style="float: right;">
+						<a href="Finance2.html?newType=CWC5" target="_blank">更多>>></a>
+					</span>
+				</div>
+				<script id="demoCWC5" type="text/html">
+					<ul>
+						{{# layui.each(d.list, function(index, item){ }} {{# if(index == 8){return true;} }}
+						<li class="liclass">
+							<span class="spandiv">{{ item.newsReleaseTime.substring(0,10)}}</span>
+							<a onclick="selectOne({{ item.newsId}})" title="{{item.newsTitle}}">{{ item.newsTitle.substring(0,25) }}</a>
+						</li>
+						{{# }); }} {{# if(d.list.length === 0){ }} 无数据 {{# } }}
+					</ul>
+				</script>
+				<div id="newsTypeIsCWC5" class="xwxx"></div>
+			</div>
+			
+			<div class="body1_1" style="float: left; margin-left: 10px;">
+				<div class="boxheaddiv">服务指南
+					<span style="float: right;">
+						<a href="Finance2.html?newType=CWC4" target="_blank">更多>>></a>
+					</span>
+				</div>
+				<script id="demoCWC4" type="text/html">
+					<ul>
+						{{# layui.each(d.list, function(index, item){ }} {{# if(index == 8){return true;} }}
+						<li class="liclass">
+							<span class="spandiv">{{ item.newsReleaseTime.substring(0,10)}}</span>
+							<a onclick="selectOne({{ item.newsId}})" title="{{item.newsTitle}}">{{ item.newsTitle.substring(0,25) }}</a>
+						</li>
+						{{# }); }} {{# if(d.list.length === 0){ }} 无数据 {{# } }}
+					</ul>
+				</script>
+				<div id="newsTypeIsCWC4" class="xwxx"></div>
+			</div>
+			
+		</div>
+		<div class="jgdiv"></div>
+		<div class="bottom_diji">
+			<div class="bottom_diji_neir">
+				Copyright 2009-2020 http://www.hngsxy.com All Rights Reserved <br />
+				版权所有： 湖南工商职业学院 电话：0734-8593338 8593358 传真：0734-8593325 <br />
+				地址：湖南省衡阳市石鼓区松木塘 邮编：421001   <br />
+				湘教QS4_201212_040024   湘ICP备12013408号 <br />
+				<img src="/r3/imgs/gonggongImg/beianbgs.png" style="width: 20px; height: 20px;"/>
+				<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=43040702000117" target="_blank">湘公网安备 43040702000117号</a> <br />
+			</div>
+		</div>
+	</body>
+	<script src="/r3/jquery/jquery-1.8.2.js" type="text/javascript"></script>
+	<script src="/r3/layui-v2.2.1/layui/layui.js"></script>
+	<script src="/r3/anonJs/anonJs.js"></script>
+	<script>
+		//注意：导航 依赖 element 模块，否则无法进行功能性操作
+		layui.use('element', function(){var element = layui.element;});
+	layui.use('laytpl', function() {
+			var laytpl = layui.laytpl;
+
+			//查询 规章制度
+			$.ajax({
+				type: "post",
+				url: "/anon/findNewsTypes",
+				async: true,
+				data: {
+					newTypes: "CWC2"
+				},
+				success: function(data) {
+					//console.log(data)
+					var tempCWC2 = JSON.parse(data);
+					var getTplCWC2 = demoCWC2.innerHTML,
+						newsTypeIsCWC2 = document.getElementById('newsTypeIsCWC2');
+					laytpl(getTplCWC2).render(tempCWC2, function(html) {
+						newsTypeIsCWC2.innerHTML = html;
+					});
+
+				}
+			});
+		//查询 岗位职责
+			$.ajax({
+				type: "post",
+				url: "/anon/findNewsTypes",
+				async: true,
+				data: {
+					newTypes: "CWC3"
+				},
+				success: function(data) {
+					//console.log(data)
+					var tempCWC3 = JSON.parse(data);
+					var getTplCWC3 = demoCWC3.innerHTML,
+						newsTypeIsCWC3 = document.getElementById('newsTypeIsCWC3');
+					laytpl(getTplCWC3).render(tempCWC3, function(html) {
+						newsTypeIsCWC3.innerHTML = html;
+					});
+
+				}
+			});
+		//查询 服务指南
+			$.ajax({
+				type: "post",
+				url: "/anon/findNewsTypes",
+				async: true,
+				data: {
+					newTypes: "CWC4"
+				},
+				success: function(data) {
+					//console.log(data)
+					var tempCWC4 = JSON.parse(data);
+					var getTplCWC4 = demoCWC4.innerHTML,
+						newsTypeIsCWC4 = document.getElementById('newsTypeIsCWC4');
+					laytpl(getTplCWC4).render(tempCWC4, function(html) {
+						newsTypeIsCWC4.innerHTML = html;
+					});
+
+				}
+			});
+		//查询 下载中心
+			$.ajax({
+				type: "post",
+				url: "/anon/findNewsTypes",
+				async: true,
+				data: {
+					newTypes: "CWC5"
+				},
+				success: function(data) {
+					//console.log(data)
+					var tempCWC5 = JSON.parse(data);
+					var getTplCWC5 = demoCWC5.innerHTML,
+						newsTypeIsCWC5 = document.getElementById('newsTypeIsCWC5');
+					laytpl(getTplCWC5).render(tempCWC5, function(html) {
+						newsTypeIsCWC5.innerHTML = html;
+					});
+
+				}
+			});
+			
+		//查询 新闻动态
+			$.ajax({
+				type: "post",
+				url: "/anon/findNewsTypes",
+				async: true,
+				data: {
+					newTypes: "CWC6"
+				},
+				success: function(data) {
+					//console.log(data)
+					var tempCWC6 = JSON.parse(data);
+					var getTplCWC6 = demoCWC6.innerHTML,
+						newsTypeIsCWC6 = document.getElementById('newsTypeIsCWC6');
+					laytpl(getTplCWC6).render(tempCWC6, function(html) {
+						newsTypeIsCWC6.innerHTML = html;
+					});
+
+				}
+			});
+		//查询 通知公告
+			$.ajax({
+				type: "post",
+				url: "/anon/findNewsTypes",
+				async: true,
+				data: {
+					newTypes: "CWC7"
+				},
+				success: function(data) {
+					//console.log(data)
+					var tempCWC7 = JSON.parse(data);
+					var getTplCWC7 = demoCWC7.innerHTML,
+						newsTypeIsCWC7 = document.getElementById('newsTypeIsCWC7');
+					laytpl(getTplCWC7).render(tempCWC7, function(html) {
+						newsTypeIsCWC7.innerHTML = html;
+					});
+
+				}
+			});
+
+		});
+		function selectOne(id) {
+			var url = "Finance1.html?newsId="+ id;
+			window.location.href = url;
+		}
+	</script>
+</html>

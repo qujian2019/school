@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>组织人事处</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=Edge">
+		<link rel="stylesheet" href="/r3/layui-v2.2.5/layui/css/layui.css" />
+		<link rel="shortcut icon" href="http://124.228.83.236/r3/imgs/sign/bitbug_favicon.ico" />
+		<style>
+			body {
+				margin: 0px;
+				background: url(/r3/imgs/zzrsc/timg.jpg)no-repeat;
+				background-size: 240%;
+			}
+			a {
+				color: #000000;
+				font-size: 14px;
+			}
+/*			tr{
+				background-color: #009688;
+			}*/
+			.layui-nav *{font-size:16px}
+			.layui-table, .layui-table-view {
+			    margin: 0px 0;
+			}
+			.layui-table tbody tr:hover, .layui-table thead tr, .layui-table-click, .layui-table-header, .layui-table-hover, .layui-table-mend, .layui-table-patch, .layui-table-tool, .layui-table[lay-even] tr:nth-child(even) {
+			    background-color: #009688;
+			}
+			.layui-table td, .layui-table th, .layui-table-fixed-r, .layui-table-header, .layui-table-page, .layui-table-tips-main, .layui-table-tool, .layui-table-view, .layui-table[lay-skin=line], .layui-table[lay-skin=row] {
+			    border-width: 1px;
+			    border-style: solid;
+			    border-color: #e6e6e6;
+			}
+			.layui-table img {
+			    max-width: 185px;
+			}
+			.layui-nav-child {
+			    display: none;
+			    position: absolute;
+			    left: 0;
+			    top: 50px;
+			    min-width: 100%;
+			    line-height: 36px;
+			    padding: 5px 0;
+			    box-shadow: 0 2px 4px rgba(0,0,0,.12);
+			    border: 1px solid #d2d2d2;
+			    background-color: #E38D13;
+			    z-index: 100;
+			    border-radius: 2px;
+			    white-space: nowrap;
+			}
+			.layui-nav .layui-this:after, .layui-nav-bar, .layui-nav-tree .layui-nav-itemed:after {
+			    position: absolute;
+			    left: 0;
+			    top: 0;
+			    width: 0;
+			    height: 5px;
+			    background-color: #393D49;
+			    transition: all .2s;
+			    -webkit-transition: all .2s;
+			}
+			.layui-nav .layui-nav-item {
+			    position: relative;
+			    display: inline-block;
+			    vertical-align: middle;
+			    line-height: 40px;
+			}
+			.layui-nav .layui-nav-item a {
+			    display: block;
+			    padding: 0 20px;
+			    color: #fff;
+			   	font-weight: 900;
+			    /* color: rgba(255, 255, 255, .7); style="background-color: #009688;" */
+			    transition: all .3s;
+			    -webkit-transition: all .3s;
+			}
+			.layui-table {
+			    width: 100%;
+			    color: white;
+			}
+
+			.titleLink {
+				margin: 0 auto;
+				width: 1010px;
+				height: 50px;
+				/*background-color: #5FB878;*/
+				text-align: center;
+				margin-bottom: 10px;
+				margin-top: 10px;
+				/*background: url(../../r3/imgs/xytp.png);*/
+			}
+			
+			.titleLink1 {
+				margin: 0 auto;
+				width: 1010px;
+				height: 30px;
+				/*background-color: #9CB945;*/
+			}
+			
+			.body1 {
+				margin: 0 auto;
+				width: 1000px;
+				min-height: 700px;
+				background-color: white;
+				padding: 10px;
+			}
+			
+			.body11 {
+				width: 300px;
+				height: 200px;
+				/*background-color: #DCAC6C;*/
+				margin: 5px;
+			}
+			
+			.body12 {
+				width: 300px;
+				height: 290px;
+				/*background-color: #F7D3D2;*/
+				margin: 5px;
+			}
+			
+			.body13 {
+				width: 300px;
+				height: 200px;
+				/*background-color: #FBEC88;*/
+				margin: 5px;
+			}
+			
+			.body14 {
+				width: 680px;
+				height: 340px;
+				/*background-color: #B8EECF;*/
+				margin: 5px;
+				float: right;
+			}
+			
+			.body15 {
+				width: 350px;
+				height: 350px;
+				/*background-color: #B8EECF;*/
+				margin: 5px;
+				float: right;
+			}
+			
+			.body16 {
+				width: 320px;
+				height: 350px;
+				/*background-color: #B8EECF;*/
+				margin: 5px;
+				float: right;
+			}
+			
+			.liclass {
+				padding: 5px;
+			}
+			
+			.liclass01 {
+				padding: 5px;
+			}
+
+			.spandiv {
+				color: #000000;
+				float: right;
+			}
+			.yqljDiv{
+				height:80px;
+				width: 290px;
+				/*background-color: #B8EECF;*/
+			}
+			.bottom_diji{
+				margin: 0 auto;
+				height:200px;
+				width: 1000px;
+				/*background-color: #B8EECF;*/
+				background: url(/r3/imgs/wygkcn.gif)no-repeat;
+			}
+			.bottom_diji_neir{
+				text-align: center;
+				height:200px;
+				width: 1000px;
+			}
+			.templanse{
+				color: #0000CC;
+			}
+			
+/*			.Headerdiv{
+				width:100%; 
+				height:160px; 
+			}
+			
+			.Headerdiv_1{
+				margin:0 auto;
+				width:1000px; 
+				height:160px; 
+			}*/
+			.Headerdiv{
+				width:100%; 
+				height:260px; 
+				
+			}
+			
+			.Headerdiv_1{
+				margin:0 auto; 
+				width:1020px; 
+				height:260px; 
+				background: url(/r3/imgs/zzrsc/zzrsc_15.jpg);
+				background-size:100% 100%;
+			}
+
+			.Navigation{
+				margin:0 auto; 
+				width:1020px; 
+				height:40px; 
+				background-color: #009688;
+				
+			}
+			
+			.Navigation_1{
+				margin:0 auto; 
+				width:800px; 
+				height:40px; 
+				
+			}
+			
+			.HeaderdivIMG{
+				margin:0 auto; 
+				width:1000px; 
+				height:220px; 
+				/*background-color: #5FB878;*/
+			}
+			
+		    .jgdiv{
+		    	width: 100%; 
+		    	height: 20px; 
+		    	/*background-color: #B94A48;*/
+		    }
+		    .body1_1{
+		    	width: 220px;
+		    	height: 270px;
+		    	/*background-color: #B94A48;*/
+		    }
+		    .body1_2{
+		    	width: 220px;
+		    	height: 270px;
+		    	/*background-color: #66AFE9;*/
+		    }
+		    .body1_3{
+		    	width: 220px;
+		    	height: 348px;
+		    	/*background-color: #AA7700;*/
+		    }
+		    .body1_4{
+		    	width: 770px;
+		    	height: 515px;
+		    	/*background-color: #66AFE9;*/
+		    	float: right;
+		    }
+		    	.body1_4_1{
+		    		width: 380px;
+		    		height: 262px;
+		    		/*background-color: #66AFE9;*/
+		    		float: left;
+		    	}
+		    	.body1_4_2{
+		    		width: 380px;
+		    		height: 262px;
+		    		/*background-color: #8A6D3B;*/
+		    		float: right;
+		    	}
+		    	.body1_4_3{
+		    		width: 380px;
+		    		height: 262px;
+		    		/*background-color: #245580;*/
+		    		float: left;
+		    		    margin-top: 8px;
+		    	}
+		    	.body1_4_4{
+		    		width: 380px;
+		    		height: 262px;
+		    		/*background-color: #9CB945;*/
+		    		float: right;
+		    		    margin-top: 8px;
+		    	}
+		    .body1_5{
+		    	width: 380px;
+		    	height: 348px;
+		    	/*background-color: #66AFE9;*/
+		    	float: right;
+		    }
+		    .body1_6{
+		    	width: 380px;
+		    	height: 348px;
+		    	/*background-color: #D0E9C6;*/
+		    	float: right;
+		    	margin-right: 10px;
+		    }
+		    .body1_7{
+				margin:0 auto; 
+				width:1000px; 
+				height:200px; 
+				/*background-color: #D0E9C6;*/
+		    }
+			/*.xyImg {
+				border: 1px solid #D9EDF7;
+				width: 300px;
+				height: 200px;
+			}*/
+		</style>
+	</head>
+	<body>
+		<!--
+        	描述： 头部
+        -->
+		<div class="Headerdiv">
+			<div class="Headerdiv_1">
+				<img style="position: absolute; padding-left: 100px; padding-top: 10px;height: 50px;" src="/r3/imgs/DZBGS/dzbgs_tt_img.png" />
+				<img style="position: absolute; padding-left: 400px; padding-top: 91px;height: 80px;" src="/r3/imgs/zzrsc/xk_zzrsc111.png" />
+			</div>
+		</div>
+		<!--
+        	描述： 导航
+        -->
+		<div class="Navigation">
+			<div class="Navigation_1">
+				<ul class="layui-nav" lay-filter="" style="background-color: #009688;">
+				  <li class="layui-nav-item">
+				  	<a href="newsMinistryOfPersonnel.html">首页</a>
+				    <dl class="layui-nav-child" > <!-- 二级菜单 -->
+				      <dd><a href="/index.html" style="font-weight: 900;">学院首页</a></dd>
+				    </dl>
+				  </li>
+				  <li class="layui-nav-item"><a href="newsMinistryOfPersonnel_2.html?newType=11">部门新闻</a></li>
+				  <li class="layui-nav-item"><a href="newsMinistryOfPersonnel_2.html?newType=13">教师培训</a></li>
+				  <li class="layui-nav-item"><a href="newsMinistryOfPersonnel_2.html?newType=14">政策文件</a></li>
+				  <li class="layui-nav-item"><a href="newsMinistryOfPersonnel_2.html?newType=15">职称评定</a></li>
+				  <li class="layui-nav-item"><a href="newsMinistryOfPersonnel_2.html?newType=16">教师风采</a></li>
+				  <li class="layui-nav-item"><a href="newsMinistryOfPersonnel_2.html?newType=18">部门职责</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="jgdiv"></div>
+		
+		<div class="body1">
+			<div class="body1_4">
+				<div class="body1_4_1">
+					<table class="layui-table" style="height: 100%;">
+					  <thead>
+					    <tr>
+					      <th style="font-weight: 900;">
+					      	部门新闻
+					      	<a href="newsMinistryOfPersonnel_2.html?newType=11">
+								<span class="layui-badge layui-bg-blue" style="top: 1px; float: right;">
+							   		More
+							   	</span>
+						   	</a>
+					      </th>
+					    </tr> 
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td style="width: 348px; height: 202px; background-color: white; position: absolute;">
+								<script id="demo11" type="text/html">
+									<ul>
+										{{# layui.each(d.list, function(index, item){ }} {{# if(index == 6){return true;} }}
+										<li class="liclass">
+											<span class="spandiv">{{ item.newsReleaseTime.substring(0,10)}}</span>
+											
+												<a onclick="selectOne({{ item.newsId}})" title="{{item.newsTitle}}">{{ item.newsTitle.substring(0,18) }}</a>
+											
+										</li>
+										{{# }); }} {{# if(d.list.length === 0){ }} 无数据 {{# } }}
+									</ul>
+								</script>
+								<div id="newsTypeIs11"></div>
+					      </td>
+					    </tr>
+					  </tbody>
+					  </table>
+				</div>
+				<div class="body1_4_2">
+					<table class="layui-table" style="height: 100%;">
+					  <thead>
+					    <tr>
+					      <th style="font-weight: 900;">
+					      	通知公告
+					      	<a href="newsMinistryOfPersonnel_2.html?newType=10">
+								<span class="layui-badge layui-bg-blue" style="top: 1px; float: right;">
+							   		More
+							   	</span>
+						   	</a>
+					      </th>
+					    </tr> 
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td style="width: 348px; height: 202px; background-color: white; position: absolute;">
+								<script id="demo10" type="text/html">
+									<ul>
+										{{# layui.each(d.list, function(index, item){ }} {{# if(index == 6){return true;} }}
+										<li class="liclass">
+											<span class="spandiv">{{ item.newsReleaseTime.substring(0,10)}}</span>
+											
+												<a onclick="selectOne({{ item.newsId}})" title="{{item.newsTitle}}">{{ item.newsTitle.substring(0,18) }}</a>
+											
+										</li>
+										{{# }); }} {{# if(d.list.length === 0){ }} 无数据 {{# } }}
+									</ul>
+								</script>
+								<div id="newsTypeIs10"></div>
+					      </td>
+					    </tr>
+					  </tbody>
+					  </table>
+				</div>
+				<div class="body1_4_3">
+					<table class="layui-table" style="height: 100%;">
+					  <thead>
+					    <tr>
+					      <th style="font-weight: 900;">
+					      	教师培训
+					      	<a href="newsMinistryOfPersonnel_2.html?newType=13">
+								<span class="layui-badge layui-bg-blue" style="top: 1px; float: right;">
+							   		More
+							   	</span>
+						   	</a>
+					      </th>
+					    </tr> 
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td style="width: 348px; height: 203px; background-color: white; position: absolute;">
+								<script id="demo13" type="text/html">
+									<ul>
+										{{# layui.each(d.list, function(index, item){ }} {{# if(index == 6){return true;} }}
+										<li class="liclass">
+											<span class="spandiv">{{ item.newsReleaseTime.substring(0,10)}}</span>
+											
+												<a onclick="selectOne({{ item.newsId}})" title="{{item.newsTitle}}">{{ item.newsTitle.substring(0,18) }}</a>
+											
+										</li>
+										{{# }); }} {{# if(d.list.length === 0){ }} 无数据 {{# } }}
+									</ul>
+								</script>
+								<div id="newsTypeIs13"></div>
+					      </td>
+					    </tr>
+					  </tbody>
+					  </table>
+				</div>
+				<div class="body1_4_4">
+					<table class="layui-table" style="height: 100%;">
+					  <thead>
+					    <tr>
+					      <th style="font-weight: 900;">
+					      	职称评定
+					      	<a href="newsMinistryOfPersonnel_2.html?newType=15">
+								<span class="layui-badge layui-bg-blue" style="top: 1px; float: right;">
+							   		More
+							   	</span>
+						   	</a>
+					      </th>
+					    </tr> 
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td style="width: 348px; height: 203px; background-color: white; position: absolute;">
+								<script id="demo15" type="text/html">
+									<ul>
+										{{# layui.each(d.list, function(index, item){ }} {{# if(index == 6){return true;} }}
+										<li class="liclass">
+											<span class="spandiv">{{ item.newsReleaseTime.substring(0,10)}}</span>
+											
+												<a onclick="selectOne({{ item.newsId}})" title="{{item.newsTitle}}">{{ item.newsTitle.substring(0,18) }}</a>
+											
+										</li>
+										{{# }); }} {{# if(d.list.length === 0){ }} 无数据 {{# } }}
+									</ul>
+								</script>
+								<div id="newsTypeIs15"></div>
+					      </td>
+					    </tr>
+					  </tbody>
+					  </table>
+				</div>
+			</div>
+			<div class="body1_1">
+				<table class="layui-table">
+				  <thead>
+				    <tr>
+				      <th style="font-weight: 900;">部门介绍</th>
+				    </tr> 
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <td style="width: 154px; height: 203px; background-color: white; color: #000000;">&emsp;&emsp;组织人事处在院党委、行政的领导下，全面负责学院的组织、人事工作，贯彻执行干部政策、人事制度和劳动工资制度。本部门的主要工作职责是：一、负责贯彻落实组织人事相关政策，完善相关规章制度，围绕学院中心工作，当学院党委...</td>
+				    </tr>
+				  </tbody>
+				</table>
+			</div>
+			<div class="body1_2">
+				<table class="layui-table">
+				  <thead>
+				    <tr>
+				      <th style="font-weight: 900;">
+				      	部门责任
+				      	<a href="newsMinistryOfPersonnel_2.html?newType=18">
+							<span class="layui-badge layui-bg-blue" style="top: 1px; float: right;">
+						   		More
+						   	</span>
+					   	</a>
+				      </th>
+				    </tr> 
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <td style="width: 188px; height: 203px; background-color: white; position: absolute;">
+				      		<img style="width: 200px; height: 100px;" src="/r3/imgs/zzrsc/rscpz.jpg" />
+							<script id="demo18" type="text/html">
+								<ul>
+									{{# layui.each(d.list, function(index, item){ }} {{# if(index == 3){return true;} }}
+									<li class="liclass">
+										<a onclick="selectOne({{ item.newsId}})" title="{{item.newsTitle}}">{{ item.newsTitle.substring(0,10) }}</a>
+									</li>
+									{{# }); }} {{# if(d.list.length === 0){ }} 无数据 {{# } }}
+								</ul>
+							</script>
+							<div id="newsTypeIs18"></div>
+				      </td>
+				    </tr>
+				  </tbody>
+				</table>
+			</div>
+			<div class="body1_5">
+				<table class="layui-table" style="height: 100%;">
+				  <thead>
+				    <tr>
+				      <th style="font-weight: 900;">
+				      	下载中心
+				      	<a href="newsMinistryOfPersonnel_2.html?newType=12">
+							<span class="layui-badge layui-bg-blue" style="top: 1px; float: right;">
+						   		More
+						   	</span>
+					   	</a>
+				      </th>
+				    </tr> 
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <td style="width: 348px; height: 290px; background-color: white; position: absolute;">
+							<script id="demo12" type="text/html">
+								<ul>
+									{{# layui.each(d.list, function(index, item){ }} {{# if(index == 10){return true;} }}
+									<li class="liclass">
+										<span class="spandiv">{{ item.newsReleaseTime.substring(0,10)}}</span>
+										<a onclick="selectOne({{ item.newsId}})" title="{{item.newsTitle}}">{{ item.newsTitle.substring(0,18) }}</a>
+									</li>
+									{{# }); }} {{# if(d.list.length === 0){ }} 无数据 {{# } }}
+								</ul>
+							</script>
+							<div id="newsTypeIs12"></div>
+				      </td>
+				    </tr>
+				  </tbody>
+				  </table>
+			</div>
+			<div class="body1_6">
+				<table class="layui-table" style="height: 100%;">
+				  <thead>
+				    <tr>
+				      <th style="font-weight: 900;">
+				      	教师风采
+				      	<a href="newsMinistryOfPersonnel_2.html?newType=16">
+							<span class="layui-badge layui-bg-blue" style="top: 1px; float: right;">
+						   		More
+						   	</span>
+					   	</a>
+				      </th>
+				    </tr> 
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <td style="width: 348px; height: 290px; background-color: white; position: absolute;">
+							<script id="demo16" type="text/html">
+								<ul>
+									{{# layui.each(d.list, function(index, item){ }} {{# if(index == 10){return true;} }}
+									<li class="liclass">
+										<span class="spandiv">{{ item.newsReleaseTime.substring(0,10)}}</span>
+											<a onclick="selectOne({{ item.newsId}})" title="{{item.newsTitle}}">{{ item.newsTitle.substring(0,18) }}</a>
+									</li>
+									{{# }); }} {{# if(d.list.length === 0){ }} 无数据 {{# } }}
+								</ul>
+							</script>
+							<div id="newsTypeIs16"></div>
+				      </td>
+				    </tr>
+				  </tbody>
+				  </table>
+			</div>
+			<div class="body1_3">
+				<table class="layui-table" style="height: 100%;">
+				  <thead>
+				    <tr>
+				      <th style="font-weight: 900;">人事链接</th>
+				    </tr> 
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <td style="width: 188px; height: 290px; background-color: white; position: absolute;">
+					      	<a target="_blank" href="http://jiaoshi.hnedu.cn/">
+					      		<img src="/r3/imgs/qgjsxxglxt.png"/>
+					      	</a>
+					      	<a target="_blank" href="http://szpx.hunnu.edu.cn/">
+					      		<img style="margin-top: 10px;" width="290px" src="/r3/imgs/hnsgdxxszpszx.png"/>
+					      	</a>
+					      	<a target="_blank" href="http://hunan.cltt.org/Web/SignUpOnLine/OnlineSign.aspx">
+					      		<img style="margin-top: 10px;" width="290px" src="/r3/imgs/hnspthspcsbmzx.png"/>
+					      	</a>
+					      	<a target="_blank" href="http://www.hy12333.gov.cn/">
+					      		<img style="margin-top: 10px;" width="290px" src="/r3/imgs/zzrsc/fasfas1.png"/>
+					      	</a>
+					      	<a target="_blank" href="http://gov.hnedu.cn/">
+					      		<img style="margin-top: 10px;" width="290px" src="/r3/imgs/zzrsc/fsafsa.png"/>
+					      	</a>
+				      </td>
+				    </tr>
+				  </tbody>
+				</table>
+			</div>
+		</div>
+		<div class="jgdiv"></div>
+	
+		<div class="body1_7" id="gdtw" style="overflow: hidden; position: relative; width: 1000px;">
+			<ul style="margin: 0px; padding: 0px; overflow: hidden; position: relative; list-style: none; width: 1000px;left: -451px;">
+				<li class="xyImg" style="position: relative; overflow: hidden; float: left; margin-left: 5px;">
+					<img style="width:300px;max-height: 100%;" src="/r3/imgs/zzrsc/zzrsb_1.jpg">
+				</li>
+				<li class="xyImg" style="position: relative; overflow: hidden; float: left; margin-left: 5px;">
+					<img style="width:300px;max-height: 100%;" src="/r3/imgs/zzrsc/zzrsb_2.jpg">
+				</li>
+				<li class="xyImg" style="position: relative; overflow: hidden; float: left; margin-left: 5px;">
+					<img style="width:300px;max-height: 100%;" src="/r3/imgs/zzrsc/zzrsb_3.jpg">
+				</li>
+				<li class="xyImg" style="position: relative; overflow: hidden; float: left; margin-left: 5px;">
+					<img style="width:300px;max-height: 100%;" src="/r3/imgs/zzrsc/zzrsb_4.jpg">
+				</li>
+				<li class="xyImg" style="position: relative; overflow: hidden; float: left; margin-left: 5px;">
+					<img style="width:300px;max-height: 100%;" src="/r3/imgs/zzrsc/zzrsb_5.jpg">
+				</li>
+				<li class="xyImg" style="position: relative; overflow: hidden; float: left; margin-left: 5px;">
+					<img style="width:300px;max-height: 100%;" src="/r3/imgs/zzrsc/zzrsb_6.jpg">
+				</li>
+				<li class="xyImg" style="position: relative; overflow: hidden; float: left; margin-left: 5px;">
+					<img style="width:300px;max-height: 100%;" src="/r3/imgs/zzrsc/zzrsb_7.jpg">
+				</li>
+			</ul>
+		</div>
+
+		<div class="jgdiv"></div>
+		<div class="bottom_diji">
+			<div class="bottom_diji_neir">
+				Copyright 2009-2020 http://www.hngsxy.com All Rights Reserved <br />
+				版权所有： 湖南工商职业学院 电话：0734-8593338 8593358 传真：0734-8593325 <br />
+				地址：湖南省衡阳市石鼓区松木塘 邮编：421001   <br />
+				湘教QS4_201212_040024   湘ICP备12013408号 <br />
+				<img src="/r3/imgs/gonggongImg/beianbgs.png" style="width: 20px; height: 20px;"/>
+				<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=43040702000117" target="_blank">湘公网安备 43040702000117号</a> <br />
+			</div>
+		</div>
+	</body>
+	<script src="/r3/jquery/jquery-1.8.2.js" type="text/javascript"></script>
+	<script src="/r3/layui-v2.2.1/layui/layui.js"></script>
+	<script src="/r3/anonJs/anonJs.js"></script>
+	<script src="/r3/anonJs/pmd.js"></script>
+	<script>
+		//注意：导航 依赖 element 模块，否则无法进行功能性操作
+		layui.use('element', function(){
+		  var element = layui.element;
+		  
+		  //…    display: table-cell;
+   //… vertical-align: inherit;
+		});
+		
+		layui.use('laytpl', function() {
+			var laytpl = layui.laytpl;
+			//查询人事部通知公告
+			$.ajax({
+				type: "post",
+				url: "/anon/selectNewsTypeIs",
+				async: true,
+				data: {
+					newType: "10"
+				},
+				
+				success: function(data) {
+					//console.log(data)
+					var temp10 = JSON.parse(data);
+					var getTpl10 = demo10.innerHTML,
+						newsTypeIs10 = document.getElementById('newsTypeIs10');
+					laytpl(getTpl10).render(temp10, function(html) {
+						newsTypeIs10.innerHTML = html;
+					});
+
+				}
+			});
+
+			//查询人事部部门新闻
+			$.ajax({
+				type: "post",
+				url: "/anon/selectNewsTypeIs",
+				async: true,
+				data: {
+					newType: "11"
+				},
+				
+				success: function(data) {
+					//console.log(data)
+					var temp11 = JSON.parse(data);
+					var getTpl11 = demo11.innerHTML,
+						newsTypeIs11 = document.getElementById('newsTypeIs11');
+					laytpl(getTpl11).render(temp11, function(html) {
+						newsTypeIs11.innerHTML = html;
+					});
+
+				}
+			});
+			//查询人事部下载中新
+			$.ajax({
+				type: "post",
+				url: "/anon/selectNewsTypeIs",
+				async: true,
+				data: {
+					newType: "12"
+				},
+				
+				success: function(data) {
+					//console.log(data)
+					var temp12 = JSON.parse(data);
+					var getTpl12 = demo12.innerHTML,
+						newsTypeIs12 = document.getElementById('newsTypeIs12');
+					laytpl(getTpl12).render(temp12, function(html) {
+						newsTypeIs12.innerHTML = html;
+					});
+
+				}
+			});
+			//查询人事部教师培训
+			$.ajax({
+				type: "post",
+				url: "/anon/selectNewsTypeIs",
+				async: true,
+				data: {
+					newType: "13"
+				},
+				
+				success: function(data) {
+					//console.log(data)
+					var temp13 = JSON.parse(data);
+					var getTpl13 = demo13.innerHTML,
+						newsTypeIs13 = document.getElementById('newsTypeIs13');
+					laytpl(getTpl13).render(temp13, function(html) {
+						newsTypeIs13.innerHTML = html;
+					});
+
+				}
+			});
+			
+			//查询人事部 职称评定
+			$.ajax({
+				type: "post",
+				url: "/anon/selectNewsTypeIs",
+				async: true,
+				data: {
+					newType: "15"
+				},
+				success: function(data) {
+					//console.log(data)
+					var temp15 = JSON.parse(data);
+					var getTpl15 = demo15.innerHTML,
+						newsTypeIs15 = document.getElementById('newsTypeIs15');
+					laytpl(getTpl15).render(temp15, function(html) {
+						newsTypeIs15.innerHTML = html;
+					});
+
+				}
+			});
+			//查询人事部政策导向
+			$.ajax({
+				type: "post",
+				url: "/anon/selectNewsTypeIs",
+				async: true,
+				data: {
+					newType: "16"
+				},
+				success: function(data) {
+					//console.log(data)
+					var temp16 = JSON.parse(data);
+					var getTpl16 = demo16.innerHTML,
+						newsTypeIs16 = document.getElementById('newsTypeIs16');
+					laytpl(getTpl16).render(temp16, function(html) {
+						newsTypeIs16.innerHTML = html;
+					});
+
+				}
+			});
+			
+			//查询人事 部门责任
+			$.ajax({
+				type: "post",
+				url: "/anon/selectNewsTypeIs",
+				async: true,
+				data: {
+					newType: "18"
+				},
+				success: function(data) {
+					//console.log(data)
+					var temp18 = JSON.parse(data);
+					var getTpl18 = demo18.innerHTML,
+						newsTypeIs18 = document.getElementById('newsTypeIs18');
+					laytpl(getTpl18).render(temp18, function(html) {
+						newsTypeIs18.innerHTML = html;
+					});
+
+				}
+			});
+
+		});
+		
+			function selectOne(id) {
+				var url = "newsMinistryOfPersonnel_1.html?newsId="+ id;
+				window.location.href = url;
+			}
+	</script>
+</html>

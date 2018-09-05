@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>督导处</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=Edge">
+		<link rel="stylesheet" href="/r3/layui-v2.2.5/layui/css/layui.css" />
+		<!--<link rel="stylesheet" href="/r3/css/anonCss.css" />-->
+		<link rel="shortcut icon" href="http://124.228.83.236/r3/imgs/sign/bitbug_favicon.ico" />
+		<style>
+			body {
+				margin: 0px;
+				background: url(/r3/imgs/index_scy_jyb_banner.jpg)no-repeat;
+			}
+			.layui-nav .layui-nav-item {
+			    position: relative;
+			    display: inline-block;
+			    vertical-align: middle;
+			    line-height: 30px;
+			}
+			.layui-nav .layui-nav-item a {
+			    display: block;
+			    padding: 0 20px;
+			    color: #fff;
+			   	font-weight: 900;
+			    /* color: rgba(255, 255, 255, .7); style="background-color: #009688;" */
+			    transition: all .3s;
+			    -webkit-transition: all .3s;
+			}
+			.layui-nav-child {
+			    display: none;
+			    position: absolute;
+			    left: 0;
+			    top: 40px;
+			    min-width: 100%;
+			    line-height: 36px;
+			    padding: 5px 0;
+			    box-shadow: 0 2px 4px rgba(0,0,0,.12);
+			    border: 1px solid #d2d2d2;
+			    background-color: #E38D13;
+			    z-index: 100;
+			    border-radius: 2px;
+			    white-space: nowrap;
+			}
+			.layui-nav .layui-this:after, .layui-nav-bar, .layui-nav-tree .layui-nav-itemed:after {
+			    position: absolute;
+			    left: 0;
+			    top: 0;
+			    width: 0;
+			    height: 5px;
+			    background-color: white;
+			    transition: all .2s;
+			    -webkit-transition: all .2s;
+			}
+			
+			.Headerdiv{
+				width:100%; 
+				height:216px; 
+			}
+			
+			.Headerdiv_1{
+				margin:0 auto; 
+				width:1000px; 
+				height:216px; 
+				background: url(/r3/imgs/xsgzc/xsgzc1.png)no-repeat;
+				background-size:100%;
+			}
+
+			.Navigation{
+				margin:0 auto; 
+				width:1000px; 
+				height:30px; 
+				background-color: #6A6A6A;
+				
+			}
+			
+			.Navigation_1{
+				margin:0 auto; 
+				width:1000px; 
+				height:30px; 
+				
+			}
+			.body1 {
+				margin: 0 auto;
+				width: 980px;
+				min-height: 600px;
+				background-color: white;
+				padding: 10px;
+
+			}
+
+				.body1_1{
+					width: 238px;
+					height: 300px;
+					float: left;
+				}
+				.body1_2{
+					width: 368px;
+					height: 300px;
+					margin: 0px 10px 0px 10px;
+					float: left;
+				}
+				.body1_3{
+					width: 348px;
+					height: 295px;
+					border: 1px solid #ccc;
+					margin-bottom: 10px;
+					float: left;
+				}
+				.body1_4{
+					width: 318px;
+					height: 300px;
+					float: left;
+				}
+				.pclass {
+				    border-left: 5px solid #BEDC1E;
+				    font-size: 18px;
+				    color: #6A6A6A;
+				    padding-left: 10px;
+				    font-weight: bold;
+				    height: 30px;
+				    line-height: 30px;
+				    background-color: #F9F9F9;
+				    border-bottom: 1px solid #ccc;
+				}
+				.morespan {
+				    float: right;
+				    font-size: 14px;
+				    margin-right: 30px;
+				}
+				.morespan a {
+				    text-decoration: none;
+				    outline: none;
+				    color: #5f5f5f;
+				}
+				.xwxx{
+					height: 290px;
+					border-bottom: 1px solid #ccc;
+					border-left: 1px solid #ccc;
+					border-right: 1px solid #ccc;
+				}
+				.bt {
+				    float: left;
+				    width: 100%;
+				    height: 30px;
+				    line-height: 30px;
+				    border-right: 1px solid #ddd;
+				    background: url(/r3/imgs/dds/news_t_bg.jpg) no-repeat;
+				}
+				b {
+				    float: left;
+				    width: 90px;
+				    text-align: center;
+				    font-size: 14px;
+				    color: #fff;
+				}
+			.bt a {
+			    float: right;
+			    width: 45px;
+			    height: 30px;
+			    text-indent: -999em;
+			    background: url(../../r3/imgs/dds/more_1.gif) center center no-repeat;
+			    overflow: hidden;
+			}
+a {
+	color: #000000;
+	font-size: 14px;
+}
+.layui-nav *{font-size:16px}
+.jgdiv{
+	width: 100%; 
+	height: 10px; 
+}
+.bottom_diji{
+	margin: 0 auto;
+	height:200px;
+	width: 1000px;
+	background: url(/r3/imgs/wygkcn.gif)no-repeat;
+}
+.bottom_diji_neir{
+	text-align: center;
+	height:200px;
+	width: 1000px;
+}
+.ztjc{
+	font-weight: 900;
+}
+
+.liclass01 {
+	padding: 5px;
+}
+
+.spandiv {
+	color: #000000;
+	float: right;
+}
+.liclass {
+	/*height: 25px;*/
+	line-height: 20px;
+	margin: 5px 10px 0px 10px;
+}
+		</style>
+	</head>
+	<body>
+		<!--描述： 头部-->
+		<div class="Headerdiv">
+			<div class="Headerdiv_1">
+				<img style="position: absolute; padding-left: 100px; padding-top: 10px;height: 50px;" src="/r3/imgs/DZBGS/dzbgs_tt_img.png" />
+				<img style="position: absolute; padding-left: 400px; padding-top: 91px;height: 80px;" src="/r3/imgs/dds/dds_title_1.png" />
+			</div>
+		</div>
+		<!--描述： 导航-->
+		<div class="Navigation">
+			<div class="Navigation_1">
+				<ul class="layui-nav" lay-filter="" style="background: url(/r3/imgs/dds/menu_bg.gif);">
+				  <li class="layui-nav-item">
+				  	<a href="Supervision.html">首页</a>
+				    <dl class="layui-nav-child" > <!-- 二级菜单 -->
+				      <dd><a href="/index.html" class="ztjc">学院首页</a></dd>
+				    </dl>
+				  </li>
+				  <li class="layui-nav-item">
+				  	<a href="/pages/anon/Supervision2.html?newType=DDS9">部门介绍</a>
+				  </li>
+				  <li class="layui-nav-item">
+				  	<a href="/pages/anon/Supervision2.html?newType=DDS1">通知公告</a>
+				  </li>
+				  <li class="layui-nav-item">
+				  	<a href="/pages/anon/Supervision2.html?newType=DDS3">规章制度</a>
+				  </li>
+				  <li class="layui-nav-item">
+				  	<a href="/pages/anon/Supervision2.html?newType=DDS7">计划总结</a>
+				  </li>
+				  <li class="layui-nav-item">
+				  	<a href="/pages/anon/Supervision2.html?newType=DDS2">下载中心</a>
+				  </li>
+				</ul>
+			</div>
+		</div>
+		<div class="jgdiv"></div>
+		<div class="body1">
+			<div class="body1_1">
+				<div class="bt">
+					<b>部门介绍</b>
+					<a href="/pages/anon/Supervision2.html?newType=DDS9">更多</a>
+				</div>
+				<script id="demoDDS9" type="text/html">
+					<ul>
+						{{# layui.each(d.list, function(index, item){ }} {{# if(index == 10){return true;} }}
+						<li class="liclass">
+							<span class="spandiv">{{ item.newsReleaseTime.substring(0,10)}}</span>
+							<a onclick="selectOne({{ item.newsId}})" title="{{item.newsTitle}}">{{ item.newsTitle.substring(0,10) }}</a>
+						</li>
+						{{# }); }} {{# if(d.list.length === 0){ }} 无数据 {{# } }}
+					</ul>
+				</script>
+				<div id="newsTypeIsDDS9" class="xwxx"></div>
+			</div>
+			<div class="body1_2">
+				<div class="bt">
+					<b>督导通报</b>
+					<a href="/pages/anon/Supervision2.html?newType=DDS5">更多</a>
+				</div>
+				<script id="demoDDS5" type="text/html">
+					<ul>
+						{{# layui.each(d.list, function(index, item){ }} {{# if(index == 10){return true;} }}
+						<li class="liclass">
+							<span class="spandiv">{{ item.newsReleaseTime.substring(0,10)}}</span>
+							<a onclick="selectOne({{ item.newsId}})" title="{{item.newsTitle}}">{{ item.newsTitle.substring(0,13) }}</a>
+						</li>
+						{{# }); }} {{# if(d.list.length === 0){ }} 无数据 {{# } }}
+					</ul>
+				</script>
+				<div id="newsTypeIsDDS5" class="xwxx"></div>
+			</div>
+			<div class="body1_3">
+					<!--描述：轮播图-->
+					<div class="layui-carousel" id="zp">
+						<div carousel-item id="lbtrq">
+
+						</div>
+					</div>
+			</div>
+			<div class="body1_4">
+				<div class="bt">
+					<b>规章制度</b>
+					<a href="/pages/anon/Supervision2.html?newType=DDS3">更多</a>
+				</div>
+				<script id="demoDDS3" type="text/html">
+					<ul>
+						{{# layui.each(d.list, function(index, item){ }} {{# if(index == 10){return true;} }}
+						<li class="liclass">
+							<span class="spandiv">{{ item.newsReleaseTime.substring(0,10)}}</span>
+							<a onclick="selectOne({{ item.newsId}})" title="{{item.newsTitle}}">{{ item.newsTitle.substring(0,13) }}</a>
+						</li>
+						{{# }); }} {{# if(d.list.length === 0){ }} 无数据 {{# } }}
+					</ul>
+				</script>
+				<div id="newsTypeIsDDS3" class="xwxx"></div>
+			</div>
+			<div class="body1_4" style="margin: 0px 10px 0px 10px;">
+				<div class="bt">
+					<b>计划总结</b>
+					<a href="/pages/anon/Supervision2.html?newType=DDS7">更多</a>
+				</div>
+				<script id="demoDDS7" type="text/html">
+					<ul>
+						{{# layui.each(d.list, function(index, item){ }} {{# if(index == 10){return true;} }}
+						<li class="liclass">
+							<span class="spandiv">{{ item.newsReleaseTime.substring(0,10)}}</span>
+							<a onclick="selectOne({{ item.newsId}})" title="{{item.newsTitle}}">{{ item.newsTitle.substring(0,13) }}</a>
+						</li>
+						{{# }); }} {{# if(d.list.length === 0){ }} 无数据 {{# } }}
+					</ul>
+				</script>
+				<div id="newsTypeIsDDS7" class="xwxx"></div>
+			</div>
+			<div class="body1_4">
+				<div class="bt">
+					<b>下载中心</b>
+					<a href="/pages/anon/Supervision2.html?newType=DDS2">更多</a>
+				</div>
+				<script id="demoDDS2" type="text/html">
+					<ul>
+						{{# layui.each(d.list, function(index, item){ }} {{# if(index == 10){return true;} }}
+						<li class="liclass">
+							<span class="spandiv">{{ item.newsReleaseTime.substring(0,10)}}</span>
+							<a onclick="selectOne({{ item.newsId}})" title="{{item.newsTitle}}">{{ item.newsTitle.substring(0,13) }}</a>
+						</li>
+						{{# }); }} {{# if(d.list.length === 0){ }} 无数据 {{# } }}
+					</ul>
+				</script>
+				<div id="newsTypeIsDDS2" class="xwxx"></div>
+			</div>
+		</div>
+		<div class="jgdiv"></div>
+		<div class="bottom_diji">
+			<div class="bottom_diji_neir">
+				Copyright 2009-2020 http://www.hngsxy.com All Rights Reserved <br />
+				版权所有： 湖南工商职业学院 电话：0734-8593338 8593358 传真：0734-8593325 <br />
+				地址：湖南省衡阳市石鼓区松木塘 邮编：421001   <br />
+				湘教QS4_201212_040024   湘ICP备12013408号 <br />
+				<img src="/r3/imgs/gonggongImg/beianbgs.png" style="width: 20px; height: 20px;"/>
+				<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=43040702000117" target="_blank">湘公网安备 43040702000117号</a> <br />
+			</div>
+		</div>
+	</body>
+	<script src="/r3/jquery/jquery-1.8.2.js" type="text/javascript"></script>
+	<script src="/r3/layui-v2.2.1/layui/layui.js"></script>
+	<script src="/r3/anonJs/anonJs.js"></script>
+	<script>
+		//注意：导航 依赖 element 模块，否则无法进行功能性操作
+		layui.use('element', function(){var element = layui.element;});
+		
+		//JavaScript代码区域
+		layui.use('carousel', function() {
+			var carousel = layui.carousel;
+
+			carousel.render({
+				elem: '#zp',
+				width: '348px',
+				height: '295px',
+				interval: 2000
+			});
+		});
+		
+		layui.use('laytpl', function() {
+			var laytpl = layui.laytpl;
+
+			//查询 通知公告
+			$.ajax({
+				type: "post",
+				url: "/anon/findNewsTypes",
+				async: true,
+				data: {
+					newTypes: "DDS2"
+				},
+				success: function(data) {
+					//console.log(data)demoDDC2
+					var tempDDS2 = JSON.parse(data);
+					var getTplDDS2 = demoDDS2.innerHTML,
+						newsTypeIsDDS2 = document.getElementById('newsTypeIsDDS2');
+					laytpl(getTplDDS2).render(tempDDS2, function(html) {
+						newsTypeIsDDS2.innerHTML = html;
+					});
+
+				}
+			});
+//		
+			$.ajax({
+				type: "post",
+				url: "/anon/findNewsTypes",
+				async: true,
+				data: {
+					newTypes: "DDS5"
+				},
+				success: function(data) {
+					//console.log(data)
+					var tempDDS5 = JSON.parse(data);
+					var getTplDDS5 = demoDDS5.innerHTML,
+						newsTypeIsDDS5 = document.getElementById('newsTypeIsDDS5');
+					laytpl(getTplDDS5).render(tempDDS5, function(html) {
+						newsTypeIsDDS5.innerHTML = html;
+					});
+
+				}
+			});
+//			
+			$.ajax({
+				type: "post",
+				url: "/anon/findNewsTypes",
+				async: true,
+				data: {
+					newTypes: "DDS3"
+				},
+				success: function(data) {
+					//console.log(data)
+					var tempDDS3 = JSON.parse(data);
+					var getTplDDS3 = demoDDS3.innerHTML,
+						newsTypeIsDDS3 = document.getElementById('newsTypeIsDDS3');
+					laytpl(getTplDDS3).render(tempDDS3, function(html) {
+						newsTypeIsDDS3.innerHTML = html;
+					});
+
+				}
+			});
+//
+			$.ajax({
+				type: "post",
+				url: "/anon/findNewsTypes",
+				async: true,
+				data: {
+					newTypes: "DDS7"
+				},
+				success: function(data) {
+					//console.log(data)
+					var tempDDS7 = JSON.parse(data);
+					var getTplDDS7 = demoDDS7.innerHTML,
+						newsTypeIsDDS7 = document.getElementById('newsTypeIsDDS7');
+					laytpl(getTplDDS7).render(tempDDS7, function(html) {
+						newsTypeIsDDS7.innerHTML = html;
+					});
+
+				}
+			});
+			// 督导室 部门介绍
+			$.ajax({
+				type: "post",
+				url: "/anon/findNewsTypes",
+				async: true,
+				data: {
+					newTypes: "DDS9"
+				},
+				success: function(data) {
+					//console.log(data)
+					var tempDDS9 = JSON.parse(data);
+					var getTplDDS9 = demoDDS9.innerHTML,
+						newsTypeIsDDS9 = document.getElementById('newsTypeIsDDS9');
+					laytpl(getTplDDS9).render(tempDDS9, function(html) {
+						newsTypeIsDDS9.innerHTML = html;
+					});
+
+				}
+			});
+			
+		});
+		
+		$(function(){
+			//查询  主页小图片
+			$.ajax({
+				type: "post",
+				url: "/anon/selectNewsTypeIsImg",
+				async: false,
+				data: {
+					newType: "DDS8"
+				},
+				success: function(data) {
+					//console.log(data)
+					var temp01 = [];
+					for(var i = 0; i < data.length; i++) {
+
+						if(data[i].newsCarouselPath == null) {
+							continue;
+						}
+
+						temp01.push("<div><img style='height: 295px; width: 348px;' src='" + data[i].newsCarouselPath + "'></div>");
+						if(i > 6) {
+							break;
+						}
+					}
+					if(data.length > 0) {
+						$("#lbtrq").append(temp01);
+					}
+					
+				}
+			});
+		})
+		
+		function selectOne(id) {
+			var url = "Supervision1.html?newsId="+ id;
+			window.location.href = url;
+		}
+		
+	</script>
+</html>

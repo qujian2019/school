@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hngsxy.mybatis.edm.FileFolderManagerMapper">
+
+	<!-- 查询用户文件夹01-->
+	<select id="findFileFolder" parameterType="map" resultType="FileFolder">
+		<![CDATA[
+			SELECT gff.* 
+			FROM gsxy_file_folder gff
+			WHERE gff.userId = #{userId} AND gff.fileFolderState = 1
+			]]>
+			<include refid="fileFolderName_sql"></include>
+			<![CDATA[
+			LIMIT #{page},#{limit}
+			]]>
+	</select>
+	
+	<!-- 查询用户文件夹01 -->
+	<select id="findFileFolderTotal" parameterType="map" resultType="FileFolder">
+		<![CDATA[
+			SELECT gff.* 
+			FROM gsxy_file_folder gff
+			WHERE gff.userId = #{userId} AND gff.fileFolderState = 1
+		]]>
+		<include refid="fileFolderName_sql"></include>
+	</select>
+	<!-- 模糊查询文件-1 -->
+	<sql id="fileFolderName_sql">
+		<if test="fileFolderName!=null and fileFolderName!=''">
+				AND fileFolderName like '%${fileFolderName}%'
+		</if>
+	</sql>
+	
+	<select id="findFilefolderOne" parameterType="int" resultType="FileFolder">
+			SELECT *
+			FROM gsxy_file_folder
+			WHERE fileFolderId = #{fileFolderId}
+	</select>
+	
+
+	<!-- 用户文件夹下插入一个文件02 -->
+	<insert id="insertFileFolder" parameterType="FileFolder">
+		<![CDATA[ 
+			INSERT INTO gsxy_file_folder
+				(`userId`,`fileFolderName`,`fileFolderUserRoleIds`,`fileFolderReminderMode`,`fileFolderReminderUser`,`fileFolderRemarks`,`fileFolderOccupiedSpace`,`fileFolderCreateUser`,`fileFolderCreateTime`,`fileFolderAddress`)
+			VALUES
+				(#{userId},#{fileFolderName},#{fileFolderUserRoleIds},#{fileFolderReminderMode},#{fileFolderReminderUser},#{fileFolderRemarks},#{fileFolderOccupiedSpace},#{fileFolderCreateUser},NOW(),#{fileFolderAddress})
+		]]>
+	</insert>
+	<!-- 修改文件夹信息01 -->
+	<update id="updateFileFolder" parameterType="FileFolder">
+		UPDATE gsxy_file_folder 
+		SET fileFolderName = #{fileFolderName} , fileFolderRemarks = #{fileFolderRemarks}
+		WHERE fileFolderId = #{fileFolderId}
+	</update>
+	
+	<!-- 删除文件夹信息01 -->
+	<update id="deleteFileFolder" parameterType="FileFolder">
+		UPDATE gsxy_file_folder 
+		SET fileFolderState = #{fileFolderState}
+		WHERE fileFolderId = #{fileFolderId}
+	</update>
+	
+	<!-- 修改文件 状态 用于逻辑删除  
+	 制定这个也报错  parameterType="array"
+	-->
+	<update id="updateFileFolderState">
+			UPDATE gsxy_file_folder 
+			SET fileFolderState = 0
+			WHERE fileFolderId IN 
+		    <foreach collection="fileFolderIds" index="index" item="fileFolderIds" open="(" separator="," close=")">  
+		            #{fileFolderIds}   
+		    </foreach>   
+	</update>
+
+</mapper>

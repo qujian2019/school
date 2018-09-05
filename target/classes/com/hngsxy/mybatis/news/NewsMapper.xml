@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hngsxy.mybatis.news.NewsMapper">
+
+	<!-- 查询用户文件01 findeNews-->
+	<select id="findNews" parameterType="map" resultType="News">
+		SELECT newsId,userId,deptId,newsTitle,newsSource,newsReleaseUser,newType,newsReleaseTime,newsVisitConut,newsAuditStatus,newsHyperlink
+		FROM(SELECT newsId,userId,deptId,newsTitle,newsSource,newsReleaseUser,newType,newsReleaseTime,newsVisitConut,newsAuditStatus,newsHyperlink
+		FROM(SELECT newsId,userId,deptId,newsTitle,newsSource,newsReleaseUser,newType,newsReleaseTime,newsVisitConut,newsAuditStatus,newsHyperlink
+		FROM gsxy_news
+		WHERE newsAuditStatus = '1'  OR newsAuditStatus = '2'
+		) AS a
+		<include refid="fenye_sql"></include>) AS aa
+		WHERE newType IN
+	    <foreach collection="temp0" index="index" item="temp0" open="(" separator="," close=")">  
+	            #{temp0}   
+	    </foreach>   
+		ORDER BY newsReleaseTime DESC
+		LIMIT #{page},#{limit}
+	</select>
+	<!-- 查询用户文件01 -->
+	<select id="findNewsTotal" parameterType="map" resultType="int">
+		SELECT COUNT(1)
+		FROM(SELECT newsId,userId,deptId,newsTitle,newsSource,newsReleaseUser,newType,newsReleaseTime,newsVisitConut,newsAuditStatus,newsHyperlink
+		FROM(SELECT newsId,userId,deptId,newsTitle,newsSource,newsReleaseUser,newType,newsReleaseTime,newsVisitConut,newsAuditStatus,newsHyperlink
+		FROM gsxy_news
+		WHERE newsAuditStatus = '1'  OR newsAuditStatus = '2'
+		) AS a
+		<include refid="fenye_sql"></include>) AS aa
+		WHERE newType IN
+	    <foreach collection="temp0" index="index" item="temp0" open="(" separator="," close=")">  
+	            #{temp0}   
+	    </foreach>  
+		ORDER BY newsReleaseTime DESC
+	</select>
+	<!-- 模糊查询文件-1 temp_-->
+	<sql id="fenye_sql">
+		<where>
+			<if test="newType!=null and newType!=''">
+				AND newType = #{newType}
+			</if>
+			<if test="userId!=null and userId!=''">
+				AND userId = #{userId}
+			</if>
+			<if test="newsTitle!=null and newsTitle!=''">
+				AND newsTitle like '%${newsTitle}%'
+			</if>
+			<if test="newsReleaseUser!=null and newsReleaseUser!=''">
+				AND newsReleaseUser like '%${newsReleaseUser}%'
+			</if>
+			<if test="newsAuditStatus!=null and newsAuditStatus!=''">
+				AND newsAuditStatus = #{newsAuditStatus}
+			</if>
+		</where>
+	</sql>
+
+	<insert id="insertNews" parameterType="News" >
+			<![CDATA[
+				INSERT INTO gsxy_news
+				(`userId`,`deptId`,`newsTitle`,`newsSource`,`newsReleaseUser`,`newType`,`newsReleaseTime`,`newsContext`,`newsCarouselPath`,`newsAuditStatus`,`newsAuthor`,`newsPush`,`newsSort`,`newsHyperlink`)
+				VALUES
+				(#{userId},#{deptId},#{newsTitle},#{newsSource},#{newsReleaseUser},#{newType},#{newsReleaseTime},#{newsContext},#{newsCarouselPath},#{newsAuditStatus},#{newsAuthor},#{newsPush},#{newsSort},#{newsHyperlink})
+			]]>
+	</insert>
+	
+	<select id="selectOneNews" parameterType="News" resultType="News">
+		<![CDATA[
+			SELECT * 
+			FROM gsxy_news    
+			WHERE newsId = #{newsId}
+		]]>
+	</select>
+	
+	<update id="deleteOneNews" parameterType="News">
+			UPDATE gsxy_news 
+			SET newsAuditStatus = 0 
+			WHERE newsId = #{newsId} 
+	</update>
+
+	<update id="updateNewsState">
+		UPDATE gsxy_news
+		SET newsAuditStatus = 0
+		WHERE newsId IN 
+	    <foreach collection="newsIds" index="index" item="newsIds" open="(" separator="," close=")">  
+	            #{newsIds}   
+	    </foreach>   
+	</update>
+	<!-- 修改新闻信息 -->
+	<update id="updateOneNews" parameterType="News">
+		UPDATE gsxy_news
+		SET 
+		newsTitle = #{newsTitle},
+		newType = #{newType},
+		newsContext = #{newsContext},
+		newsAuthor = #{newsAuthor},
+		newsPush = #{newsPush},
+		newsReleaseTime = #{newsReleaseTime},
+		newsSort = #{newsSort},
+		newsCarouselPath = #{newsCarouselPath},
+		newsHyperlink = #{newsHyperlink}
+		WHERE newsId = #{newsId}   
+	</update>
+	
+	<select id="selectNewsTypeIs" resultType="News" parameterType="News">
+		SELECT newsId,newsReleaseTime,newsTitle,newsCarouselPath FROM gsxy_news
+		WHERE newType = #{newType} AND newsAuditStatus = '2'
+		ORDER BY newsReleaseTime DESC
+		LIMIT 0,10
+	</select>
+	<!-- newsAuditStatus == 3 的情况给出新闻超链接 -->
+	<select id="selectMTBD" resultType="News" parameterType="News">
+		SELECT newsId,newsReleaseTime,newsTitle,newsAuditStatus,newsHyperlink
+		FROM gsxy_news
+		WHERE newsAuditStatus = '2' AND newType = #{newType}
+		ORDER BY newsReleaseTime DESC
+		LIMIT 0,10
+	</select>
+	
+	<select id="selectNewsTypeIs0" resultType="News" parameterType="News">
+		SELECT newsId,newsReleaseTime,newsTitle,newsCarouselPath FROM gsxy_news
+		WHERE newType = #{newType} AND newsAuditStatus = '2'
+		ORDER BY newsReleaseTime DESC
+	</select>
+	
+	<update id="updateNewsVisitConut" parameterType="News">
+		UPDATE gsxy_news 
+		SET newsVisitConut = #{newsVisitConut}
+		WHERE newsId = #{newsId}
+	</update>
+	
+	<select id="findUserDept" resultType="Dept" parameterType="User">
+			SELECT * 
+			FROM gsxy_dept
+			WHERE deptno =(
+			SELECT deptno
+			FROM gsxy_user
+			WHERE  userId = #{userId})
+	</select>
+	
+	<!-- 修改新闻发布时间 -->
+	<update id="updateNewsTime" parameterType="News">
+		UPDATE gsxy_news SET newsReleaseTime = #{newsReleaseTime}
+		WHERE  newsId = #{newsId}
+	</update>
+	
+	<!-- 审核新闻 -->
+	<update id="updateNewsAuditStatus" parameterType="News">
+		UPDATE gsxy_news SET newsAuditStatus = '2'
+		WHERE newsId = #{newsId}
+	</update>
+	
+	<!-- 校园办公室审核新闻信息 -->
+	<select id="findSchoolOfficeAudit" parameterType="map" resultType="News">
+		SELECT *
+		FROM(SELECT *
+		FROM(SELECT *
+		FROM gsxy_news
+		WHERE newsAuditStatus = '1' OR newsAuditStatus = '2'
+		ORDER BY newsReleaseTime DESC) AS a
+		) AS aa
+		<include refid="fenye_sql"></include>
+		LIMIT #{page},#{limit}
+	</select>
+	
+	<!-- 校园办公室审核新闻信息总数 -->
+	<select id="findSchoolOfficeAuditTotal" parameterType="map" resultType="int">
+		SELECT COUNT(1)
+		FROM(SELECT *
+		FROM(SELECT *
+		FROM gsxy_news
+		WHERE newsAuditStatus = '1' OR newsAuditStatus = '2'
+		ORDER BY newsReleaseTime DESC) AS a
+		) AS aa
+		<include refid="fenye_sql"></include>
+	</select>
+	<!-- 查询新闻部不包含图片 -->
+	<select id="findlunBoTuXinWenNews" resultType="News">
+		SELECT newsId,newsReleaseTime,newsTitle,newsCarouselPath
+		FROM gsxy_news
+		WHERE newsAuditStatus = '2' AND newType IN ('0','DZBGS4')
+		ORDER BY newsReleaseTime DESC
+		LIMIT 0,20
+	</select>
+	
+	<!-- 查询新闻部不包含图片 -->
+	<select id="findlunBoTuXinWenNewsJia" resultType="News">
+		SELECT newsId,newsReleaseTime,newsTitle,newsCarouselPath
+		FROM gsxy_news
+		WHERE newsAuditStatus = '2' AND newType IN ('0','DZBGS4')
+		ORDER BY newsReleaseTime DESC
+	</select>
+	
+	<!-- 查询新闻中的所有通知公告 -->
+	<select id="findTongZhiGongGao" resultType="News">
+		SELECT newsId,newsReleaseTime,newsTitle,newsCarouselPath
+		FROM gsxy_news
+		WHERE newsAuditStatus = '2' 
+		AND newType 
+		IN('10','30','20','121','131','DZBGS5','ZSW11','XSGZC2','HQC3','JWC1','SXY1','SXZX3','BWC1','DDS1','GXY1','SXY1','CWC7')
+		ORDER BY newsReleaseTime DESC
+		LIMIT 0,20
+	</select>
+	
+	<!-- 查询新闻中的所有通知公告 -->
+	<select id="findTongZhiGongGaoJia" resultType="News">
+		SELECT newsId,newsReleaseTime,newsTitle,newsCarouselPath
+		FROM gsxy_news
+		WHERE newsAuditStatus = '2' 
+		AND newType 
+		IN ('10','30','20','121','131','DZBGS5','ZSW11','XSGZC2','HQC3','JWC1','SXY1','SXZX3','BWC1','DDS1','GXY1','SXY1','CWC7')
+		ORDER BY newsReleaseTime DESC
+	</select>
+	
+	<!-- 查询新闻中的所有人事信息 -->
+	<select id="findRenShiXinXi" resultType="News">
+		SELECT newsId,newsReleaseTime,newsTitle,newsCarouselPath
+		FROM gsxy_news
+		WHERE newsAuditStatus = '2' AND newType IN ('11')
+		ORDER BY newsReleaseTime DESC
+		LIMIT 0,20
+	</select>
+	
+	<!-- 查询新闻中的所有人事信息 -->
+	<select id="findRenShiXinXiJia" resultType="News">
+		SELECT newsId,newsReleaseTime,newsTitle,newsCarouselPath
+		FROM gsxy_news
+		WHERE newsAuditStatus = '2' AND newType IN ('11')
+		ORDER BY newsReleaseTime DESC
+	</select>
+	<!-- 招生信息 -->
+	<select id="findZhaoshenxinxi" resultType="News">
+		SELECT newsId,newsReleaseTime,newsTitle,newsCarouselPath
+		FROM gsxy_news
+		WHERE newsAuditStatus = '2' AND newType IN ('ZSW10','ZSW12')
+		ORDER BY newsReleaseTime DESC
+		LIMIT 0,20
+	</select>
+	<!-- 招生信息+ -->
+	<select id="findZhaoshenxinxiJia" resultType="News">
+		SELECT newsId,newsReleaseTime,newsTitle,newsCarouselPath
+		FROM gsxy_news
+		WHERE newsAuditStatus = '2' AND newType IN ('ZSW10','ZSW12')
+		ORDER BY newsReleaseTime DESC
+	</select>
+	
+	<!-- 查询招生网中的通知公告 -->
+	<select id="findZSWTongZhiGongGao" resultType="News">
+		SELECT newsId,newsReleaseTime,newsTitle,newsCarouselPath
+		FROM gsxy_news
+		WHERE newsAuditStatus = '2' AND newType IN ('ZSW11')
+		ORDER BY newsReleaseTime DESC
+		LIMIT 0,10
+	</select>
+
+	<!-- 修改浮游广告 -->
+	<update id="updateNewsAdvertisement" parameterType="News">
+		UPDATE gsxy_news SET newsAdvertisementTime = NOW()
+		WHERE newsId = #{newsId}
+	</update>
+	<!-- 查询浮游广告 -->
+	<select id="findAdvertisement" resultType="News">
+		SELECT *
+		FROM gsxy_news
+		ORDER BY newsAdvertisementTime DESC
+		LIMIT 0,1
+	</select> 
+	
+	<!-- 查询一个或多个新闻Type1 -->
+	<select id="findNewsTypes" resultType="News" parameterType="String">
+		SELECT newsId,newsReleaseTime,newsTitle,newsCarouselPath
+		FROM gsxy_news
+		WHERE newsAuditStatus = '2' AND newType IN 
+	    <foreach collection="newTypes" index="index" item="newTypes" open="(" separator="," close=")">  
+	            #{newTypes}   
+	    </foreach>   
+		ORDER BY newsReleaseTime DESC
+		LIMIT 0,15
+	</select>
+	<!-- 查询一个或多个新闻Type2  newsId,newsReleaseTime,newsTitle,newsAuditStatus,newsHyperlink-->
+	<select id="findNewsTypes2" resultType="News" parameterType="String">
+		SELECT newsId,newsReleaseTime,newsTitle,newsCarouselPath,newsHyperlink
+		FROM gsxy_news
+		WHERE newsAuditStatus = '2' AND newType IN 
+	    <foreach collection="newTypes" index="index" item="newTypes" open="(" separator="," close=")">  
+	            #{newTypes}   
+	    </foreach>   
+		ORDER BY newsReleaseTime DESC
+	</select>
+	<!-- 修改排序 -->
+	<update id="updateNewsSort">
+		UPDATE gsxy_news SET newsSort = #{newsSort}
+		WHERE newsId = #{newsId}
+	</update>
+	<!-- 反审核 -->
+	<update id="updateNewsAntiAudit" parameterType="News">
+		UPDATE gsxy_news SET newsAuditStatus = '1'
+		WHERE newsId = #{newsId}
+	</update>
+</mapper>

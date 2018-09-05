@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hngsxy.mybatis.student.StudentMapper">
+	<!-- 新增录取学生 -->
+	<insert id="insertStudent" parameterType="Student" >
+			<![CDATA[
+				INSERT INTO 
+				`gsxy_student` 
+				(`studentName`,`idCard`,`age`,`sex`,`studentRemarks`,`dataInputTime`)
+				VALUES
+				(#{studentName},#{idCard},#{age},#{sex},#{studentRemarks},NOW())
+			]]>
+	</insert>
+	<!-- 查询录取学生 -->
+	<select id="findGraduate" resultType="Student" parameterType="map">
+		SELECT * FROM gsxy_student
+		where studentState = '2'
+		<include refid="Graduate_sql"></include>
+		LIMIT #{page},#{limit}
+	</select>
+	<!-- 查询录取学生 -->
+	<select id="findGraduateTotal" resultType="int" parameterType="map">
+		SELECT COUNT(1)
+		FROM gsxy_student
+		where studentState = '2'
+		<include refid="Graduate_sql"></include>
+	</select>
+	<!-- 模糊查询文件-1 -->
+	<sql id="Graduate_sql">
+			<if test="studentName!=null and studentName!=''">
+			and studentName like '%${studentName}%'
+			</if>
+			<if test="idCard!=null and idCard!=''">
+			and idCard like '%${idCard}%'
+			</if>
+	</sql>
+	<!-- 报名学生  studentState 1是报名学生  2是录取学生 -->
+	<select id="findRegister" resultType="Student" parameterType="map">
+		SELECT * FROM gsxy_student
+		where studentState = '1' OR studentState = '2'
+		<include refid="findRegister_sql"></include>
+		LIMIT #{page},#{limit}
+	</select>
+	<!-- 报名总数学生 -->
+	<select id="findRegisterTotal" resultType="int" parameterType="map">
+		SELECT COUNT(1)
+		FROM gsxy_student
+		where studentState = '1' OR studentState = '2'
+		<include refid="findRegister_sql"></include>
+	</select>
+	<!-- 模糊查询文件-1 -->
+	<sql id="findRegister_sql">
+			<if test="idCard!=null and idCard!=''">
+			and idCard like '%${idCard}%'
+			</if>
+	</sql>
+	
+	<!-- 删除一个学生信息 -->
+	<update id="deleteStudentOne" parameterType="Student">
+		UPDATE `gsxy_student` set studentState = '0'
+		WHERE studentId = #{studentId}
+	</update>
+	
+	<!-- 修改一个学生信息 -->
+	<update id="updateStudentOne" parameterType="Student">
+		UPDATE `gsxy_student`
+		 <trim prefix="set" suffixOverrides=",">
+		  <if test="studentName!=null and studentName!=''">studentName = #{studentName},</if>
+		  <if test="number!=null and number!=''">number = #{number},</if>
+		  <if test="idCard!=null and idCard!=''">idCard = #{idCard},</if>
+		 </trim>
+		WHERE studentId = #{studentId}
+	</update>
+	
+	<!-- 批量删除学生 -->
+	<update id="updateBatchStudent">
+			UPDATE `gsxy_student` set `studentState` = '0'
+			WHERE studentId IN 
+		    <foreach collection="studentIds" index="index" item="studentIds" open="(" separator="," close=")">  
+		            #{studentIds}
+		    </foreach>   
+	</update>
+	
+	<!-- 学生报名 -->
+	<insert id="insertOnlineRegistration" parameterType="Student">
+		INSERT INTO `gsxy_student` 
+		(studentName,sex,studentBirthday,studentPlace,
+		studentEducation,studentSpecialty,studentPolitics,idCard,
+		studentMedia,studentCategory,studentGraduationSchool,studentEmail,
+		studentQq,studentAddress,studentPostal,studentPhone,
+		studentResumea,studentResumeb,studentResumec,studentFamilya,
+		studentFamilyb,studentFamilyc,studentMajor,studentTeacher,
+		studentAdmissionMajor,studentPicture,studentRemarks,studentState,dataInputTime)
+		VALUES
+		(#{studentName},#{sex},#{studentBirthday},#{studentPlace},
+		#{studentEducation},#{studentSpecialty},#{studentPolitics},#{idCard},
+		#{studentMedia},#{studentCategory},#{studentGraduationSchool},#{studentEmail},
+		#{studentQq},#{studentAddress},#{studentPostal},#{studentPhone},
+		#{studentResumea},#{studentResumeb},#{studentResumec},#{studentFamilya},
+		#{studentFamilyb},#{studentFamilyc},#{studentMajor},#{studentTeacher},
+		#{studentAdmissionMajor},#{studentPicture},#{studentRemarks},'1',NOW())
+	</insert>
+	
+	<!-- 查询毕业学生信息 -->
+	<select id="findOneGraduate" parameterType="Student" resultType="Student">
+		SELECT DISTINCT *  
+		FROM gsxy_student
+		WHERE idCard = #{idCard} AND studentState = '2'
+	</select>
+	
+	<!-- 查询报名通过的学生信息 -->
+	<select id="findStudentRegister" parameterType="Student" resultType="Student">
+		SELECT DISTINCT *  
+		FROM gsxy_student
+		WHERE idCard = #{idCard} AND studentState = '2'
+	</select>
+	
+	<!-- 通过学生ID查询学生  -->
+	<select id="findStudentById" parameterType="Student" resultType="Student">
+		SELECT * 
+		FROM gsxy_student
+		WHERE studentId = #{studentId}
+	</select>
+	
+	<!-- 修改招生学生审核状态 -->
+	<update id="updateStudentAuditState">
+		UPDATE gsxy_student SET studentState = '2'
+		WHERE studentId = #{studentId}
+	</update>
+
+	<!-- 查询招生页面的学生录取 -->
+	<select id="findStudentByIdCardAndStudentName" parameterType="Student" resultType="Student">
+		SELECT * 
+		FROM gsxy_student
+		WHERE studentName = #{studentName} AND examineeNumber = #{examineeNumber} AND studentState = '2'
+		LIMIT 0,1
+	</select>
+
+	<insert id="insertDZXS" parameterType="Student">
+		INSERT INTO `gsxy_student` (`studentName`,`examineeNumber`,`major`,`studentGraduationSchool`,`dataInputTime`)
+		VALUES(#{studentName},#{examineeNumber},#{major},#{studentGraduationSchool},NOW())
+	</insert>
+
+
+</mapper>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace：必须与对应的接口全类名一致 id:必须与对应接口的某个对应的方法名一致 -->
+
+<!-- 开启本mapper下的namespace的Ehcache二级缓存 -->
+<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+<mapper namespace="com.hngsxy.mybatis.user.UserMapper">
+	<!-- 查询所有用户 -->
+	<select id="findUser" resultType="com.hngsxy.web.bean.user.User">
+		SELECT * FROM gsxy_user
+	</select>
+
+	<select id="findUserOne" parameterType="User" resultType="User">
+		SELECT * 
+		FROM gsxy_user
+		WHERE userCode = #{userCode} AND userPassword = #{userPassword}
+	</select>
+	
+	<select id="findUserById" parameterType="User" resultType="User">
+		SELECT * 
+		FROM gsxy_user
+		WHERE userId = #{userId}
+	</select>
+
+	<select id="findSysUserByUserCode" parameterType="String" resultType="User">
+		SELECT * FROM gsxy_user
+		WHERE userCode = #{userCode}
+	</select>
+	<!-- 查询菜单 -->
+	<select id="findMenuListByUserId" parameterType="int" resultType="Permission">
+		SELECT *
+		FROM gsxy_permission
+		WHERE permissionType = 'menu'
+		    AND permissionId IN(SELECT
+		                permissionId
+		              FROM gsxy_role_permission
+		              WHERE roleId IN(SELECT
+		                                     RoleId
+		                                   FROM gsxy_user_role
+		                                   WHERE UserId = #{UserId}))
+	</select>
+	<!-- 查询新闻菜单 -->
+	<select id="findDepartmentListByUserId" parameterType="int" resultType="Permission">
+		SELECT *
+		FROM gsxy_permission
+		WHERE permissionType = 'department'
+		    AND permissionId IN(SELECT
+		                permissionId
+		              FROM gsxy_role_permission
+		              WHERE roleId IN(SELECT
+		                                     RoleId
+		                                   FROM gsxy_user_role
+		                                   WHERE UserId = #{UserId}))
+		 ORDER BY permissionName 
+	</select>
+	<!-- 查询权限 -->
+	<select id="findPermissionListByUserId" parameterType="int" resultType="Permission">
+		SELECT *
+		FROM gsxy_permission
+		WHERE permissionType = 'permission'
+		    AND permissionId IN(SELECT
+		                permissionId
+		              FROM gsxy_role_permission
+		              WHERE roleId IN(SELECT
+		                                     RoleId
+		                                   FROM gsxy_user_role
+		                                   WHERE UserId = #{UserId}))
+	</select>
+	
+	<!-- 修改用户信息 -->
+	<update id="updateUserInfo" parameterType="User">
+		UPDATE `gsxy_user` 
+		 <trim prefix="set" suffixOverrides=",">
+		  <if test="userCode!=null and userCode!=''">userCode = #{userCode},</if>
+		  <if test="userName!=null and userName!=''">userName = #{userName},</if>
+		  <if test="userPhone!=null and userPhone!=''">userPhone = #{userPhone},</if>
+		  <if test="userPassword!=null and userPassword!=''">userPassword = #{userPassword},</if>
+		 </trim>
+		WHERE `userId` = #{userId}
+	</update>
+	
+</mapper>

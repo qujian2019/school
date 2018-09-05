@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>中职部</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=Edge">
+		<link rel="stylesheet" href="/r3/layui-v2.2.5/layui/css/layui.css" />
+		<link rel="shortcut icon" href="http://124.228.83.236/r3/imgs/sign/bitbug_favicon.ico" />
+		<style>
+			body {
+				margin: 0px;
+				background: url(/r3/imgs/index_scy_jyb_banner.jpg)no-repeat;
+			}
+			
+			.layui-nav .layui-nav-item {
+				position: relative;
+				display: inline-block;
+				vertical-align: middle;
+				line-height: 40px;
+			}
+			
+			.layui-nav .layui-nav-item a {
+				display: block;
+				padding: 0 20px;
+				color: #fff;
+				font-weight: 900;
+				/* color: rgba(255, 255, 255, .7); style="background-color: #009688;" */
+				transition: all .3s;
+				-webkit-transition: all .3s;
+			}
+			
+			.layui-nav-child {
+				display: none;
+				position: absolute;
+				left: 0;
+				top: 50px;
+				min-width: 100%;
+				line-height: 36px;
+				padding: 5px 0;
+				box-shadow: 0 2px 4px rgba(0, 0, 0, .12);
+				border: 1px solid #d2d2d2;
+				background-color: #E38D13;
+				z-index: 100;
+				border-radius: 2px;
+				white-space: nowrap;
+			}
+			
+			a {
+				color: #000000;
+				font-size: 14px;
+			}
+			
+			.layui-nav * {
+				font-size: 16px
+			}
+			
+			.layui-nav .layui-this:after,
+			.layui-nav-bar,
+			.layui-nav-tree .layui-nav-itemed:after {
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 0;
+				height: 5px;
+				background-color: #393D49;
+				transition: all .2s;
+				-webkit-transition: all .2s;
+			}
+			
+			.Headerdiv {
+				width: 100%;
+				height: 260px;
+			}
+			
+			.Headerdiv_1 {
+				margin: 0 auto;
+				width: 1020px;
+				height: 260px;
+				background: url(/r3/imgs/zzb/zzb_title_img.jpg)no-repeat;
+				background-size:100%;
+			}
+			
+			.jgdiv {
+				width: 100%;
+				height: 20px;
+			}
+			
+			.Navigation {
+				margin: 0 auto;
+				width: 1020px;
+				height: 40px;
+				background-color: #009688;
+			}
+			
+			.Navigation_1 {
+				margin: 0 auto;
+				width: 850px;
+				height: 40px;
+			}
+			
+			.HeaderdivIMG {
+				margin: 0 auto;
+				width: 1000px;
+				height: 220px;
+				/*background-color: #5FB878;*/
+			}
+			
+			.body1 {
+				margin: 0 auto;
+				min-height: 600px;
+				width: 1200px;
+				background-color: white;
+			}
+			
+			.body1_1 {
+				width: 400px;
+				height: 300px;
+				float: left;
+			}
+			
+			.body1_2 {
+				width: 400px;
+				height: 300px;
+				float: left;
+			}
+			
+			.body1_3 {
+				width: 400px;
+				height: 300px;
+				float: left;
+			}
+			
+			.liclass {
+				padding: 5px;
+			}
+			
+			.spandiv {
+				float: right;
+			}
+			
+			.bottom_diji {
+				margin: 0 auto;
+				height: 200px;
+				width: 1000px;
+				/*background-color: #B8EECF;*/
+				background: url(/r3/imgs/wygkcn.gif)no-repeat;
+			}
+			
+			.bottom_diji_neir {
+				text-align: center;
+				height: 200px;
+				width: 1000px;
+			}
+			/*			.layui-nav .layui-nav-item {
+			    position: relative;
+			    display: inline-block;
+			    vertical-align: middle;
+			    line-height: 40px;
+			}*/
+			
+			.conText {
+				margin: 10px auto;
+				width: 1000px;
+				min-height: 500px;
+				border-style: solid;
+				border-width: 1px;
+				border-color: #c2c2c2;
+				background-color: white;
+			}
+			
+			.conTextbody {
+				margin: 10px auto;
+				width: 800px;
+				min-height: 200px;
+			}
+			
+			.footing {
+				margin-top: 10%;
+				position: relative;
+				bottom: 0;
+				margin-left: 40%;
+			}
+			
+			.position {
+				margin: 10px auto;
+				height: 25px;
+				width: 1000px;
+				background-color: #f2f2f2;
+			}
+			
+			.layui-nav-child {
+				background-color: #E38D13;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="Headerdiv">
+			<div class="Headerdiv_1">
+				<img style="position: absolute; padding-left: 100px; padding-top: 10px;height: 50px;" src="/r3/imgs/DZBGS/dzbgs_tt_img.png" />
+				<img style="position: absolute; padding-left: 400px; padding-top: 91px;height: 80px;" src="/r3/imgs/zzb/xk_zzb-1.png" />
+			</div>
+		</div>
+
+		<!--描述： 导航 -->
+		<div class="Navigation">
+			<div class="Navigation_1">
+				<ul class="layui-nav" lay-filter="" style="background-color: #009688;">
+				  <li class="layui-nav-item">
+				  	<a href="zhongzhibu.html">首页</a>
+				    <dl class="layui-nav-child" > <!-- 二级菜单 -->
+				      <dd><a href="/index.html" class="ztjc">学院首页</a></dd>
+				    </dl>
+				  </li>
+				  <li class="layui-nav-item">
+				  	<a href="zhongzhibu2.html?newType=ZZB6,ZZB7,ZZB8">系部概述</a>
+				    <dl class="layui-nav-child" > <!-- 二级菜单 -->
+				      <dd><a href="zhongzhibu2.html?newType=ZZB6" class="ztjc">中职部简介</a></dd>
+				      <dd><a href="zhongzhibu2.html?newType=ZZB7" class="ztjc">领导简介</a></dd>
+				      <dd><a href="zhongzhibu2.html?newType=ZZB8" class="ztjc">联系方式</a></dd>
+				      <dd><a href="zhongzhibu2.html?newType=ZZB20" class="ztjc">岗位职责</a></dd>
+				    </dl>
+				  </li>
+				  <li class="layui-nav-item"><a href="zhongzhibu2.html?newType=ZZB9,ZZB10,ZZB11,ZZB12">党团工作</a>
+				  	<dl class="layui-nav-child" > <!-- 二级菜单 -->
+				      <dd><a href="zhongzhibu2.html?newType=ZZB9" class="ztjc">支部概况</a></dd>
+				      <dd><a href="zhongzhibu2.html?newType=ZZB10" class="ztjc">支部活动</a></dd>
+				      <dd><a href="zhongzhibu2.html?newType=ZZB11" class="ztjc">党员发展</a></dd>
+				      <dd><a href="zhongzhibu2.html?newType=ZZB12" class="ztjc">学习教育</a></dd>
+				      <dd><a href="zhongzhibu2.html?newType=ZZB23" class="ztjc">团委学生会</a></dd>
+				      </dl>
+				  </li>
+				  <li class="layui-nav-item"><a href="zhongzhibu2.html?newType=ZZB13,ZZB14,ZZB15">教学科研</a>
+				  	<dl class="layui-nav-child" > <!-- 二级菜单 -->
+				      <dd><a href="zhongzhibu2.html?newType=ZZB13" class="ztjc">教学管理</a></dd>
+				      <dd><a href="zhongzhibu2.html?newType=ZZB14" class="ztjc">考试安排</a></dd>
+				      <dd><a href="zhongzhibu2.html?newType=ZZB15" class="ztjc">科学研究</a></dd>
+				      </dl>
+				  </li>
+				  <li class="layui-nav-item"><a href="zhongzhibu2.html?newType=ZZB16,ZZB17,ZZB18,ZZB19">学生工作</a>
+				  	<dl class="layui-nav-child" > <!-- 二级菜单 -->
+				      <dd><a href="zhongzhibu2.html?newType=ZZB16" class="ztjc">规章制度</a></dd>
+				      <dd><a href="zhongzhibu2.html?newType=ZZB17" class="ztjc">文体活动</a></dd>
+				      <dd><a href="zhongzhibu2.html?newType=ZZB18" class="ztjc">学术资助</a></dd>
+				      <dd><a href="zhongzhibu2.html?newType=ZZB19" class="ztjc">评优评先</a></dd>
+				      </dl>
+				  </li>
+				  <li class="layui-nav-item"><a href="zhongzhibu2.html?newType=ZZB21">师资队伍建设</a>
+				  </li>
+				  <li class="layui-nav-item"><a href="zhongzhibu2.html?newType=ZZB22">实验实训建设</a>
+				  </li>
+				</ul>
+			</div>
+		</div>
+
+		<!--描述：间隔DIV-->
+		<div class="jgdiv"></div>
+
+		<div class="conText">
+			<div class="layui-tab layui-tab-brief gzdt" lay-filter="docDemoTabBrief">
+				<ul class="layui-tab-title">
+					<li class="layui-this">当前位置：中职部>>>
+						<sanp id="newType2" style="color:red"></sanp>
+					</li>
+				</ul>
+				<div class="layui-tab-content">
+					<ul id="biuuu_city_list"></ul>
+				</div>
+			</div>
+			<div class="footing" id="demo7"></div>
+		</div>
+
+		<!--描述：间隔DIV-->
+		<div class="jgdiv"></div>
+		<div class="bottom_diji">
+			<div class="bottom_diji_neir">
+				Copyright 2009-2020 http://www.hngsxy.com All Rights Reserved <br /> 版权所有： 湖南工商职业学院 电话：0734-8593338 8593358 传真：0734-8593325 <br /> 地址：湖南省衡阳市石鼓区松木塘 邮编：421001 <br /> 湘教QS4_201212_040024 湘ICP备12013408号 <br />
+				<img src="/r3/imgs/gonggongImg/beianbgs.png" style="width: 20px; height: 20px;" />
+				<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=43040702000117" target="_blank">湘公网安备 43040702000117号</a> <br />
+			</div>
+		</div>
+
+	</body>
+	<script src="/r3/jquery/jquery-1.8.2.js" type="text/javascript"></script>
+	<script src="/r3/layui-v2.2.1/layui/layui.js"></script>
+	<script src="../../r3/anonJs/anonJs.js"></script>
+	<script>
+		//获取路径后的参数
+		function parseUrl() {
+			var url = location.href;
+			var i = url.indexOf('?');
+
+			if(i == -1) return;
+			var querystr = url.substr(i + 1);
+
+			var arr1 = querystr.split('&');
+
+			var arr2 = new Object();
+			for(p in arr1) {
+				var ta = arr1[p].split('=');
+				arr2[ta[0]] = ta[1];
+			}
+			return arr2;
+		}
+		var v = parseUrl(); //解析所有参数
+		// alert(v['fileFolderId']);//就是你要的结果
+
+		if(v != null) {
+
+			if(v['newType'] != null) {
+				var newType = v['newType'];
+			}
+
+		}
+
+		$(function() {
+
+			if(newType == 'ZZB1,ZZB2') {
+				$("#newType2").text("系部新闻");
+			} else if(newType == 'ZZB9,ZZB10,ZZB11,ZZB12') {
+				$("#newType2").text("党团工作");
+			} else if(newType == 'ZZB13,ZZB14,ZZB15') {
+				$("#newType2").text("教学科研");
+			} else if(newType == 'ZZB16,ZZB17,ZZB18,ZZB19') {
+				$("#newType2").text("学生工作");
+			}else if(newType =='ZZB6,ZZB7,ZZB8'){
+				$("#newType2").text("系部概述");
+			}else if(newType =='ZZB6'){
+				$("#newType2").text("中职部简介");
+			}else if(newType =='ZZB7'){
+				$("#newType2").text("领导介绍");
+			}else if(newType =='ZZB8'){
+				$("#newType2").text("联系方式");
+			}else if(newType =='ZZB9'){
+				$("#newType2").text("支部概况");
+			}else if(newType =='ZZB10'){
+				$("#newType2").text("支部活动");
+			}else if(newType =='ZZB11'){
+				$("#newType2").text("党员发展");
+			}else if(newType =='ZZB12'){
+				$("#newType2").text("学习教育");
+			}else if(newType =='ZZB13'){
+				$("#newType2").text("教学管理");
+			}else if(newType =='ZZB14'){
+				$("#newType2").text("考试安排");
+			}else if(newType =='ZZB15'){
+				$("#newType2").text("科学研究");
+			}else if(newType =='ZZB16'){
+				$("#newType2").text("规章制度");
+			}else if(newType =='ZZB17'){
+				$("#newType2").text("文体活动");
+			}else if(newType =='ZZB18'){
+				$("#newType2").text("学生资助");
+			}else if(newType =='ZZB19'){
+				$("#newType2").text("评先评优");
+			}else if(newType =='ZZB20'){
+				$("#newType2").text("岗位责任");
+			}else if(newType =='ZZB21'){
+				$("#newType2").text("师资队伍建设");
+			}else if(newType =='ZZB22'){
+				$("#newType2").text("实验实训建设");
+			}else if(newType =='ZZB23'){
+				$("#newType2").text("团委学生会");
+			}
+
+		})
+
+		//
+		layui.use('element', function() {
+			var element = layui.element;
+		});
+
+		layui.use(['laypage', 'layer'], function() {
+			var laypage = layui.laypage,
+				layer = layui.layer;
+			//调用分页
+			$.ajax({
+				type: "post",
+				url: "/anon/findNewsTypes2",
+				data: {
+					newTypes: newType
+				},
+				async: true,
+				dateType: "json",
+				success: function(data) {
+					laypage.render({
+						elem: 'demo7',
+						count: data.length,
+						layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+						jump: function(obj) {
+							//模拟渲染
+							document.getElementById('biuuu_city_list').innerHTML = function() {
+								var arr = [],
+									thisData = data.concat().splice(obj.curr * obj.limit - obj.limit, obj.limit);
+								layui.each(thisData, function(index, item) {
+
+									arr.push(
+										'<li class="liclass">' +
+										'<span class="spandiv">' + item.newsReleaseTime.substring(0, 10) + '</span>' +
+										'<div>' +
+										'<a class="glxs_1" style="text-decoration:none;" onclick="selectOne(' + item.newsId + ')" title="' + item.newsTitle + '">' + item.newsTitle + '</a>' +
+										'</div>' +
+										'</li>'
+									);
+
+								});
+								return arr.join('');
+							}();
+						}
+					});
+
+				}
+			})
+
+		});
+
+		function selectOne(id) {
+			var url = "zhongzhibu1.html?newsId=" + id;
+			window.location.href = url;
+		}
+	</script>
+
+</html>

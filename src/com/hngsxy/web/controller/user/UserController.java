@@ -50,17 +50,15 @@ public class UserController {
 			try {
 				//执行登录
 				currentUser.login(token);
+				//session.setAttribute("isLogin", "1");
+				return "backstagemanage/ackstagepage";
 			}catch(AuthenticationException ae) {
-				
+				req.setAttribute("msg", "登录失败");
 			}
-			req.setAttribute("msg", "登录失败");
+			//req.setAttribute("msg", "登录失败");
 		}
 		
 
-		String sessionId = currentUser.getSession().getId().toString();
-		
-		currentUser.getSession().setAttribute("portal.session.id", sessionId);
-		
 		
 		//------
 
@@ -92,8 +90,8 @@ public class UserController {
 			}
 		}
 
+		//return "backstagemanage/backstagepage";
 		return "login";
-		//return "login";
 	}
 	
 

@@ -141,7 +141,7 @@
      <bean id="sessionManager" class="com.hngsxy.web.shiro.SimpleWebSessionManager">
 
       <!-- sessionDAO 数据库保存session信息 -->
-      	<property name="sessionDAO" ref="sessionDAO"/>
+      	<!-- <property name="sessionDAO" ref="sessionDAO"/> -->
        
 		<property name ="sessionListeners"> 
           <list> 

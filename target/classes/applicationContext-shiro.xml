@@ -143,11 +143,11 @@
       <!-- sessionDAO 数据库保存session信息 -->
       	<!-- <property name="sessionDAO" ref="sessionDAO"/> -->
        
-		<property name ="sessionListeners"> 
+<!-- 		<property name ="sessionListeners"> 
           <list> 
                 <ref bean="shiroSessionListener"/>
           </list>  
-	    </property>
+	    </property> -->
        
         <!-- session的失效时长，单位毫秒 -->
          <property name="globalSessionTimeout" value="86400000"/>

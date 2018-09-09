@@ -29,9 +29,14 @@
 		</style>
 	</head>
     <body>
-    	<div class="userManag1" id="goGWLF">
+		<div class="layui-btn-container" style="margin: 10px;">
+		  <button class="layui-btn" id="goGWLF">湖南工商职业学院员工工作日志</button> 
+		</div>
+    	
+    	<!--<button class="layui-btn" id="goGWLF">湖南工商职业学院员工工作日志</button>-->
+<!--    	<div class="userManag1" id="goGWLF">
     		湖南工商职业学院员工工作日志
-    	</div>
+    	</div>-->
     	<!--<div class="userManag2"></div>2222222222-->
  	</body>
 		<script src="/r3/jquery/jquery-1.8.2.js" type="text/javascript"></script>

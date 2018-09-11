@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=Edge">
+		<link rel="shortcut icon" href="http://124.228.83.236/r3/imgs/sign/bitbug_favicon.ico" />
+		<link rel="stylesheet" href="/r3/layui-v2.3.0/layui/css/layui.css" />
+		<title>课程课表</title>
+		<style>
+			.inputleng {
+				width: 300px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1 style="text-align: center;">课程课表</h1>
+		<hr class="layui-bg-green">
+		<form class="layui-form" action="">
+
+			<div class="layui-form-item inputleng">
+				<label class="layui-form-label">学年学期</label>
+				<div class="layui-input-block">
+					<select name="semester" lay-verify="required" id="semester" lay-filter="required1">
+						<!--<option value=""></option>-->
+						<!--						<option value="0">北京</option>
+						<option value="1">上海</option>
+						<option value="2">广州</option>
+						<option value="3">深圳</option>
+						<option value="4">杭州</option>-->
+					</select>
+				</div>
+			</div>
+			<div class="layui-form-item inputleng">
+				<label class="layui-form-label">课程</label>
+				<div class="layui-input-block">
+					<select name="curriculum" lay-verify="required" id="curriculum" lay-filter="required2">
+
+					</select>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+					<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				</div>
+			</div>
+		</form>
+		<p style="margin-left: 10px;">承担单位：<span style="margin-left: 5px; margin-right: 5px;">商学院</span>课程：<span style="margin-left: 5px; margin-right: 5px;">[J3300329]会计电算化综合实训（七）</span>总学时：<span style="margin-left: 5px; margin-right: 5px;">12</span>学分：<span style="margin-left: 5px; margin-right: 5px;">0.6</span></p>
+		<table class="layui-table">
+			<colgroup>
+				<col width="100">
+				<col width="300">
+				<col width="300">
+				<col width="300">
+				<col width="300">
+				<col width="300">
+				<col width="300">
+				<col width="300">
+			</colgroup>
+			<thead>
+				<tr>
+					<th></th>
+					<th>星期一</th>
+					<th>星期二</th>
+					<th>星期三</th>
+					<th>星期四</th>
+					<th>星期五</th>
+					<th>星期六</th>
+					<th>星期天</th>
+				</tr>
+			</thead>
+			<tbody id="template">
+				<tr>
+					<td data-bind="shangwu"></td>
+					<td data-bind="kZou1"></td>
+					<td data-bind="kZou2"></td>
+					<td data-bind="kZou3"></td>
+					<td data-bind="kZou4"></td>
+					<td data-bind="kZou5"></td>
+					<td data-bind="kZou6"></td>
+					<td data-bind="kZou7"></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+	<script src="/r3/jquery/jquery-1.8.2.js" type="text/javascript"></script>
+	<script src="/r3/layui-v2.3.0/layui/layui.js"></script>
+	<script src="/r3/anonJs/reJS.js"></script>
+	<script src="/r3/anonJs/transparency.min.js"></script>
+	<script>
+		//Demo
+		layui.use('form', function() {
+			var form = layui.form;
+
+			//监听提交
+			form.on('submit(formDemo)', function(data) {
+				//layer.msg(JSON.stringify(data.field));
+
+				return false;
+			});
+
+			$(function() {
+				//查询学年学期
+				var xqNo = 0;
+				request.send("xt/man.do?m=get&data=list", {
+					"pb_UrlId": 173
+				}, function(d1) {
+					if(d1.code == 0) {
+						xqNo = d1.data[0].xqNo;
+						var weeksList = [];
+						if(d1.data.length > 0) {
+							for(var a = 0; a < d1.data.length; a++) {
+								weeksList.push('<option value=' + d1.data[a].xqNo + '>' + d1.data[a].xqName + '</option>');
+							}
+						}
+						$("#semester").append(weeksList);
+						form.render('select');
+					} else {}
+
+					//查询课程
+					var kNo = 0;
+					request.send("xt/man.do?m=get&data=list", {
+						"kcXQ": xqNo,
+						"pb_UrlId": 172
+					}, function(d2) {
+						if(d2.code == 0) {
+							kNo = d2.data[0].kcNo;
+							
+							form.on('select(required2)', function(data){
+							  //console.log(data.value);
+							  kNo = data.value;
+							});
+							
+						
+							
+							
+							var weeksList = [];
+							if(d2.data.length > 0) {
+								for(var a = 0; a < d2.data.length; a++) {
+									weeksList.push('<option value=' + d2.data[a].kcNo + '>' + d2.data[a].kcName + '</option>');
+								}
+							}
+							$("#curriculum").append(weeksList);
+							form.render('select');
+						} else {}
+
+						$(".layui-btn").click(function() {
+							//查询程课表明细
+							request.send("xt/man.do?m=get&data=list", {
+								"kNo": kNo,
+								"pb_UrlId": 170
+							}, function(d3) {
+								//$("#template").html("");
+								if(d3.code == 0) {
+									var s = {
+										"0": "上午",
+										"1": "下午",
+										"2": "晚上"
+									}
+									directives = {
+										shangwu: {
+											text: function(params) {
+												return s[this.kdata];
+											}
+										}
+									};
+									
+									$('#template').render(d3.data, directives);
+
+								} else {}
+
+							});
+						});
+
+					});
+
+				});
+
+			});
+		});
+	</script>
+
+</html>

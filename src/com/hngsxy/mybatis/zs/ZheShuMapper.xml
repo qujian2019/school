@@ -7,14 +7,14 @@
 
 	<!-- 新增证书 -->
 	<insert id="insertZheShu" parameterType="ZhenShu">
-		INSERT INTO `gsxy_zs_table`
+		INSERT INTO `gsxy_zs_table_copy`
 		(`id`,`title`,`pic`,`content`,`classid`,`adddate`,`idcard`,`data`,`sex`,`zsStatus`,`birthday`)
 		VALUES 
 		(UUID(),#{title},#{pic},#{content},#{classid},#{adddate},#{idcard},#{data},#{sex},'1',#{birthday})
 	</insert>
 	<!-- 修改证书 -->
 	<update id="updateZhenShu" parameterType="ZhenShu">
-		UPDATE `gsxy_zs_table` 
+		UPDATE `gsxy_zs_table_copy` 
 		SET `title` = #{title}, `pic` = #{pic}, `content` = #{content}, `classid` = #{classid}, `adddate` = #{adddate}, `idcard` = #{idcard}, `data` = #{data}, `sex` = #{sex},`birthday` = #{birthday}
 		WHERE `id` = #{id}
 	</update>
@@ -22,21 +22,21 @@
 	<!-- 查询一个证书信息 -->
 	<select id="selectZsById" parameterType="ZhenShu" resultType="ZhenShu">
 		SELECT * 
-		FROM `gsxy_zs_table` 
+		FROM `gsxy_zs_table_copy` 
 		WHERE `id` = #{id}
 	</select>
 	
 	<!-- 查询证书信息 -->
 	<select id="selectZS" parameterType="ZhenShu" resultType="ZhenShu">
 		SELECT `title`,`pic`,`content`,`classid`,`adddate`,idcard,`data`,`sex`,`yy`,`mm`,`dd`,`birthday`
-		FROM `gsxy_zs_table`
-		WHERE title = #{title} and idcard = #{idcard}
+		FROM `gsxy_zs_table_copy`
+		WHERE title = #{title} and idcard = #{idcard} and zsStatus = '1'
 	</select>
 
 	<!-- 查询证书管理 -->
 	<select id="findZhenShu" resultType="ZhenShu" parameterType="map">
 		SELECT * 
-		FROM `gsxy_zs_table`
+		FROM `gsxy_zs_table_copy`
 		where zsStatus = '1'
 		<include refid="GsxyWskxImg_sql"></include>
 		ORDER BY `adddate`  
@@ -59,7 +59,7 @@
 	<!-- 查询证书管理 -->
 	<select id="findZhenShuTotal" resultType="int" parameterType="map">
 		SELECT COUNT(1)
-		FROM `gsxy_zs_table`
+		FROM `gsxy_zs_table_copy`
 		where zsStatus = '1'
 	</select>
 	
@@ -70,6 +70,14 @@
 		where zsMajorStatus = '1'
 		ORDER BY `addTime`  
 		LIMIT #{page},#{limit}
+	</select>
+	
+	<!-- 查询证书专业管理 -->
+	<select id="findAllZhenShuMajor" resultType="ZhenShu">
+		SELECT * 
+		FROM `gsxy_zs_major_table`
+		where zsMajorStatus = '1'
+		ORDER BY `addTime`  
 	</select>
 	
 	<!-- 查询证书专业管理总数 -->
@@ -103,7 +111,7 @@
 	</select>
 	<!-- 删除一个学生信息 -->
 	<update id="updateZhenShuStatus" parameterType="ZhenShu">
-		UPDATE `gsxy_zs_table` SET `zsStatus` = '0'
+		UPDATE `gsxy_zs_table_copy` SET `zsStatus` = '0'
 		WHERE id = #{id}
 	</update>
 	

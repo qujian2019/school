@@ -45,9 +45,9 @@
 			}
 			
 			.conTextbody {
-		    margin: auto;
-		    width: 1024px;
-		    min-height: 200px;
+			    margin: auto;
+			    width: 1024px;
+			    min-height: 200px;
 			}	
 			.heder{
 				margin: 10px auto;
@@ -116,7 +116,6 @@
 	</head>
 
 	<body>
-		<input type="hidden" id="userId" />
 		<div class="Headerdiv"><!--/r3/imgs/logoHbeijtm.png      /r3/imgs/ziti/xk_hngszxxy.png-->
 				<img style="padding-top: 30px;" src="/r3/imgs/logoHbeijtm.png" />
 				<img style="padding-top: 30px;" src="/r3/imgs/ziti/xk_hngszxxy.png" />

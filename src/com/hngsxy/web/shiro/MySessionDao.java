@@ -24,13 +24,20 @@ public class MySessionDao extends EnterpriseCacheSessionDAO{
     @Override
     protected Serializable doCreate(Session session) {
         System.out.println("doCreate");
+        
         Serializable sessionId = generateSessionId(session);
         assignSessionId(session, sessionId);
         String sql = "insert into my_sessions(id, session,insertTime) values(?,?,now())";
         jdbcTemplate.update(sql, sessionId, SerializableUtils.serialize(session));
-        
-
         JDBCUtils.close();
+        
+//        if(session != null && session.getAttribute("isLogin")!=null && session.getAttribute("isLogin").equals("1")) {
+//            Serializable sessionId = generateSessionId(session);
+//            assignSessionId(session, sessionId);
+//            String sql = "insert into my_sessions(id, session,insertTime) values(?,?,now())";
+//            jdbcTemplate.update(sql, sessionId, SerializableUtils.serialize(session));
+//            JDBCUtils.close();
+//        }
         
         return session.getId();
     }
@@ -55,6 +62,7 @@ public class MySessionDao extends EnterpriseCacheSessionDAO{
         
         JDBCUtils.close();
     }
+    
     @Override
     protected Session doReadSession(Serializable sessionId) {
         String sql = "select session from my_sessions where id=?";

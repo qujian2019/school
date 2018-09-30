@@ -51,4 +51,6 @@ public interface ZheShuBiz {
 	Integer updateFactionsName(GsxyFactions gsxyFactions)throws Exception;
 	//查询给学生选择系别
 	ArrayList<GsxyFactions>selectFactions()throws Exception;
+	//查询所有专业
+	ArrayList<GsxyZsMajorTable>findAllZhenShuMajor()throws Exception;
 }

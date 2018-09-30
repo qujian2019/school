@@ -54,6 +54,12 @@
 		<div class="body1">
 			<form class="layui-form" action="">
 				<div class="layui-form-item">
+					<label class="layui-form-label" style="color: red;">修改口令</label>
+					<div class="layui-input-block">
+						<input type="text" id="textPassword" name="textPassword" required lay-verify="required" placeholder="修改口令" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
 					<label class="layui-form-label">身份证</label>
 					<div class="layui-input-block">
 						<input type="text" id="idcard" name="idcard" required lay-verify="required" placeholder="请输身份证" autocomplete="off" class="layui-input">
@@ -105,14 +111,14 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label">学号</label>
 					<div class="layui-input-block">
-						<input type="text" name="schoolNumber" required lay-verify="required" placeholder="请输学号" autocomplete="off" class="layui-input">
+						<input type="text" name="schoolNumber" required lay-verify="" placeholder="请输学号" autocomplete="off" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<div class="layui-inline">
 						<label class="layui-form-label">入学年份</label>
 						<div class="layui-input-inline">
-							<input type="text" class="layui-input" id="enrollmentYear" name="enrollmentYear" placeholder="yyyy">
+							<input type="text" class="layui-input" required lay-verify="required" id="enrollmentYear" name="enrollmentYear" placeholder="yyyy">
 						</div>
 					</div>
 					<div class="layui-form-item">
@@ -126,12 +132,14 @@
 						<label class="layui-form-label">考期</label>
 						<div class="layui-input-block">
 							<select id="examination" name="examination" lay-verify="required">
-	
+
 							</select>
 						</div>
 					</div>
+
 					<div class="layui-form-item" style="display: none;" id="tpsc">
 						<label class="layui-form-label">上传照片:</label>
+						<span id="tsImg" style="display: none; color: red;">请上传图片</span>
 						<div class="layui-input-block">
 							<div class="layui-upload">
 								<button type="button" class="layui-btn" id="uploadPhotos">上传照片</button>
@@ -183,9 +191,13 @@
 					,
 				accept: 'images' //允许上传的文件类型
 					,
+				exts:'jpg',
 				data: {
 					idcard: function() {
 						return $('#idcard').val();
+					},
+					textState: function() {
+						return '1';
 					}
 				},
 				field: 'myfile',
@@ -217,44 +229,57 @@
 		});
 
 		//Demo
-		layui.use('form', function() {
-			var form = layui.form;
+		layui.use(['layer', 'form'], function() {
+			var layer = layui.layer,
+				form = layui.form;
 			//监听提交
 			form.on('submit(formDemo)', function(data) {
 
-				//layer.msg(JSON.stringify(data.field));
+				if($("#studentImg").attr("src")) {
+					$("#tsImg").hide();
 
-				$.ajax({
-					type: "post",
-					url: "/anon/insertEnglishTest",
-					data: {
-						idcard: data.field.idcard,
-						studentName: data.field.studentName,
-						studentsex: data.field.studentsex,
-						campus: data.field.campus,
-						college: data.field.college,
-						factions: data.field.factions,
-						classNumber: data.field.classNumber,
-						schoolNumber: data.field.schoolNumber,
-						enrollmentYear: data.field.enrollmentYear,
-						major: data.field.major,
-						examination:data.field.examination,
-						photo: $("#studentPicture").val()
+					$.ajax({
+						type: "post",
+						url: "/anon/insertEnglishTest",
+						data: {
+							ztm: '1',
+							idcard: data.field.idcard,
+							studentName: data.field.studentName,
+							studentsex: data.field.studentsex,
+							campus: data.field.campus,
+							college: data.field.college,
+							factions: data.field.factions,
+							classNumber: data.field.classNumber,
+							schoolNumber: data.field.schoolNumber,
+							enrollmentYear: data.field.enrollmentYear,
+							major: data.field.major,
+							examination: data.field.examination,
+							examinationStatus: '1',
+							photo: $("#studentPicture").val(),
+							textPassword: data.field.textPassword
 
-					},
-					async: true,
-					//timeout:12000,
-					success: function(data) {
-						if(data == 1) {
-							layer.msg("信息输入成功,请等待审核结果...");
-						} else if(data == 2) {
-							layer.msg("已经存在的身份证号码,请查看审核状态");
-						} else if(data == 0) {
-							layer.msg("信息输入失败,输入数据有误,请重新输入");
+						},
+						async: true,
+						//timeout:12000,
+						success: function(data) {
+							if(data == 1) {
+								layer.msg("信息输入成功,请等待审核结果...");
+							} else if(data == 2) {
+								layer.msg("已经存在的身份证号码,请查看审核状态");
+							} else if(data == 0) {
+								layer.msg("信息输入失败,请重新输入");
+							} else if(data == 3) {
+								layer.msg("修改口令错误");
+							}
+
 						}
+					});
 
-					}
-				});
+				} else {
+
+					$("#tsImg").show();
+					layer.msg('请上传图片');
+				}
 
 				return false;
 			});

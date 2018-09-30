@@ -129,5 +129,10 @@ public class ZheShuBizImpl implements ZheShuBiz{
 	public ArrayList<GsxyFactions> selectFactions() throws Exception {
 		return zheShuMapper.selectFactions();
 	}
+	//查询所有专业
+	@Override
+	public ArrayList<GsxyZsMajorTable> findAllZhenShuMajor() throws Exception {
+		return zheShuMapper.findAllZhenShuMajor();
+	}
 
 }

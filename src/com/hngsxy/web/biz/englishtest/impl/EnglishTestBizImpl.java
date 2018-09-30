@@ -49,6 +49,21 @@ public class EnglishTestBizImpl implements EnglishTestBiz{
 
 		return englishTestMapper.findEnglishExamination(condtion);
 	}
+	
+	//普通话等级考试
+	@Override
+	public ArrayList<GsxyEnglishExaminationTable> findGeneralTest(GsxyEnglishExaminationTable g,int page, int limit)
+			throws Exception {
+		Map<String, Object> condtion = new HashMap<String, Object>();
+		condtion.put("idcard", g.getIdcard());
+		condtion.put("examination", g.getExamination());
+		condtion.put("limit", limit);
+		condtion.put("page", page);
+
+		return englishTestMapper.findGeneralTest(condtion);
+	}
+	
+	
 	//删除一个学生信息
 	@Override
 	public Integer updateExaminationStatus(GsxyEnglishExaminationTable gsxyEnglishExaminationTable) throws Exception {
@@ -72,17 +87,25 @@ public class EnglishTestBizImpl implements EnglishTestBiz{
 	}
 	//查询英语考试
 	@Override
-	public Integer selectEnglishTestIdCard(GsxyEnglishExaminationTable gsxyEnglishExaminationTable) throws Exception {
+	public GsxyEnglishExaminationTable selectEnglishTestIdCard(GsxyEnglishExaminationTable gsxyEnglishExaminationTable) throws Exception {
 		return englishTestMapper.selectEnglishTestIdCard(gsxyEnglishExaminationTable);
 	}
+	//查询英语考试
+	@Override
+	public GsxyEnglishExaminationTable selectEnglishTestIdCard1(GsxyEnglishExaminationTable gsxyEnglishExaminationTable) throws Exception {
+		return englishTestMapper.selectEnglishTestIdCard1(gsxyEnglishExaminationTable);
+	}
+	
 	//查询考生信息导出Excel
 	@Override
-	public void findEnglishExaminationExcel(GsxyEnglishExaminationTable g,String[] titles, ServletOutputStream out)
+	public void findEnglishExaminationExcel(GsxyEnglishExaminationTable g,String[] titles, ServletOutputStream out,String st1,String st2)
 			throws Exception {
 		
 					Map<String, Object> condtion = new HashMap<String, Object>();
 					condtion.put("idcard", g.getIdcard());
 					condtion.put("examination", g.getExamination());
+					condtion.put("st1", st1);
+					condtion.put("st2", st2);
 
 					ArrayList<GsxyEnglishExaminationTable> list = englishTestMapper.findEnglishExaminationExcel(condtion);
 
@@ -132,9 +155,9 @@ public class EnglishTestBizImpl implements EnglishTestBiz{
 			                     String sex = "";
 //			                     if(g1.getStudentsex() != null){
 //			                    	 studentsex = g1.getStudentsex();
-			                    	 if(g1.getStudentsex() == "1") {
+			                    	 if("1".equals(g1.getStudentsex())) {
 			                    		 sex ="男";
-			                    	 }else {
+			                    	 }else if("2".equals(g1.getStudentsex())){
 			                    		 sex ="女";
 			                    	 }
 //			                     }
@@ -244,8 +267,62 @@ public class EnglishTestBizImpl implements EnglishTestBiz{
 	}
 	//根据身份证修改 考试编号,和作为编号
 	@Override
-	public Integer updateAdmissionTicket(GsxyEnglishExaminationTable gsxyEnglishExaminationTable) throws Exception {
-		return englishTestMapper.updateAdmissionTicket(gsxyEnglishExaminationTable);
+	public Integer updateAdmissionTicket(GsxyEnglishExaminationTable g,String st1,String st2,String examination) throws Exception {
+				Map<String, Object> condtion = new HashMap<String, Object>();
+				condtion.put("admissionTicket", g.getAdmissionTicket());
+				condtion.put("centreNo", g.getCentreNo());
+				condtion.put("idcard", g.getIdcard());
+				condtion.put("examination", examination);
+				
+				condtion.put("st1", st1);
+				condtion.put("st2", st2);
+
+		return englishTestMapper.updateAdmissionTicket(condtion);
+	}
+	//普通话考生状态
+	@Override
+	public GsxyEnglishExaminationTable findEnglishTestByIdCard1(GsxyEnglishExaminationTable gsxyEnglishExaminationTable)
+			throws Exception {
+		return englishTestMapper.findEnglishTestByIdCard1(gsxyEnglishExaminationTable);
+	}
+	//前台修改考生信息
+	@Override
+	public Integer updateEnglishTestqt(GsxyEnglishExaminationTable gsxyEnglishExaminationTable) throws Exception {
+		return englishTestMapper.updateEnglishTestqt(gsxyEnglishExaminationTable);
+	}
+	
+	@Override
+	public Integer findEnglishExaminationTotal(GsxyEnglishExaminationTable g)
+			throws Exception {
+		Map<String, Object> condtion = new HashMap<String, Object>();
+		condtion.put("idcard", g.getIdcard());
+		condtion.put("examination", g.getExamination());
+
+		// TODO Auto-generated method stub
+		return englishTestMapper.findEnglishExaminationTotal(condtion);
+	}
+	@Override
+	public Integer findGeneralTestTotal(GsxyEnglishExaminationTable g) throws Exception {
+		Map<String, Object> condtion = new HashMap<String, Object>();
+		condtion.put("idcard", g.getIdcard());
+		condtion.put("examination", g.getExamination());
+
+		return englishTestMapper.findGeneralTestTotal(condtion);
+	}
+	//添加普通话考试
+	@Override
+	public Integer insertGeneralTest(GsxyEnglishExaminationTable gsxyEnglishExaminationTable) throws Exception {
+		return englishTestMapper.insertGeneralTest(gsxyEnglishExaminationTable);
+	}
+	//修改普通话考生信息
+	@Override
+	public Integer updateGeneralTestqt(GsxyEnglishExaminationTable gsxyEnglishExaminationTable) throws Exception {
+		return englishTestMapper.updateGeneralTestqt(gsxyEnglishExaminationTable);
+	}
+	//修改普通话考试考生
+	@Override
+	public Integer updateGeneralTest(GsxyEnglishExaminationTable gsxyEnglishExaminationTable) throws Exception {
+		return englishTestMapper.updateGeneralTest(gsxyEnglishExaminationTable);
 	}
 	
 	

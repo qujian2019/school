@@ -64,10 +64,10 @@ public class Anon {
 
 	@Autowired
 	private GsxyWskxImgBizImpl gsxyWskxImgBizImpl;
-	
+
 	@Autowired
 	private ZheShuBiz zheShuBiz;
-	
+
 	@Autowired
 	private EnglishTestBiz englishTestBiz;
 
@@ -147,21 +147,6 @@ public class Anon {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-//		int temp01 = 0;
-//		String temp02 = "";
-		// 还是线判断端口还
-//		int port = request.getLocalPort();
-//		if (port == 80) {
-//		} else {
-//			for (News news1 : list) {
-//				temp01 = news1.getNewsCarouselPath().indexOf("124.228.83.236");
-//				if (temp01 == -1) {
-//				} else {
-//					temp02 = news1.getNewsCarouselPath().replace("124.228.83.236","124.228.83.236:" + port);
-//					news1.setNewsCarouselPath(temp02);
-//				}
-//			}
-//		}
 
 		return list;
 	}
@@ -197,9 +182,9 @@ public class Anon {
 		}
 
 		// 获取当前端口 现在是 80
-	//	int port = request.getLocalPort();
+		// int port = request.getLocalPort();
 
-	//	News temp = IdAndTimeCreateUtil.replacePortNews(newsOne, port);
+		// News temp = IdAndTimeCreateUtil.replacePortNews(newsOne, port);
 
 		return newsOne;
 	}
@@ -263,7 +248,7 @@ public class Anon {
 		// http:\localhost:8080\temp\img\def3adbad0f64f91aa0ffbfc8ecb819f_53232.png
 		// http://www.hngsxy.com:80/temp/img/1ebdfaeb076f44caafad7ecd7be21441_zyimg10.jpg
 		String temp02 = request.getServerName();// 服务器名
-		//int temp03 = request.getServerPort();// 端口号
+		// int temp03 = request.getServerPort();// 端口号
 		String path = temp01 + "://" + temp02 + "/" + "temp/img/";
 		System.out.println("图片路径:" + path + savename);
 		map.put("studentTuPian", path + savename);
@@ -423,20 +408,21 @@ public class Anon {
 			e.printStackTrace();
 		}
 		// 还是线判断端口还
-//		int port = request.getLocalPort();
-//		int temp01 = 0;
-//		String temp02 = "";
-//		if (port == 80) {
-//		} else {
-//			for (GsxySunshineServiceNews news1 : list) {
-//				temp01 = news1.getNewsCarouselPath().indexOf("124.228.83.236");
-//				if (temp01 == -1) {
-//				} else {
-//					temp02 = news1.getNewsCarouselPath().replace("124.228.83.236", "124.228.83.236:" + port);
-//					news1.setNewsCarouselPath(temp02);
-//				}
-//			}
-//		}
+		// int port = request.getLocalPort();
+		// int temp01 = 0;
+		// String temp02 = "";
+		// if (port == 80) {
+		// } else {
+		// for (GsxySunshineServiceNews news1 : list) {
+		// temp01 = news1.getNewsCarouselPath().indexOf("124.228.83.236");
+		// if (temp01 == -1) {
+		// } else {
+		// temp02 = news1.getNewsCarouselPath().replace("124.228.83.236",
+		// "124.228.83.236:" + port);
+		// news1.setNewsCarouselPath(temp02);
+		// }
+		// }
+		// }
 
 		return list;
 
@@ -595,8 +581,19 @@ public class Anon {
 	}
 
 	// 首页轮播通知公告
-	@RequestMapping("/findTongZhiGongGao")
-	public @ResponseBody ArrayList<News> findTongZhiGongGao() {
+	@RequestMapping(value = { "/findTongZhiGongGao" }, method = { RequestMethod.POST, RequestMethod.GET })
+	public @ResponseBody ArrayList<News> findTongZhiGongGao(HttpServletResponse resp, HttpServletRequest request) {
+
+		// 跨域
+		// String toPath = request.getHeader("Origin");
+
+		// 1.IP地址
+		// resp.setHeader("Access-control-Allow-Origin",toPath);
+		// resp.setHeader("Access-Control-Allow-Methods", "GET,POST");
+		// resp.setHeader("Access-Control-Allow-Credentials", "true");
+		// resp.setHeader("Access-Control-Allow-Headers","origin,
+		// content-type,accept,x-requested-with,ticket");
+
 		ArrayList<News> temp = null;
 		try {
 			temp = newsBizImpl.findTongZhiGongGao();
@@ -908,8 +905,8 @@ public class Anon {
 			e.printStackTrace();
 		}
 		int curr = 1;
-		//添加角标curr
-		for(GsxyWskxImg g:temp) {
+		// 添加角标curr
+		for (GsxyWskxImg g : temp) {
 			g.setWskximgCurr(curr);
 			curr++;
 		}
@@ -917,7 +914,7 @@ public class Anon {
 		return temp;
 
 	}
-	
+
 	// 查询证书信息
 	@RequestMapping(value = "/selectZS")
 	public @ResponseBody ZhenShu selectZS(ZhenShu zheShu) {
@@ -930,66 +927,113 @@ public class Anon {
 		}
 		return temp;
 	}
-	
+
 	// 英语三级考试图片上传
 	@RequestMapping(value = "/englishTestPhotos", method = { RequestMethod.POST })
-	public @ResponseBody Map<String, String> englishTestPhotos(@RequestParam("myfile") MultipartFile myfile,
-			HttpServletRequest request, HttpServletResponse response,String idcard) {
-		
+	public @ResponseBody synchronized Map<String, String> englishTestPhotos(@RequestParam("myfile") MultipartFile myfile,
+			HttpServletRequest request, HttpServletResponse response, String idcard, String textState) {
+
 		// 文件名
 		String originalFilename = null;
-
+		String temporiginalFilename = null;
+		String idcard_ = idcard.toLowerCase();
 		if (myfile.isEmpty()) {
 			return null;
 		} else {
 			originalFilename = myfile.getOriginalFilename();
-			//文件原名: sxzx_yyks.png
+			// 文件原名: sxzx_yyks.png
 			
-			originalFilename =	originalFilename.substring(originalFilename.lastIndexOf("."), originalFilename.length());
-
-//			System.out.println("文件原名: " + idcard+originalFilename);
-//			System.out.println("文件名称: " + myfile.getName());
-//			System.out.println("文件长度: " + myfile.getSize());
-//			System.out.println("文件类型: " + myfile.getContentType());
-//			System.out.println("========================================");
+			originalFilename = originalFilename.substring(originalFilename.lastIndexOf("."), originalFilename.length());
+			 temporiginalFilename = originalFilename.toLowerCase();
+			// System.out.println("文件原名: " + idcard+originalFilename);
+			// System.out.println("文件名称: " + myfile.getName());
+			// System.out.println("文件长度: " + myfile.getSize());
+			// System.out.println("文件类型: " + myfile.getContentType());
+			// System.out.println("========================================");
 		}
 		// 图片名 加了UUID处理
 
 		String year = IdAndTimeCreateUtil.getTime1();
 
-		// 拼接文件名
-		File destFile = new File("E:" + File.separator + "Program Files" + File.separator + "apache-tomcat-8.5.20"
-				+ File.separator + "webapps" + File.separator + "pretco"+ File.separator + "img"+year, idcard+originalFilename);
+		if ("1".equals(textState)) {
+			// 拼接文件名
+			File destFile = new File("E:" + File.separator + "Program Files" + File.separator + "apache-tomcat-8.5.20"
+					+ File.separator + "webapps" + File.separator + "pretco" + File.separator + "pretcoYY"
+					+ File.separator + "img" + year);
+			destFile.mkdirs();
 
-		// 写入
-		try {
-			String courseFile = destFile.getCanonicalPath();
-			/*
-			 * 5. 保存
-			 */
-			System.out.println("保存路径:" + courseFile);
+			File destFilemlm = new File(destFile, idcard_ + temporiginalFilename);
 
-			FileUtils.copyInputStreamToFile(myfile.getInputStream(), destFile);
-		} catch (IOException e) {
-			System.out.println("文件[" + originalFilename + "]上传失败,堆栈轨迹如下");
-			e.printStackTrace();
-			return null;
+			// 写入
+			try {
+				String courseFile = destFilemlm.getCanonicalPath();
+				/*
+				 * 5. 保存
+				 */
+				System.out.println("保存路径:" + courseFile);
+
+				FileUtils.copyInputStreamToFile(myfile.getInputStream(), destFilemlm);
+			} catch (IOException e) {
+				System.out.println("文件[" + originalFilename + "]上传失败,堆栈轨迹如下");
+				e.printStackTrace();
+				return null;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+
+			Map<String, String> map = new HashMap<String, String>();
+			String temp01 = request.getScheme();// 协议名
+
+			String temp02 = request.getServerName();// 服务器名
+			// int temp03 = request.getServerPort();// 端口号
+			String path = temp01 + "://" + temp02 + "/pretco/" + "pretcoYY/img" + year + "/";
+			// System.out.println("图片路径:" + path + idcard);
+			map.put("studentTuPian", path + idcard_ + temporiginalFilename);
+
+			return map;
+		} else if ("2".equals(textState)) {
+			// 拼接文件名
+			File destFile = new File("E:" + File.separator + "Program Files" + File.separator + "apache-tomcat-8.5.20"
+					+ File.separator + "webapps" + File.separator + "pretco" + File.separator + "pretcoPTH"
+					+ File.separator + "img" + year);
+			destFile.mkdirs();
+
+			File destFilemlm = new File(destFile, idcard_ + temporiginalFilename);
+
+			// 写入
+			try {
+				String courseFile = destFilemlm.getCanonicalPath();
+				/*
+				 * 5. 保存
+				 */
+				System.out.println("保存路径:" + courseFile);
+
+				FileUtils.copyInputStreamToFile(myfile.getInputStream(), destFilemlm);
+			} catch (IOException e) {
+				System.out.println("文件[" + originalFilename + "]上传失败,堆栈轨迹如下");
+				e.printStackTrace();
+				return null;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+
+			Map<String, String> map = new HashMap<String, String>();
+			String temp01 = request.getScheme();// 协议名
+
+			String temp02 = request.getServerName();// 服务器名
+			// int temp03 = request.getServerPort();// 端口号
+			String path = temp01 + "://" + temp02 + "/pretco/" + "pretcoPTH/img" + year + "/";
+			// System.out.println("图片路径:" + path + idcard);
+			map.put("studentTuPian", path + idcard_ + temporiginalFilename);
+
+			return map;
 		}
-
-		Map<String, String> map = new HashMap<String, String>();
-		String temp01 = request.getScheme();// 协议名
-
-		String temp02 = request.getServerName();// 服务器名
-		//int temp03 = request.getServerPort();// 端口号
-		String path = temp01 + "://" + temp02 + "/" + "pretco/img"+year+"/";
-		//System.out.println("图片路径:" + path + idcard);
-		map.put("studentTuPian", path + idcard);
-
-		return map;
-
+		return null;
 	}
-	
-	//查询专业信息
+
+	// 查询专业信息
 	@RequestMapping(value = "/selectMajor")
 	public @ResponseBody ArrayList<GsxyZsMajorTable> selectMajor(GsxyZsMajorTable gsxyZsMajorTable) {
 		ArrayList<GsxyZsMajorTable> temp = null;
@@ -1000,7 +1044,8 @@ public class Anon {
 		}
 		return temp;
 	}
-	//查询系别信息
+
+	// 查询系别信息
 	@RequestMapping(value = "/selectFactions")
 	public @ResponseBody ArrayList<GsxyFactions> selectFactions() {
 		ArrayList<GsxyFactions> temp = null;
@@ -1011,42 +1056,77 @@ public class Anon {
 		}
 		return temp;
 	}
-	
-	//新增英语三级报考信息
+
+	// 新增英语三级报考信息
 	@RequestMapping(value = "/insertEnglishTest")
-	public @ResponseBody Integer insertEnglishTest(GsxyEnglishExaminationTable g){
+	public @ResponseBody Integer insertEnglishTest(GsxyEnglishExaminationTable g, String ztm) {
+			
+		String textPassword = g.getTextPassword().trim();
+		g.setTextPassword(textPassword);
 		
 		Integer temp = null;
-		Integer temp1 = null;
-		//判断是否是空
+		GsxyEnglishExaminationTable temp1 = null;
+		// 判断是否是空
 		if (StringUtils.isBlank(g.getStudentName()) || StringUtils.isBlank(g.getIdcard())
-				|| StringUtils.isBlank(g.getSchoolNumber())|| StringUtils.isBlank(g.getClassNumber())) {
+				|| StringUtils.isBlank(g.getSchoolNumber()) || StringUtils.isBlank(g.getClassNumber())) {
 			return 0;
 		}
-		//判断是否是身份证号码
-		if(RegexUtils.checkIdCard(g.getIdcard())) {
-			
-		}else {
+		// 判断是否是身份证号码
+		if (RegexUtils.checkIdCard(g.getIdcard())) {
+
+		} else {
 			return 0;
 		}
 
-		//判断身份证号码是否存在
-		try {
-			temp1 =	englishTestBiz.selectEnglishTestIdCard(g);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		if(temp1 > 0) {
+		// 1是判断英语考试的学生
+		if ("1".equals(ztm)) {
+			// 判断身份证号码是否存在
+			try {
+				temp1 = englishTestBiz.selectEnglishTestIdCard(g);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			// 2是判断普通话等级考试的学生
+		} else if ("2".equals(ztm)) {
+			// 判断身份证号码是否存在
+			try {
+				temp1 = englishTestBiz.selectEnglishTestIdCard1(g);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		} else {
 			return 2;
-		}else {
-			
 		}
 
 		try {
-			temp = englishTestBiz.insertEnglishTest(g);
+			// 判断这个学生是否存在
+			// System.out.println(temp1);
+			if (temp1 != null) {
+				if (temp1.getTextPassword().equals(g.getTextPassword().trim())) {
+
+					if ("1".equals(ztm)) {
+						temp = englishTestBiz.updateEnglishTestqt(g);
+					} else if ("2".equals(ztm)) {
+						temp = englishTestBiz.updateGeneralTestqt(g);
+					}
+
+				} else {
+					return 3;
+				}
+			} else {
+
+				// if(temp1 != null) {}
+				// 判断是添加英语考试还是普通话考试
+				if ("2".equals(ztm)) {
+					temp = englishTestBiz.insertGeneralTest(g);
+				} else if ("1".equals(ztm)) {
+					temp = englishTestBiz.insertEnglishTest(g);
+				}
+			}
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -1054,7 +1134,7 @@ public class Anon {
 
 	}
 
-	//查询2个考期名称
+	// 查询2个考期名称
 	@RequestMapping(value = "/selectSemesterByTow")
 	public @ResponseBody ArrayList<GsxySemester> selectSemesterByTow() throws Exception {
 		ArrayList<GsxySemester> temp = null;
@@ -1065,10 +1145,11 @@ public class Anon {
 		}
 		return temp;
 	}
-	
-	//查询2个考期名称
+
+	// 查询2个考期名称
 	@RequestMapping(value = "/findEnglishTestByIdCard")
-	public @ResponseBody GsxyEnglishExaminationTable findEnglishTestByIdCard(GsxyEnglishExaminationTable g) throws Exception {
+	public @ResponseBody GsxyEnglishExaminationTable findEnglishTestByIdCard(GsxyEnglishExaminationTable g)
+			throws Exception {
 		GsxyEnglishExaminationTable temp = null;
 		try {
 			temp = englishTestBiz.findEnglishTestByIdCard(g);
@@ -1077,8 +1158,29 @@ public class Anon {
 		}
 		return temp;
 	}
-	
-	
-	
-	
+
+	// 查询2个考期名称
+	@RequestMapping(value = "/findEnglishTestByIdCard1")
+	public @ResponseBody GsxyEnglishExaminationTable findEnglishTestByIdCard1(GsxyEnglishExaminationTable g)
+			throws Exception {
+		GsxyEnglishExaminationTable temp = null;
+		try {
+			temp = englishTestBiz.findEnglishTestByIdCard1(g);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return temp;
+	}
+
+	//查询所有专业
+	@RequestMapping(value = "/findAllZhenShuMajor")
+	public @ResponseBody ArrayList<GsxyZsMajorTable> findAllZhenShuMajor(){
+		ArrayList<GsxyZsMajorTable> temp = null;
+		try {
+			temp = zheShuBiz.findAllZhenShuMajor();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return temp;
+	}
 }

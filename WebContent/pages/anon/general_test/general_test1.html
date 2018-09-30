@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>普通话登记考试</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=Edge">
+		<link rel="stylesheet" href="/r3/layui-v2.3.0/layui/css/layui.css" />
+		<link rel="stylesheet" href="/r3/css/anonCss.css" />
+		<link rel="shortcut icon" href="http://124.228.83.236/r3/imgs/sign/bitbug_favicon.ico" />
+		<style>
+			body {
+				margin: 0px;
+				background: url(/r3/imgs/index_scy_jyb_banner.jpg)no-repeat;
+			}
+			
+			.Headerdiv {
+				width: 100%;
+				height: 216px;
+			}
+			
+			.Headerdiv_1 {
+				margin: 0 auto;
+				width: 1000px;
+				height: 216px;
+				background: url(/r3/imgs/gxy/gxy_title_img.jpg)no-repeat;
+				background-size: 100%;
+			}
+			
+			.body1 {
+				margin: 0 auto;
+				width: 980px;
+				min-height: 600px;
+				background-color: white;
+				padding: 10px;
+				/*border-radius:5px 0;border:1px solid #c2c2c2;*/
+			}
+			.ttt{
+				background-color: #C6C6C6;
+			}
+		</style>
+	</head>
+
+	<body>
+		<input type="hidden" id="studentPicture" />
+		<!--
+        	描述： 头部
+        -->
+		<div class="Headerdiv">
+			<div class="Headerdiv_1">
+				<img style="position: absolute; padding-left: 100px; padding-top: 10px;height: 50px;" src="/r3/imgs/DZBGS/dzbgs_tt_img.png" />
+				<img style="position: absolute; padding-left: 300px; padding-top: 91px;height: 80px;" src="/r3/imgs/ziti/sxzx_pthdjks.png" />
+			</div>
+		</div>
+		<div class="jgdiv"></div>
+		<div class="body1">
+			<form class="layui-form" action="">
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="color: red;">修改口令</label>
+					<div class="layui-input-block">
+						<input type="text" id="textPassword" name="textPassword" required lay-verify="required" placeholder="修改口令" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">身份证</label>
+					<div class="layui-input-block">
+						<input type="text" id="idcard" name="idcard" required lay-verify="required" placeholder="请输身份证" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">姓名</label>
+					<div class="layui-input-block">
+						<input type="text" name="studentName" required lay-verify="required" placeholder="请输姓名" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">性别</label>
+					<div class="layui-input-block">
+						<input type="radio" name="studentsex" value="1" title="男" checked>
+						<input type="radio" name="studentsex" value="2" title="女">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">校区</label>
+					<div class="layui-input-block">
+						<select name="campus" lay-verify="required">
+							<option value="本校区">本校区</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">学院</label>
+					<div class="layui-input-block">
+						<select name="college" lay-verify="required">
+							<option value="工学院">工学院</option>
+							<option value="商学院">商学院</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">系别</label>
+					<div class="layui-input-block">
+						<select name="factions" lay-verify="required" id="factions">
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">班级</label>
+					<div class="layui-input-block">
+						<input type="text" name="classNumber" required lay-verify="required" placeholder="请输班级" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">学号</label>
+					<div class="layui-input-block">
+						<input type="text" name="schoolNumber" required lay-verify="" placeholder="请输学号" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">入学年份</label>
+						<div class="layui-input-inline">
+							<input type="text" class="layui-input" required lay-verify="required" id="enrollmentYear" name="enrollmentYear" placeholder="yyyy">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">专业</label>
+						<div class="layui-input-block">
+							<select id="major" name="major" lay-verify="required">
+							</select>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">考期</label>
+						<div class="layui-input-block">
+							<select id="examination" name="examination" lay-verify="required">
+
+							</select>
+						</div>
+					</div>
+					<div class="layui-form-item" style="display: none;" id="tpsc">
+						<label class="layui-form-label">上传照片:</label>
+						<span id="tsImg" style="display: none; color: red;">请上传图片</span>
+						<div class="layui-input-block">
+							<div class="layui-upload">
+								<button type="button" class="layui-btn" id="uploadPhotos">上传照片</button>
+								<div class="layui-upload-list">
+									<img class="layui-upload-img" src="" id="studentImg">
+									<p id="demoText"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+			</form>
+			</div>
+			<div class="jgdiv"></div>
+			<div class="bottom_diji">
+				<div class="bottom_diji_neir">
+					Copyright 2009-2020 http://www.hngsxy.com All Rights Reserved <br /> 版权所有： 湖南工商职业学院 电话：0734-8593338 8593358 传真：0734-8593325 <br /> 地址：湖南省衡阳市石鼓区松木塘 邮编：421001 <br /> 湘教QS4_201212_040024 湘ICP备12013408号 <br />
+					<img src="/r3/imgs/gonggongImg/beianbgs.png" style="width: 20px; height: 20px;" />
+					<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=43040702000117" target="_blank">湘公网安备 43040702000117号</a> <br />
+				</div>
+			</div>
+	</body>
+	<script src="/r3/jquery/jquery-1.8.2.js" type="text/javascript"></script>
+	<script src="/r3/layui-v2.3.0/layui/layui.js"></script>
+	<script>
+		//
+		layui.use('laydate', function() {
+			var laydate = layui.laydate;
+			//年选择器
+			laydate.render({
+				elem: '#enrollmentYear',
+				type: 'year'
+			});
+		});
+		//图片上传
+		layui.use('upload', function() {
+			var $ = layui.jquery,
+				upload = layui.upload;
+			//field: 'myfile'
+			var uploadInst = upload.render({
+				elem: '#uploadPhotos',
+				url: '/anon/englishTestPhotos',
+				size: 500 //限制文件大小，单位 KB
+					,
+				accept: 'images' //允许上传的文件类型
+					,
+				exts:'jpg',
+				data: {
+					idcard: function() {
+						return $('#idcard').val();
+					},
+					textState: function() {
+						return '2';
+					}
+				},
+				field: 'myfile',
+				before: function(obj) {
+					//预读本地文件示例，不支持ie8
+					obj.preview(function(index, file, result) {
+						$('#studentImg').attr('src', result); //图片链接（base64）
+					});
+				},
+				done: function(res) {
+					//console.log(res.studentTuPian);//图片路径
+					$("#studentPicture").val(res.studentTuPian);
+					//如果上传失败
+					if(res.code > 0) {
+						return layer.msg('上传失败');
+					}
+					//上传成功
+				},
+				error: function() {
+					//演示失败状态，并实现重传
+					var demoText = $('#demoText');
+					demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+					demoText.find('.demo-reload').on('click', function() {
+						uploadInst.upload();
+					});
+				}
+			});
+
+		});
+
+		//Demo
+		layui.use(['layer', 'form'], function() {
+			var layer = layui.layer,
+				form = layui.form;
+			//监听提交
+			form.on('submit(formDemo)', function(data) {
+
+				if($("#studentImg").attr("src")) {
+					$("#tsImg").hide();
+					$.ajax({
+						type: "post",
+						url: "/anon/insertEnglishTest",
+						data: {
+							ztm: '2',
+							idcard: data.field.idcard,
+							studentName: data.field.studentName,
+							studentsex: data.field.studentsex,
+							campus: data.field.campus,
+							college: data.field.college,
+							factions: data.field.factions,
+							classNumber: data.field.classNumber,
+							schoolNumber: data.field.schoolNumber,
+							enrollmentYear: data.field.enrollmentYear,
+							major: data.field.major,
+							examination: data.field.examination,
+							examinationStatus: '11',
+							photoPth: $("#studentPicture").val(),
+							textPassword: data.field.textPassword
+
+						},
+						async: true,
+						//timeout:12000,
+						success: function(data) {
+							if(data == 1) {
+								layer.msg("信息输入成功,请等待审核结果...");
+							} else if(data == 2) {
+								layer.msg("已经存在的身份证号码,请查看审核状态");
+							} else if(data == 0) {
+								layer.msg("信息输入失败,输入数据有误,请重新输入");
+							} else if(data == 3) {
+								layer.msg("修改口令错误");
+							}
+
+						}
+					});
+				} else {
+					$("#tsImg").show();
+					 layer.msg('请上传图片');
+				}
+
+				return false;
+			});
+
+		});
+
+		$("#idcard").on("change", function() {
+			if($("#idcard").val().length == 18) {
+				$("#tpsc").show();
+			} else {
+				$("#tpsc").hide();
+			}
+		});
+
+		$.ajax({
+			type: "post",
+			url: "/anon/selectMajor",
+			data: {},
+			async: false,
+			//timeout:12000,
+			success: function(data) {
+				var List = [];
+				for(var a = 0; a < data.length; a++) {
+					List.push('<option value="' + data[a].title + '">' + data[a].title + '</option>');
+				}
+				$("#major").append(List);
+			}
+		});
+		$.ajax({
+			type: "post",
+			url: "/anon/selectFactions",
+			data: {},
+			async: false,
+			//timeout:12000,
+			success: function(data) {
+				var List = [];
+				for(var a = 0; a < data.length; a++) {
+					List.push('<option value="' + data[a].name + '">' + data[a].name + '</option>');
+				}
+				$("#factions").append(List);
+			}
+		});
+		$.ajax({
+			type: "post",
+			url: "/anon/selectSemesterByTow",
+			data: {},
+			async: false,
+			//timeout:12000,
+			success: function(data) {
+				var List = [];
+				for(var a = 0; a < data.length; a++) {
+					List.push('<option value="' + data[a].name + '">' + data[a].name + '</option>');
+				}
+				$("#examination").append(List);
+			}
+		});
+	</script>
+
+</html>

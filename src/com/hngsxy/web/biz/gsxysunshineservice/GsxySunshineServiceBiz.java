@@ -16,8 +16,6 @@ import com.hngsxy.web.bean.gsxysunshineservice.GsxySunshineServiceNews;
  */
 @Service
 public interface GsxySunshineServiceBiz {
-	
-	
 	//用户查询新闻
 	ArrayList<GsxySunshineServiceNews> findSunshineServiceNews(GsxySunshineServiceNews gsxySunshineServiceNews,int page, int limit) throws Exception;
 	//新闻总数

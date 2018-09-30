@@ -32,7 +32,9 @@
 				padding: 10px;
 				/*border-radius:5px 0;border:1px solid #c2c2c2;*/
 			}
-
+			.ttt{
+				background-color: #C6C6C6;
+			}
 		</style>
 	</head>
 	<body>
@@ -70,7 +72,55 @@
 
 					  </div>
 					</div>
-
+						<table class="layui-table">
+						  <colgroup>
+						    <col width="150">
+						    <col width="150">
+						    <col width="150">
+						  </colgroup>
+						  <tbody>
+						    <tr>
+						      <td class="ttt">身份证</td>
+						      <td class="ttt">姓名</td>
+						      <td class="ttt">性别</td>
+						    </tr>
+						    <tr>
+						      <td id="idcard"></td>
+						      <td id="studentName"></td>
+						      <td id="studentsex"></td>
+						    </tr>
+						    <tr>
+						      <td class="ttt">校区</td>
+						      <td class="ttt">学院</td>
+						      <td class="ttt">系别</td>
+						    </tr>
+						    <tr>
+						      <td id="campus"></td>
+						      <td id="college"></td>
+						      <td id="factions"></td>
+						    </tr>
+						    <tr>
+						      <td class="ttt">班级</td>
+						      <td class="ttt">学号</td>
+						      <td class="ttt">入学年份</td>
+						    </tr>
+						    <tr>
+						      <td id="classNumber"></td>
+						      <td id="schoolNumber"></td>
+						      <td id="enrollmentYear"></td>
+						    </tr>
+						    <tr>
+						      <td class="ttt">专业</td>
+						      <td class="ttt">考期</td>
+						      <td class="ttt">上传图片</td>
+						    </tr>
+						    <tr>
+						      <td id="major"></td>
+						      <td id="examination"></td>
+						      <td><img id="photo" src="" style="max-height: 100%; max-width: 100%;" /></td>
+						    </tr>
+						  </tbody>
+						</table>
 			</fieldset>
 		</div>
 		<div class="jgdiv"></div>
@@ -86,11 +136,11 @@
 		<script src="/r3/layui-v2.2.5/layui/layui.js"></script>
 		<script>
 			//Demo
-			layui.use('form', function(){
-			  var form = layui.form;
+			layui.use(['layer', 'form'], function(){
+			  var layer = layui.layer
+			  ,form = layui.form;
 			  //监听提交
 			  form.on('submit(formDemo)', function(data){
-			    //layer.msg(JSON.stringify(data.field));
 					$.ajax({
 							type: "post",
 							url: "/anon/findEnglishTestByIdCard",
@@ -100,7 +150,21 @@
 							async: true,
 							//timeout:12000,
 							success: function(data) {
- 								//console.log(data)
+
+								if(data == ''){
+									layer.msg('该学生没有申请考试');
+								}else{
+									if(data.studentsex == '1'){
+										$("#studentsex").text('男');
+									}else if(data.studentsex == '2'){
+										$("#studentsex").text('女');
+									}
+									//
+									$("#idcard").text(data.idcard);$("#studentName").text(data.studentName);
+									$("#campus").text(data.campus);$("#college").text(data.college);$("#factions").text(data.factions);
+									$("#classNumber").text(data.classNumber);$("#schoolNumber").text(data.schoolNumber);$("#enrollmentYear").text(data.enrollmentYear);
+									$("#major").text(data.major);$("#examination").text(data.examination);$("#photo").attr('src',data.photo);
+								}
  								if(data.examinationStatus == '1'){
  									$("#shzt").text("审核中..");
  									$("#bz").text('');

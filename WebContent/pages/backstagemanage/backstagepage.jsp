@@ -104,10 +104,6 @@
 	<script src="/r3/layui-v2.2.5/layui/layui.js"></script>
 
 	<script>
-		var id = $("#userId").val();
-
-		//console.log(id)
-
 		//JavaScript代码区域
 		layui.use('element', function() {
 			var element = layui.element;
@@ -177,19 +173,10 @@
 			$("#mianIframe").attr("src", "/pages/EnglishTest/EnglishTestManage.jsp");
 		});
 		
+		$("#pthdjks").on("click", function() {
+			$("#mianIframe").attr("src", "/pages/GeneralTest/GeneralTestManage.jsp");
+		});
 
-//		jQuery(window).unload(function(){
-//					$.ajax({
-//						type: "post",
-//						url: "<%=request.getContextPath()%>/logout",
-//						data: {},
-//						async: true,
-//						dateType: "json",
-//						//timeout:12000,
-//						success: function(data) {
-//						}
-//					});
-//		});
 
 	</script>
 

@@ -43,7 +43,7 @@ public class EnglishTestController {
 	@Autowired
 	private EnglishTestBiz englishTestBiz;
 
-	// 图片信息
+	// 查询英语三级考试
 	@RequestMapping(value = "/findEnglishExamination")
 	public void findEnglishExamination(GsxyEnglishExaminationTable gsxyEnglishExaminationTable,
 			HttpServletResponse resp, HttpServletRequest req) {
@@ -64,7 +64,52 @@ public class EnglishTestController {
 		try {
 
 			gsxyWskxImgList = englishTestBiz.findEnglishExamination(gsxyEnglishExaminationTable, index, size);
-			Total = gsxyWskxImgList.size();
+			Total = englishTestBiz.findEnglishExaminationTotal(gsxyEnglishExaminationTable);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		String array = JSON.toJSONString(gsxyWskxImgList);
+
+		int code = 0;
+		// 6.需要返回的数据有总记录数和行数据
+		String json = "{\"code\":" + code + ",\"count\":" + Total + ",\"data\":" + array + "}";
+
+		PrintWriter pw = null;
+		try {
+			pw = resp.getWriter();
+			pw.print(json);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			pw.close();
+		}
+
+	}
+	
+	// 查询普通话测试考试
+	@RequestMapping(value = "/findGeneralTest")
+	public void findGeneralTest(GsxyEnglishExaminationTable gsxyEnglishExaminationTable,
+			HttpServletResponse resp, HttpServletRequest req) {
+
+		String page = req.getParameter("page");
+		String limit = req.getParameter("limit");
+		int page1 = Integer.parseInt(page);
+		int limit1 = Integer.parseInt(limit);
+
+		// 分页开始为
+		int index = (page1 - 1) * limit1;
+
+		int size = limit1;
+
+		// 2. 查询数据
+		ArrayList<GsxyEnglishExaminationTable> gsxyWskxImgList = null;
+		Integer Total = null;
+		try {
+
+			gsxyWskxImgList = englishTestBiz.findGeneralTest(gsxyEnglishExaminationTable, index, size);
+			Total = englishTestBiz.findGeneralTestTotal(gsxyEnglishExaminationTable);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -129,6 +174,19 @@ public class EnglishTestController {
 		return temp;
 
 	}
+	
+	// 查询一个报考信息
+	@RequestMapping(value = "/updateGeneralTest")
+	public @ResponseBody Integer updateGeneralTest(GsxyEnglishExaminationTable g) {
+		Integer temp = null;
+		try {
+			temp = englishTestBiz.updateGeneralTest(g);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return temp;
+
+	}
 
 	// 查询一个报考信息
 	@RequestMapping(value = "/updateEnglishTestState")
@@ -144,15 +202,15 @@ public class EnglishTestController {
 	
 	// 导出Excel
 	@RequestMapping("/export")
-	public @ResponseBody String export(HttpServletResponse response, GsxyEnglishExaminationTable g) {
-		response.setContentType("application/binary;charset=UTF-8");
+	public @ResponseBody String export(HttpServletResponse response, GsxyEnglishExaminationTable g,String st1,String st2) {
+			response.setContentType("application/binary;charset=UTF-8");
 		try {
 			ServletOutputStream out = response.getOutputStream();
 			String fileName = new String(
 					("UserInfo " + new SimpleDateFormat("yyyy-MM-dd").format(new Date())).getBytes(), "UTF-8");
 			response.setHeader("Content-disposition", "attachment; filename=" + fileName + ".xls");
 			String[] titles = { "身份证号", "姓名", "性别", "校区", "学院", "系别", "班级", "学号", "入学年份", "专业"};
-			englishTestBiz.findEnglishExaminationExcel(g, titles, out);
+			englishTestBiz.findEnglishExaminationExcel(g, titles, out,st1,st2);
 			return "success";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -245,7 +303,14 @@ public class EnglishTestController {
 	@RequestMapping(value = "/updateEnglishTestStateByAdopt")
 	public @ResponseBody Integer updateEnglishTestStateByAdopt(GsxyEnglishExaminationTable g) throws Exception {
 		Integer temp = null;
+
+		if("1".equals(g.getExaminationStatus())||"2".equals(g.getExaminationStatus())||"3".equals(g.getExaminationStatus())) {
+			g.setExaminationStatus("3");
+		}else if("11".equals(g.getExaminationStatus())||"12".equals(g.getExaminationStatus())||"13".equals(g.getExaminationStatus())){
+			g.setExaminationStatus("13");
+		}
 		g.setUnqualifiedReason("通过");
+		
 		try {
 			temp = englishTestBiz.updateEnglishTestStateByAdopt(g);
 		} catch (Exception e) {
@@ -258,6 +323,13 @@ public class EnglishTestController {
 	@RequestMapping(value = "/updateEnglishTestUnqualifiedReason")
 	public @ResponseBody Integer updateEnglishTestUnqualifiedReason(GsxyEnglishExaminationTable g) throws Exception {
 		Integer temp = null;
+		
+		if("1".equals(g.getExaminationStatus())||"2".equals(g.getExaminationStatus())||"3".equals(g.getExaminationStatus())) {
+			g.setExaminationStatus("2");
+		}else if("11".equals(g.getExaminationStatus())||"12".equals(g.getExaminationStatus())||"13".equals(g.getExaminationStatus())){
+			g.setExaminationStatus("12");
+		}
+
 		try {
 			temp = englishTestBiz.updateEnglishTestUnqualifiedReason(g);
 		} catch (Exception e) {
@@ -270,9 +342,10 @@ public class EnglishTestController {
 	// 导入excel单招学生信息
 	@SuppressWarnings("null")
 	@RequestMapping("/updateAdmissionTicket")
-	public @ResponseBody Map<String, String> updateAdmissionTicket(MultipartFile myfile, HttpServletRequest request) {
+	public @ResponseBody Map<String, String> updateAdmissionTicket(MultipartFile myfile, HttpServletRequest request,String st1,String st2,String examination) {
 		Map<String, String> map = new HashMap<String, String>();
 		String originalFilename = null;
+		 Integer tttt = 0;
 		//String result = null;
 		GsxyEnglishExaminationTable g = new GsxyEnglishExaminationTable();
 		//Student s = null;
@@ -287,21 +360,24 @@ public class EnglishTestController {
 			System.out.println("文件类型: " + myfile.getContentType());
 			System.out.println("========================================");
 		}
-
+		//获取项目路径
+		String templl = request.getSession().getServletContext().getRealPath("/");
 		// 图片名 加了UUID处理
 		String savename = IdAndTimeCreateUtil.getUUID() + "_" + originalFilename;
 		// 拼接文件名
-		File destFile = new File("E:" + File.separator + "excelFile", savename);
+		File destFile = new File(templl + File.separator + "excelFile");
+		destFile.mkdirs();
+		File destFilemlm = new File(destFile,savename);
 		
 		// 写入
 		try {
-			String courseFile = destFile.getCanonicalPath();
+			String courseFile = destFilemlm.getCanonicalPath();
 			/*
 			 * 5. 保存
 			 */
 			System.out.println("保存路径:" + courseFile);
 
-			FileUtils.copyInputStreamToFile(myfile.getInputStream(), destFile);
+			FileUtils.copyInputStreamToFile(myfile.getInputStream(), destFilemlm);
 		} catch (IOException e) {
 			System.out.println("文件[" + originalFilename + "]上传失败,堆栈轨迹如下");
 			e.printStackTrace();
@@ -338,11 +414,10 @@ public class EnglishTestController {
         		g.setCentreNo(entry.getValue());
         	}
           }
-          
-          
-          
+        
           try {
-        	  englishTestBiz.updateAdmissionTicket(g);
+        	  //通过身份证修改准考号，考试编号信息
+        	  tttt =  englishTestBiz.updateAdmissionTicket(g,st1,st2,examination);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

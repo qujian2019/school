@@ -54,71 +54,71 @@
 				{{# } }}
 			</script>
 			<script type="text/html" id="classidTpl">
-				{{# if(d.classid == '11.0'){ }}
+				{{# if(d.classid == '11'){ }}
 				<span >计算机应用技术</span> 
-				{{# }else if(d.classid == '12.0'){ }}
+				{{# }else if(d.classid == '12'){ }}
 				<span>机电一体化</span> 
-				{{# }else if(d.classid == '13.0'){ }}
+				{{# }else if(d.classid == '13'){ }}
 				<span>机械制造与自动化</span> 
-				{{# }else if(d.classid == '14.0'){ }}
+				{{# }else if(d.classid == '14'){ }}
 				<span>模具设计与制造</span> 
-				{{# }else if(d.classid == '15.0'){ }}
+				{{# }else if(d.classid == '15'){ }}
 				<span>汽车运用技术</span> 
-				{{# }else if(d.classid == '16.0'){ }}
+				{{# }else if(d.classid == '16'){ }}
 				<span>工程监理</span> 
-				{{# }else if(d.classid == '17.0'){ }}
+				{{# }else if(d.classid == '17'){ }}
 				<span>房屋建筑工程</span> 
-				{{# }else if(d.classid == '18.0'){ }}
+				{{# }else if(d.classid == '18'){ }}
 				<span>室内装潢设计</span> 
-				{{# }else if(d.classid == '19.0'){ }}
+				{{# }else if(d.classid == '19'){ }}
 				<span>应用电子技术</span> 
-				{{# }else if(d.classid == '20.0'){ }}
+				{{# }else if(d.classid == '20'){ }}
 				<span>工商企业管理</span> 
-				{{# }else if(d.classid == '21.0'){ }}
+				{{# }else if(d.classid == '21'){ }}
 				<span>财务会计</span> 
-				{{# }else if(d.classid == '22.0'){ }}
+				{{# }else if(d.classid == '22'){ }}
 				<span>市场营销</span> 
-				{{# }else if(d.classid == '23.0'){ }}
+				{{# }else if(d.classid == '23'){ }}
 				<span>广告设计与制作</span> 
-				{{# }else if(d.classid == '24.0'){ }}
+				{{# }else if(d.classid == '24'){ }}
 				<span>旅游酒店管理</span> 
-				{{# }else if(d.classid == '25.0'){ }}
+				{{# }else if(d.classid == '25'){ }}
 				<span>机械设计制造及自动化</span> 
-				{{# }else if(d.classid == '26.0'){ }}
+				{{# }else if(d.classid == '26'){ }}
 				<span>电子工程</span> 
-				{{# }else if(d.classid == '27.0'){ }}
+				{{# }else if(d.classid == '27'){ }}
 				<span>房屋建筑工程</span> 
-				{{# }else if(d.classid == '28.0'){ }}
+				{{# }else if(d.classid == '28'){ }}
 				<span>计算机及应用</span> 
-				{{# }else if(d.classid == '29.0'){ }}
+				{{# }else if(d.classid == '29'){ }}
 				<span>计算机信息管理</span> 
-				{{# }else if(d.classid == '31.0'){ }}
+				{{# }else if(d.classid == '31'){ }}
 				<span>工业管理工程</span> 
-				{{# }else if(d.classid == '32.0'){ }}
+				{{# }else if(d.classid == '32'){ }}
 				<span>法律</span> 
-				{{# }else if(d.classid == '33.0'){ }}
+				{{# }else if(d.classid == '33'){ }}
 				<span>会计</span> 
-				{{# }else if(d.classid == '34.0'){ }}
+				{{# }else if(d.classid == '34'){ }}
 				<span>外贸英语</span> 
-				{{# }else if(d.classid == '35.0'){ }}
+				{{# }else if(d.classid == '35'){ }}
 				<span>美术</span> 
-				{{# }else if(d.classid == '36.0'){ }}
+				{{# }else if(d.classid == '36'){ }}
 				<span>汽车运用技术</span> 
-				{{# }else if(d.classid == '37.0'){ }}
+				{{# }else if(d.classid == '37'){ }}
 				<span>汽车运用工程</span> 
-				{{# }else if(d.classid == '38.0'){ }}
+				{{# }else if(d.classid == '38'){ }}
 				<span>机电一体化工程</span> 
-				{{# }else if(d.classid == '39.0'){ }}
+				{{# }else if(d.classid == '39'){ }}
 				<span>房屋建筑工程及设计</span> 
-				{{# }else if(d.classid == '40.0'){ }}
+				{{# }else if(d.classid == '40'){ }}
 				<span>英语</span> 
-				{{# }else if(d.classid == '41.0'){ }}
+				{{# }else if(d.classid == '41'){ }}
 				<span>工商管理</span> 
-				{{# }else if(d.classid == '42.0'){ }}
+				{{# }else if(d.classid == '42'){ }}
 				<span>国际贸易</span> 
-				{{# }else if(d.classid == '43.0'){ }}
+				{{# }else if(d.classid == '43'){ }}
 				<span>电子技术</span> 
-				{{# }else if(d.classid == '44.0'){ }}
+				{{# }else if(d.classid == '44'){ }}
 				<span>临床医学</span> 
 				{{# } }}
 			</script>

@@ -45,11 +45,11 @@
 			<div class="layui-form-item">
 				<div class="layui-input-block">
 					<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					<!--<button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
 				</div>
 			</div>
 		</form>
-		<p style="margin-left: 10px;">承担单位：<span style="margin-left: 5px; margin-right: 5px;">商学院</span>课程：<span style="margin-left: 5px; margin-right: 5px;">[J3300329]会计电算化综合实训（七）</span>总学时：<span style="margin-left: 5px; margin-right: 5px;">12</span>学分：<span style="margin-left: 5px; margin-right: 5px;">0.6</span></p>
+		<p style="margin-left: 10px;">承担单位：<span style="margin-left: 5px; margin-right: 5px;" id="kcCJDW"></span>课程：<span style="margin-left: 5px; margin-right: 5px;" id="kcName"></span>课时：<span style="margin-left: 5px; margin-right: 5px;" id="kcCout"></span>学分：<span style="margin-left: 5px; margin-right: 5px;" id="kcCredits"></span></p>
 		<table class="layui-table">
 			<colgroup>
 				<col width="100">
@@ -103,6 +103,18 @@
 				return false;
 			});
 
+//			function listTokey(data, keyFile) {
+//				var map = {};
+//				var row;
+//				for(var m in data) {
+//					row = data[m];
+//					if(!map[row[keyFile]]) {
+//						map[row[keyFile]] = row;
+//					}
+//				}
+//				return map;
+//			}
+			var xkMap = {};
 			$(function() {
 				//查询学年学期
 				var xqNo = 0;
@@ -129,17 +141,15 @@
 					}, function(d2) {
 						if(d2.code == 0) {
 							kNo = d2.data[0].kcNo;
-							
-							form.on('select(required2)', function(data){
-							  //console.log(data.value);
-							  kNo = data.value;
+
+							form.on('select(required2)', function(data) {
+				
+								kNo = data.value;
 							});
-							
-						
-							
-							
+
 							var weeksList = [];
 							if(d2.data.length > 0) {
+								xkMap = listTokey(d2.data, "kcNo");
 								for(var a = 0; a < d2.data.length; a++) {
 									weeksList.push('<option value=' + d2.data[a].kcNo + '>' + d2.data[a].kcName + '</option>');
 								}
@@ -149,6 +159,15 @@
 						} else {}
 
 						$(".layui-btn").click(function() {
+
+							for(var key in xkMap[kNo]){
+//								if($("#"+key)){
+//								$("#"+key).text("");
+//								$("#"+key).text(xkMap[kNo][key]);
+//								}
+							$("#"+key).text("");
+								$("#"+key).text(xkMap[kNo][key]);
+							}
 							//查询程课表明细
 							request.send("xt/man.do?m=get&data=list", {
 								"kNo": kNo,
@@ -168,7 +187,7 @@
 											}
 										}
 									};
-									
+
 									$('#template').render(d3.data, directives);
 
 								} else {}

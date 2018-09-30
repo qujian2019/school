@@ -73,6 +73,11 @@
 				<span style="color: #0000CC;">男</span> {{# }else if(d.studentsex == '2'){ }}
 				<span style="color: #AF0000;">女</span> {{# } }}
 			</script>
+			<script type="text/html" id="photoTpl">
+				<img src="{{d.photo}}" style="widows: 100%; height: 100%;"/> 
+			</script>
+			
+			
 			<!--	描述：控制按钮 -->
 			<div class="layui-hide" id="barDemo">
 				<a class="layui-btn layui-btn-xs" lay-event="edit" id="edit">编辑</a>
@@ -97,11 +102,11 @@
 		$("#gsxy_zs_semester").on("click", function() {
 			location.href = "/pages/EnglishTest/EnglishTestSemester.jsp";
 		});
-
+		var examination = '';
 		layui.use(['table', 'form'], function() {
 			var table = layui.table,
 				form = layui.form;
-			var examination = '';
+			
 			//方法级渲染
 			var tableIns = table.render({
 				elem: '#wskximgNameManage',
@@ -177,7 +182,19 @@
 							field: 'unqualifiedReason',
 							title: '不合格原因',
 							width: 200
-						}, {
+						}, 
+						 {
+							field: 'photo',
+							title: '上次头像',
+							templet: '#photoTpl',
+							width: 200
+						},
+						 {
+							field: 'textPassword',
+							title: '修改口令',
+							width: 200
+						},
+						{
 							fixed: 'right',
 							title: '操作',
 							toolbar: '#barDemo',
@@ -194,7 +211,7 @@
 				id: 'id' //ID
 					,
 				where: {
-
+					examination:examination
 				} //如果无需传递额外参数，可不加该参数
 				, //渲染后的事件
 				done: function(res, curr, count) {
@@ -231,7 +248,9 @@
 											layer.msg("删除成功");
 											//刷新
 											tableIns.reload({
-												where: {}
+												where: {
+													examination: examination
+												}
 											});
 										}
 									}
@@ -246,7 +265,7 @@
 
 						} else if(obj.event === 'fail') {
 
-							location.href = 'EnglishTestFail.jsp?id=' + data.id;
+							location.href = 'EnglishTestFail.jsp?id=' + data.id+"&examinationStatus="+ data.examinationStatus;
 
 						} else if(obj.event === 'adopt') {
 							layer.confirm('真的通过吗', function(index) {
@@ -256,7 +275,8 @@
 									url: "/EnglishTestController/updateEnglishTestStateByAdopt",
 									data: {
 										id: data.id,
-										unqualifiedReason: data.unqualifiedReason
+										unqualifiedReason: data.unqualifiedReason,
+										examinationStatus: data.examinationStatus
 									},
 									async: true,
 									//timeout:12000,
@@ -266,7 +286,9 @@
 											layer.msg("通过成功");
 											//刷新
 											tableIns.reload({
-												where: {}
+												where: {
+													examination: examination
+												}
 											});
 										}
 									}
@@ -314,7 +336,9 @@
 							$("#deleteBatch").hide();
 							layer.msg("删除了" + data + "条数据");
 							tableIns.reload({
-								where: {}
+								where: {
+									examination: examination
+								}
 							});
 						} else {
 							layer.msg("删除失败或没有勾选");
@@ -335,7 +359,9 @@
 						idcard: idcard,
 						examination: examination
 					} //如果无需传递额外参数，可不加该参数
-
+					,page: {
+					    curr: 1 //重新从第 1 页开始
+					}
 				});
 			});
 
@@ -363,7 +389,9 @@
 							$("#deleteBatch").hide();
 							layer.msg("删除了" + data + "条数据");
 							tableIns.reload({
-								where: {}
+								where: {
+									examination: examination
+								}
 							});
 						} else {
 							layer.msg("删除失败或没有勾选");
@@ -375,7 +403,7 @@
 
 			//导出Excel
 			$("#export").on("click", function() {
-				var url = '/EnglishTestController/export?examination=' + examination;
+				var url = '/EnglishTestController/export?examination=' + examination+'&st1=1&st2=3';
 				window.location.href = url;
 			});
 
@@ -411,7 +439,17 @@
 					,
 				accept: 'file',
 				bindAction: '#test7',
-				data: {} //一同上传的数据
+				data: {
+					st1:function(){
+						return '1';
+					},
+					st2:function(){
+						return '3';
+					},
+					examination:function(){
+						return $("#examination").val();
+					}
+				} //一同上传的数据
 				,
 				done: function(res) {
 					layer.msg("上传成功");

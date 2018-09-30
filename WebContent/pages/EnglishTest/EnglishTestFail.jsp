@@ -66,6 +66,7 @@
 
 			if(v != null) {
 				var id = v['id'];
+				var examinationStatus = v['examinationStatus'];
 				/*var temp01 = v['temp01'];*/
 				//console.log(temp01) 1:发送 2：编辑
 			}
@@ -82,7 +83,8 @@
 							url: "/EnglishTestController/updateEnglishTestUnqualifiedReason",
 							data: {
 								id:id,
-								unqualifiedReason:data.field.unqualifiedReason
+								unqualifiedReason:data.field.unqualifiedReason,
+								examinationStatus:examinationStatus
 							},
 							async: true,
 							//timeout:12000,

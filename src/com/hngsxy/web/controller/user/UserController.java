@@ -40,29 +40,6 @@ public class UserController {
 //		httpResponse.addHeader("Pragma", "no-cache");
 //		httpResponse.addDateHeader("Expires", 0);
 		
-		//------
-		Subject currentUser = SecurityUtils.getSubject();
-		if(!currentUser.isAuthenticated()) {
-			UsernamePasswordToken token = new UsernamePasswordToken(user.getUserCode(),user.getUserPassword());
-			//rememberme
-			token.setRememberMe(true);
-
-			try {
-				//执行登录
-				currentUser.login(token);
-				//session.setAttribute("isLogin", "1");
-				return "backstagemanage/ackstagepage";
-			}catch(AuthenticationException ae) {
-				req.setAttribute("msg", "登录失败");
-			}
-			//req.setAttribute("msg", "登录失败");
-		}
-		
-
-		
-		//------
-
-		
 		//如果登陆失败从request中获取认证异常信息，shiroLoginFailure就是shiro异常类的全限定名
 		String exceptionClassName = (String) req.getAttribute("shiroLoginFailure");
 
@@ -90,7 +67,24 @@ public class UserController {
 			}
 		}
 
-		//return "backstagemanage/backstagepage";
+		//------
+		Subject currentUser = SecurityUtils.getSubject();
+		if(!currentUser.isAuthenticated()) {
+			UsernamePasswordToken token = new UsernamePasswordToken(user.getUserCode(),user.getUserPassword());
+			//rememberme
+			token.setRememberMe(true);
+
+			try {
+				//执行登录
+				currentUser.login(token);
+				//session.setAttribute("isLogin", "1");
+				return "backstagemanage/ackstagepage";
+			}catch(AuthenticationException ae) {
+		
+			}
+
+		}
+
 		return "login";
 	}
 	

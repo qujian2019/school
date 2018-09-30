@@ -128,6 +128,7 @@
 		
  		</body>
 		<script src="/r3/jquery/jquery-1.8.2.js" type="text/javascript"></script>
+		<script src="../../r3/anonJs/anonJs.js"></script>
 		<script src="/r3/layui-v2.3.0/layui/layui.js"></script>
 		<script>
 			function parseUrl() {
@@ -196,7 +197,8 @@
 							$("#factions").append(List);
 							}
 					});
-
+					
+			
 			//Demo
 			layui.use('form', function(){
 			  var form = layui.form;
@@ -248,10 +250,10 @@
 							data: {
 								id:id
 							},
-							async: false,
+							async: true,
 							//timeout:12000,
 							success: function(data) {
-								//console.log(data)
+								console.log(data.photo);
 								$("#idcard").val(data.idcard);
 								$("#studentName").val(data.studentName);
 								$("#schoolNumber").val(data.schoolNumber);
@@ -262,7 +264,7 @@
 								$("#enrollmentYear").val(data.enrollmentYear);
 								$("#studentPicture").val(data.photo);
 								$("#examination").val(data.examination);
-								
+								$("#studentImg").attr('src',data.photo+'?uuid='+uuid());
 									if(data.studentsex == '1'){
 										$("#sex1").attr('checked','checked');
 									}else if(data.studentsex == '2'){
@@ -291,6 +293,9 @@
 				data: {
 				  idcard: function(){
 				    return $('#idcard').val();
+				  },
+				  textState:function(){
+				  	return '1';
 				  }
 				},
 				field: 'myfile',

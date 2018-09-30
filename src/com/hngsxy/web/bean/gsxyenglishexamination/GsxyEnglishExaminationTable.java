@@ -32,12 +32,26 @@ public class GsxyEnglishExaminationTable implements Serializable{
 	private String centreNo;
 	private String examinationStatus;
 	private String photo;
+	private String photoPth;
 	private String insertTime;
 	private String unqualifiedReason;
 	private String charge;
 	private String college;
 	private String examination;
-
+	private String textPassword;
+	
+	public String getPhotoPth() {
+		return photoPth;
+	}
+	public void setPhotoPth(String photoPth) {
+		this.photoPth = photoPth;
+	}
+	public String getTextPassword() {
+		return textPassword;
+	}
+	public void setTextPassword(String textPassword) {
+		this.textPassword = textPassword;
+	}
 	public String getExamination() {
 		return examination;
 	}

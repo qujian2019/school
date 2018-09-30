@@ -588,8 +588,8 @@
 							</a>
 							<a href="pages/anon/more_news.html?urlPath=findlunBoTuXinWenNewsJia">
 								<span class="layui-badge layui-bg-green moreDiv" style="left: 5px; top: 0px;">
-					    		More
-					    	</span>
+						    		More
+						    	</span>
 							</a>
 						</ul>
 						<div class="layui-tab-content">
@@ -664,10 +664,9 @@
 							</a>
 						</ul>
 						<div class="layui-tab-content">
-							<video style="width: 100%;height: 230px;" controls>
-							  <source src="http://124.228.83.236/temp/media/hngsxy.mp4" type="video/mp4">
-							  <source src="http://124.228.83.236/temp/media/hngsxy.mp4" type="video/ogg">
-							  您的浏览器不支持 HTML5 video 标签。
+							<video style="width: 100%;height: 230px;" controls poster="r3/imgs/index/videoImg.png">
+								<source src="http://www.hngsxy.com/temp/media/hngsxy.mp4" type="video/mp4">
+								<source src="http://www.hngsxy.com/temp/media/hngsxy.mp4" type="video/ogg"> 您的浏览器不支持 HTML5 video 标签。
 							</video>
 						</div>
 					</div>
@@ -804,7 +803,7 @@
 					<td>
 						<div class="layui-field-box">
 							<form class="layui-form" action="">
-								
+
 								<div class="layui-form-item">
 									<div class="layui-input-inline" style="width: 400px;float: left;">
 										<select id="zhwz" name="zhwz" lay-filter="zhwz">
@@ -835,7 +834,7 @@
 				<img src="/r3/imgs/gonggongImg/beianbgs.png" style="width: 20px; height: 20px;" />
 				<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=43040702000117" target="_blank">湘公网安备 43040702000117号</a> <br />
 				<a href="http://webscan.360.cn/index/checkwebsite/url/www.hngsxy.com">
-					<img border="0" src="http://webscan.360.cn/status/pai/hash/5c13a189984c995cc18a537b3a22f0aa"/>
+					<img border="0" src="http://webscan.360.cn/status/pai/hash/5c13a189984c995cc18a537b3a22f0aa" />
 				</a>
 			</div>
 		</div>
@@ -859,23 +858,21 @@
 			var form = layui.form;
 
 			form.on('select(zhwz)', function(data) {
-					if(data.value =='zhwz'){
-					}else if(data.value =='zhrmghgjyb'){
-						window.open("http://www.moe.gov.cn/");
-					}else if(data.value =='hnsjyt'){
-						window.open("http://www.gov.hnedu.cn/index.shtml");
-					}else if(data.value =='hnzcjyxxw'){
-						window.open("http://zcc.hnedu.cn/");
-					}else if(data.value =='hnsrlzyshbzt'){
-						window.open("http://www.hnrst.gov.cn/");
-					}
+				if(data.value == 'zhwz') {} else if(data.value == 'zhrmghgjyb') {
+					window.open("http://www.moe.gov.cn/");
+				} else if(data.value == 'hnsjyt') {
+					window.open("http://www.gov.hnedu.cn/index.shtml");
+				} else if(data.value == 'hnzcjyxxw') {
+					window.open("http://zcc.hnedu.cn/");
+				} else if(data.value == 'hnsrlzyshbzt') {
+					window.open("http://www.hnrst.gov.cn/");
+				}
 			});
-			
+
 			form.on('select(qtwz)', function(data) {
-					if(data.value =='qtwz'){
-					}else if(data.value =='zggzgzjyw'){
-						window.open("http://www.tech.net.cn/web/index.aspx");
-					}
+				if(data.value == 'qtwz') {} else if(data.value == 'zggzgzjyw') {
+					window.open("http://www.tech.net.cn/web/index.aspx");
+				}
 			});
 
 		});

@@ -31,6 +31,7 @@ import com.hngsxy.web.bean.gsxysunshineservice.GsxySunshineService;
 import com.hngsxy.web.bean.gsxysunshineservice.GsxySunshineServiceNews;
 import com.hngsxy.web.bean.gsxywskximg.GsxyWskxImg;
 import com.hngsxy.web.bean.news.News;
+import com.hngsxy.web.bean.user.ActiveUser;
 import com.hngsxy.web.bean.user.User;
 import com.hngsxy.web.bean.usermanagement.Dept;
 import com.hngsxy.web.bean.zs.GsxyFactions;
@@ -41,6 +42,7 @@ import com.hngsxy.web.biz.gsxysunshineservice.GsxySunshineServiceBiz;
 import com.hngsxy.web.biz.gsxywskximg.impl.GsxyWskxImgBizImpl;
 import com.hngsxy.web.biz.news.impl.NewsBizImpl;
 import com.hngsxy.web.biz.student.StudentBiz;
+import com.hngsxy.web.biz.user.UserBiz;
 import com.hngsxy.web.biz.zs.ZheShuBiz;
 
 /**
@@ -70,6 +72,9 @@ public class Anon {
 
 	@Autowired
 	private EnglishTestBiz englishTestBiz;
+	
+	@Autowired
+	private UserBiz userBiz;
 
 	// 查询一个新闻对象
 	@RequestMapping("/selectNewsTypeIs0")
@@ -1183,4 +1188,42 @@ public class Anon {
 		}
 		return temp;
 	}
+	
+	//用于移动端查询
+	@SuppressWarnings("null")
+	@RequestMapping(value = "/findMobileUser")
+	public @ResponseBody ActiveUser findMobileUser(String userCode,String userPassword){
+		ActiveUser temp = new ActiveUser();
+		User u = null;
+		try {
+			u = userBiz.findMobileUser(userCode, userPassword);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(u!=null) {
+			//封住到认证用户
+			temp.setUserId(u.getUserId());
+			temp.setUserCode(u.getUserCode());
+			temp.setDeptno(u.getDeptno());
+			temp.setUserName(u.getUserName());
+	/*		temp.setDepts();
+			temp.setDepartments(departments);
+			temp.setMenus(menus);
+			temp.setPermissions(permissions);
+			temp.setRolemenus(rolemenus);*/
+		}else {
+			return null;
+		}
+
+		return temp;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

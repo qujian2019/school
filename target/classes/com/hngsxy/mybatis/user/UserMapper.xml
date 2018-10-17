@@ -18,6 +18,12 @@
 		WHERE userCode = #{userCode} AND userPassword = #{userPassword}
 	</select>
 	
+	<select id="findMobileUser" parameterType="String" resultType="User">
+		SELECT * 
+		FROM gsxy_user
+		WHERE userCode = #{userCode} AND userPassword = #{userPassword}
+	</select>
+	
 	<select id="findUserById" parameterType="User" resultType="User">
 		SELECT * 
 		FROM gsxy_user

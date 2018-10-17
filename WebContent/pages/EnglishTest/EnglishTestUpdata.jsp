@@ -94,15 +94,21 @@
 			      </select>
 			    </div>
 			  </div>
-					<div class="layui-form-item">
-						<label class="layui-form-label">考期</label>
-						<div class="layui-input-block">
-							<select id="examination" name="examination" lay-verify="required">
-								<option value="2018年下">2018年下</option>
-								<option value="2019年上">2019年上</option>
-							</select>
-						</div>
-					</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">电话</label>
+				<div class="layui-input-block">
+					<input type="text" id="telePhone" name="telePhone" required lay-verify="required|number" placeholder="请输电话" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">考期</label>
+				<div class="layui-input-block">
+					<select id="examination" name="examination" lay-verify="required">
+						<option value="2018年下">2018年下</option>
+						<option value="2019年上">2019年上</option>
+					</select>
+				</div>
+			</div>
 				<div class="layui-form-item" id="tpsc">
 					<label class="layui-form-label">上传照片:</label>
 					<div class="layui-input-block">
@@ -222,7 +228,9 @@
 								enrollmentYear:data.field.enrollmentYear,
 								examination:data.field.examination,
 								major:data.field.major,
-								photo:$("#studentPicture").val()
+								photo:$("#studentPicture").val(),
+								telePhone:data.field.telePhone
+								
 							},
 							async: true,
 							//timeout:12000,
@@ -265,6 +273,8 @@
 								$("#studentPicture").val(data.photo);
 								$("#examination").val(data.examination);
 								$("#studentImg").attr('src',data.photo+'?uuid='+uuid());
+								$("#telePhone").val(data.telePhone);
+								
 									if(data.studentsex == '1'){
 										$("#sex1").attr('checked','checked');
 									}else if(data.studentsex == '2'){

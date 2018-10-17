@@ -13,6 +13,13 @@
 				margin: 0px;
 				background: url(/r3/imgs/index_scy_jyb_banner.jpg)no-repeat;
 			}
+			.ttt{
+				background-color: #C6C6C6;
+				font-size: 20px;
+			}
+			.ttt1{
+				font-size: 20px;
+			}
 			.Headerdiv {
 				width: 100%;
 				height: 216px;
@@ -32,6 +39,61 @@
 				padding: 10px;
 				/*border-radius:5px 0;border:1px solid #c2c2c2;*/
 			}
+			@media screen and (max-width:992px) {
+/*				.layui-form-label {
+					color: #AC2925;
+				}*/
+				
+				.layui-form{
+					margin-top: 50px;
+				}
+				
+				.layui-form-label{
+					font-size: 60px;
+					line-height: 50px;
+					width: 260px;
+				}
+				.layui-input{
+					font-size: 40px;
+					height: 68px;
+				}
+				.layui-input-block{
+					float: left;
+					margin-left: 0px;
+					width: 500px;
+					font-size: 40px;
+					
+				}
+				.layui-form-select .layui-input {
+				    font-size: 40px;
+				}
+				.layui-btn {
+				    height: 68px;
+				    font-size: 34px;
+				}
+				.studentsex1{
+					font-size: 40px;
+				}
+				.layui-form-radioed > i{
+					font-size: 40px;
+				}
+				.layui-form-radioed > div{
+					font-size: 40px;
+				}
+				.ttt{
+					
+					font-size: 40px;
+				}
+				.ttt1{
+					font-size: 40px;
+				}
+			}
+			@media screen and (max-width:768px) {
+/*				.layui-form-label {
+					color: #009900;
+				}*/
+			}
+			
 
 		</style>
 	</head>
@@ -57,7 +119,7 @@
 					    </div>
 					  </div>
 					  <div class="layui-form-item">
-					    <div class="layui-input-block">
+					    <div class="layui-input-block" style="margin-left: 210px;">
 					      <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
 					      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
 					    </div>
@@ -70,55 +132,54 @@
 
 					  </div>
 					</div>
-						<table class="layui-table">
-						  <colgroup>
-						    <col width="150">
-						    <col width="150">
-						    <col width="150">
-						  </colgroup>
-						  <tbody>
-						    <tr>
-						      <td class="ttt">身份证</td>
-						      <td class="ttt">姓名</td>
-						      <td class="ttt">性别</td>
-						    </tr>
-						    <tr>
-						      <td id="idcard"></td>
-						      <td id="studentName"></td>
-						      <td id="studentsex"></td>
-						    </tr>
-						    <tr>
-						      <td class="ttt">校区</td>
-						      <td class="ttt">学院</td>
-						      <td class="ttt">系别</td>
-						    </tr>
-						    <tr>
-						      <td id="campus"></td>
-						      <td id="college"></td>
-						      <td id="factions"></td>
-						    </tr>
-						    <tr>
-						      <td class="ttt">班级</td>
-						      <td class="ttt">学号</td>
-						      <td class="ttt">入学年份</td>
-						    </tr>
-						    <tr>
-						      <td id="classNumber"></td>
-						      <td id="schoolNumber"></td>
-						      <td id="enrollmentYear"></td>
-						    </tr>
-						    <tr>
-						      <td class="ttt">专业</td>
-						      <td class="ttt">考期</td>
-						      <td class="ttt">上传图片</td>
-						    </tr>
-						    <tr>
-						      <td id="major"></td>
-						      <td id="examination"></td>
-						      <td><img id="photo" src="" style="max-height: 100%; max-width: 100%;" /></td>
-						    </tr>
-						  </tbody>
-						</table>
+					<div class="layui-col-md4">
+						<p class="ttt">身份证</p>
+						<p class="ttt1" id="idcard"></p>
+					</div>
+					<div class="layui-col-md4">
+						<p class="ttt">姓名</p>
+						<p class="ttt1" id="studentName"></p>
+					</div>
+					<div class="layui-col-md4">
+						<p class="ttt">性别</p>
+						<p class="ttt1" id="studentsex"></p>
+					</div>
+					<div class="layui-col-md4">
+						<p class="ttt">校区</p>
+						<p class="ttt1" id="campus"></p>
+					</div>
+					<div class="layui-col-md4">
+						<p class="ttt">学院</p>
+						<p class="ttt1" id="college"></p>
+					</div>
+					<div class="layui-col-md4">
+						<p class="ttt">系别</p>
+						<p class="ttt1" id="factions"></p>
+					</div>
+					<div class="layui-col-md4">
+						<p class="ttt">班级</p>
+						<p class="ttt1" id="classNumber"></p>
+					</div>
+					<div class="layui-col-md4">
+						<p class="ttt">学号</p>
+						<p class="ttt1" id="schoolNumber"></p>
+					</div>
+					<div class="layui-col-md4">
+						<p class="ttt">入学年份</p>
+						<p class="ttt1" id="enrollmentYear"></p>
+					</div>
+					<div class="layui-col-md4">
+						<p class="ttt">专业</p>
+						<p class="ttt1" id="major"></p>
+					</div>
+					<div class="layui-col-md4">
+						<p class="ttt">考期</p>
+						<p class="ttt1" id="examination"></p>
+					</div>
+					<div class="layui-col-md4">
+						<p class="ttt">上传图片</p>
+						<p><img id="photo" src="" style="max-height: 100%; max-width: 100%;" /></p>
+					</div>
 			</fieldset>
 		</div>
 		<div class="jgdiv"></div>

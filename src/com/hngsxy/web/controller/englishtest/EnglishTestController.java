@@ -175,7 +175,7 @@ public class EnglishTestController {
 
 	}
 	
-	// 查询一个报考信息
+	// 普通话考试修改
 	@RequestMapping(value = "/updateGeneralTest")
 	public @ResponseBody Integer updateGeneralTest(GsxyEnglishExaminationTable g) {
 		Integer temp = null;
@@ -188,7 +188,7 @@ public class EnglishTestController {
 
 	}
 
-	// 查询一个报考信息
+	// 英语考试修改
 	@RequestMapping(value = "/updateEnglishTestState")
 	public @ResponseBody Integer updateEnglishTestState(String[] ids) {
 		Integer temp = null;

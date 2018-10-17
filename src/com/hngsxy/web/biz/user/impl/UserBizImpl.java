@@ -71,6 +71,11 @@ public class UserBizImpl implements UserBiz{
 		// TODO Auto-generated method stub
 		return userMapper.findDepartmentListByUserId(userId);
 	}
+	//移动用户
+	@Override
+	public User findMobileUser(String userCode, String userPassword) throws Exception {
+		return userMapper.findMobileUser(userCode, userPassword);
+	}
 	
 	
 	

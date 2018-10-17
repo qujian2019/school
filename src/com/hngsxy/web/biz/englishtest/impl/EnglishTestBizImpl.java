@@ -78,7 +78,7 @@ public class EnglishTestBizImpl implements EnglishTestBiz{
 	//修改一个报考信息
 	@Override
 	public Integer updateEnglishTest(GsxyEnglishExaminationTable gsxyEnglishExaminationTable) throws Exception {
-		return englishTestMapper.updateEnglishTest(gsxyEnglishExaminationTable);
+		return englishTestMapper.updateEnglishTestYY(gsxyEnglishExaminationTable);
 	}
 	//批量删除
 	@Override
@@ -322,7 +322,7 @@ public class EnglishTestBizImpl implements EnglishTestBiz{
 	//修改普通话考试考生
 	@Override
 	public Integer updateGeneralTest(GsxyEnglishExaminationTable gsxyEnglishExaminationTable) throws Exception {
-		return englishTestMapper.updateGeneralTest(gsxyEnglishExaminationTable);
+		return englishTestMapper.updateGeneralTestPt(gsxyEnglishExaminationTable);
 	}
 	
 	

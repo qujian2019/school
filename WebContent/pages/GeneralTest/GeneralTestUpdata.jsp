@@ -69,6 +69,16 @@
 			      </select>
 			    </div>
 			  </div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">学籍种类</label>
+					<div class="layui-input-block">
+						<select id="classType" name="classType" lay-verify="required">
+							<option value="五年制大专">五年制大专</option>
+							<option value="三年制大专">三年制大专</option>
+							<option value="中专">中专</option>
+						</select>
+					</div>
+				</div>
 			  <div class="layui-form-item">
 			    <label class="layui-form-label">班级</label>
 			    <div class="layui-input-block">
@@ -95,15 +105,27 @@
 			      </select>
 			    </div>
 			  </div>
-					<div class="layui-form-item">
-						<label class="layui-form-label">考期</label>
-						<div class="layui-input-block">
-							<select id="examination" name="examination" lay-verify="required">
-								<option value="2018年下">2018年下</option>
-								<option value="2019年上">2019年上</option>
-							</select>
-						</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">民族</label>
+					<div class="layui-input-block">
+						<input type="text" id="nation" name="nation" required lay-verify="required" placeholder="请输民族" autocomplete="off" class="layui-input">
 					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">电话</label>
+					<div class="layui-input-block">
+						<input type="text" id="telePhone" name="telePhone" required lay-verify="required|number" placeholder="请输电话" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">考期</label>
+					<div class="layui-input-block">
+						<select id="examination" name="examination" lay-verify="required">
+							<option value="2018年下">2018年下</option>
+							<option value="2019年上">2019年上</option>
+						</select>
+					</div>
+				</div>
 				<div class="layui-form-item" id="tpsc">
 					<label class="layui-form-label">上传照片:</label>
 					<div class="layui-input-block">
@@ -222,7 +244,10 @@
 								enrollmentYear:data.field.enrollmentYear,
 								examination:data.field.examination,
 								major:data.field.major,
-								photoPth:$("#studentPicture").val()
+								classType:data.field.classType,
+								nation:data.field.nation,
+								photoPth:$("#studentPicture").val(),
+								telePhone:data.field.telePhone
 							},
 							async: true,
 							//timeout:12000,
@@ -233,8 +258,6 @@
 										}else{
 											layer.msg("修改失败");
 										}
-							
-							
 							}
 					});
 
@@ -253,7 +276,7 @@
 							async: true,
 							//timeout:12000,
 							success: function(data) {
-								//console.log(data.photo);
+								console.log(data.photoPth);
 								$("#idcard").val(data.idcard);
 								$("#studentName").val(data.studentName);
 								$("#schoolNumber").val(data.schoolNumber);
@@ -262,9 +285,12 @@
 								$("#factions").val(data.factions);
 								$("#classNumber").val(data.classNumber);
 								$("#enrollmentYear").val(data.enrollmentYear);
-								$("#studentPicture").val(data.photo);
+								$("#studentPicture").val(data.photoPth);
 								$("#examination").val(data.examination);
-								$("#studentImg").attr('src',data.photo+'?uuid='+uuid());
+								$("#studentImg").attr('src',data.photoPth+'?uuid='+uuid());
+								$("#classType").val(data.classType);
+								$("#nation").val(data.nation);
+								$("#telePhone").val(data.telePhone);
 									if(data.studentsex == '1'){
 										$("#sex1").attr('checked','checked');
 									}else if(data.studentsex == '2'){

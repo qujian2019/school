@@ -33,5 +33,7 @@ public interface UserBiz {
 	
 	Integer updateUserInfo(User user)throws Exception;//用户修改信息
 	
+	User findMobileUser(String userCode,String userPassword)throws Exception;//移动用户
+	
 	
 }

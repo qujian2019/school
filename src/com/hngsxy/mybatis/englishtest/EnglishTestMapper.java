@@ -22,7 +22,7 @@ public interface EnglishTestMapper {
 	//普通话考试
 	Integer insertGeneralTest(GsxyEnglishExaminationTable gsxyEnglishExaminationTable)throws Exception;
 	//修改考生信息
-	Integer updateEnglishTest(GsxyEnglishExaminationTable gsxyEnglishExaminationTable)throws Exception;
+	Integer updateEnglishTestYY(GsxyEnglishExaminationTable gsxyEnglishExaminationTable)throws Exception;
 	//考生录入信息查询
 	ArrayList<GsxyEnglishExaminationTable>findEnglishExamination(Map<String, Object> condtion)throws Exception;
 	Integer findEnglishExaminationTotal(Map<String, Object> condtion)throws Exception;
@@ -66,7 +66,7 @@ public interface EnglishTestMapper {
 	//前天修改普通话考生信息
 	Integer updateGeneralTestqt(GsxyEnglishExaminationTable gsxyEnglishExaminationTable)throws Exception;
 	//前天修改普通话考生信息
-	Integer updateGeneralTest(GsxyEnglishExaminationTable gsxyEnglishExaminationTable)throws Exception;
+	Integer updateGeneralTestPt(GsxyEnglishExaminationTable gsxyEnglishExaminationTable)throws Exception;
 	
 	
 }

@@ -160,6 +160,10 @@
 							title: '班级',
 							width: 100
 						}, {
+							field: 'classType',
+							title: '学籍种类',
+							width: 100
+						}, {
 							field: 'schoolNumber',
 							title: '学号',
 							width: 100
@@ -170,6 +174,14 @@
 						}, {
 							field: 'major',
 							title: '专业',
+							width: 200
+						}, {
+							field: 'nation',
+							title: '民族',
+							width: 200
+						},{
+							field: 'telePhone',
+							title: '电话',
 							width: 200
 						}, {
 							field: 'admissionTicket',

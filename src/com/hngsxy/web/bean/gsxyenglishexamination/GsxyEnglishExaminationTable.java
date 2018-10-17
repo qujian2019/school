@@ -39,7 +39,28 @@ public class GsxyEnglishExaminationTable implements Serializable{
 	private String college;
 	private String examination;
 	private String textPassword;
+	private String nation;
+	private String classType;
+	private String telePhone;//学生电话
 	
+	public String getTelePhone() {
+		return telePhone;
+	}
+	public void setTelePhone(String telePhone) {
+		this.telePhone = telePhone;
+	}
+	public String getNation() {
+		return nation;
+	}
+	public void setNation(String nation) {
+		this.nation = nation;
+	}
+	public String getClassType() {
+		return classType;
+	}
+	public void setClassType(String classType) {
+		this.classType = classType;
+	}
 	public String getPhotoPth() {
 		return photoPth;
 	}

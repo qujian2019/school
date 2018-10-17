@@ -7,41 +7,41 @@
 	<!-- 新增考生信息 -->
 	<insert id="insertEnglishTest" parameterType="GsxyEnglishExaminationTable">
 		INSERT INTO `gsxy_english_examination_table`
-		(`id`,`idcard`,`studentName`,`studentsex`,`campus`,`college`,`factions`,`classNumber`,`schoolNumber`,`enrollmentYear`,`major`,`examinationStatus`,`photo`,`insertTime`,`examination`,`textPassword`)
+		(`id`,`idcard`,`studentName`,`studentsex`,`campus`,`college`,`factions`,`classNumber`,`schoolNumber`,`enrollmentYear`,`major`,`examinationStatus`,`photo`,`insertTime`,`examination`,`textPassword`,`nation`,`classType`,`telePhone`)
 		VALUES 
-		(REPLACE(UUID(),"-",""),#{idcard},#{studentName},#{studentsex},#{campus},#{college},#{factions},#{classNumber},#{schoolNumber},#{enrollmentYear},#{major},#{examinationStatus},#{photo},NOW(),#{examination},#{textPassword})
+		(REPLACE(UUID(),"-",""),#{idcard},#{studentName},#{studentsex},#{campus},#{college},#{factions},#{classNumber},#{schoolNumber},#{enrollmentYear},#{major},#{examinationStatus},#{photo},NOW(),#{examination},#{textPassword},#{nation},#{classType},#{telePhone})
 	</insert>
 	<!-- 添加普通话考试 -->
 	<insert id="insertGeneralTest" parameterType="GsxyEnglishExaminationTable">
 		INSERT INTO `gsxy_english_examination_table`
-		(`id`,`idcard`,`studentName`,`studentsex`,`campus`,`college`,`factions`,`classNumber`,`schoolNumber`,`enrollmentYear`,`major`,`examinationStatus`,`photoPth`,`insertTime`,`examination`,`textPassword`)
+		(`id`,`idcard`,`studentName`,`studentsex`,`campus`,`college`,`factions`,`classNumber`,`schoolNumber`,`enrollmentYear`,`major`,`examinationStatus`,`photoPth`,`insertTime`,`examination`,`textPassword`,`telePhone`)
 		VALUES 
-		(REPLACE(UUID(),"-",""),#{idcard},#{studentName},#{studentsex},#{campus},#{college},#{factions},#{classNumber},#{schoolNumber},#{enrollmentYear},#{major},#{examinationStatus},#{photoPth},NOW(),#{examination},#{textPassword})
+		(REPLACE(UUID(),"-",""),#{idcard},#{studentName},#{studentsex},#{campus},#{college},#{factions},#{classNumber},#{schoolNumber},#{enrollmentYear},#{major},#{examinationStatus},#{photoPth},NOW(),#{examination},#{textPassword},#{telePhone})
 	</insert>
 	
-	<!-- 前天给学生修改 -->
+	<!-- 英语考试 -->
 	<update id="updateEnglishTestqt" parameterType="GsxyEnglishExaminationTable">
 		UPDATE `gsxy_english_examination_table` 
-		SET `idcard` =#{idcard},`studentName`=#{studentName},`studentsex`=#{studentsex},`campus`=#{campus},`factions`=#{factions},`classNumber`=#{classNumber},`enrollmentYear`=#{enrollmentYear},`major`=#{major},`photo`=#{photo},`college`=#{college},`examination`=#{examination}
-		WHERE `idcard` = #{idcard} and `textPassword` = #{textPassword} and `examinationStatus` in ('1','2')
+		SET `idcard` =#{idcard},`studentName`=#{studentName},`studentsex`=#{studentsex},`campus`=#{campus},`factions`=#{factions},`classNumber`=#{classNumber},`enrollmentYear`=#{enrollmentYear},`major`=#{major},`photo`=#{photo},`college`=#{college},`examination`=#{examination},`telePhone`=#{telePhone}
+		WHERE `idcard` = #{idcard} and `textPassword` = #{textPassword} and `examination` = #{examination} and `examinationStatus` in ('1','2')
 	</update>
-	<!-- 前天普通话考试 -->
+	<!-- 普通话考试 -->
 	<update id="updateGeneralTestqt" parameterType="GsxyEnglishExaminationTable">
-		UPDATE `gsxy_english_examination_table` 
-		SET `idcard` =#{idcard},`studentName`=#{studentName},`studentsex`=#{studentsex},`campus`=#{campus},`factions`=#{factions},`classNumber`=#{classNumber},`enrollmentYear`=#{enrollmentYear},`major`=#{major},`photoPth`=#{photoPth},`college`=#{college},`examination`=#{examination}
-		WHERE `idcard` = #{idcard} and `textPassword` = #{textPassword} and `examinationStatus` in ('11','12')
+		UPDATE `gsxy_english_examination_table`
+		SET `classType` =#{classType},`nation` =#{nation},`idcard` =#{idcard},`studentName`=#{studentName},`studentsex`=#{studentsex},`campus`=#{campus},`factions`=#{factions},`classNumber`=#{classNumber},`enrollmentYear`=#{enrollmentYear},`major`=#{major},`photoPth`=#{photoPth},`college`=#{college},`examination`=#{examination},`telePhone`=#{telePhone},`classType`=#{classType},`nation`=#{nation}
+		WHERE `idcard` = #{idcard} and `textPassword` = #{textPassword} and `examination` = #{examination} and `examinationStatus` in ('11','12')
 	</update>
 
 	<!-- 修改考生信息 -->
-	<update id="updateEnglishTest" parameterType="GsxyEnglishExaminationTable">
+	<update id="updateEnglishTestYY" parameterType="GsxyEnglishExaminationTable">
 		UPDATE `gsxy_english_examination_table` 
-		SET `idcard` =#{idcard},`studentName`=#{studentName},`studentsex`=#{studentsex},`campus`=#{campus},`factions`=#{factions},`classNumber`=#{classNumber},`enrollmentYear`=#{enrollmentYear},`major`=#{major},`photo`=#{photo},`college`=#{college},`examination`=#{examination}
+		SET `idcard` =#{idcard},`studentName`=#{studentName},`studentsex`=#{studentsex},`campus`=#{campus},`factions`=#{factions},`classNumber`=#{classNumber},`enrollmentYear`=#{enrollmentYear},`major`=#{major},`photo`=#{photo},`college`=#{college},`examination`=#{examination},`telePhone`=#{telePhone}
 		WHERE `id` = #{id}
 	</update>
 	<!-- 修改pth考生信息 -->
-	<update id="updateGeneralTest" parameterType="GsxyEnglishExaminationTable">
+	<update id="updateGeneralTestPt" parameterType="GsxyEnglishExaminationTable">
 		UPDATE `gsxy_english_examination_table` 
-		SET `idcard` =#{idcard},`studentName`=#{studentName},`studentsex`=#{studentsex},`campus`=#{campus},`factions`=#{factions},`classNumber`=#{classNumber},`enrollmentYear`=#{enrollmentYear},`major`=#{major},`photoPth`=#{photoPth},`college`=#{college},`examination`=#{examination}
+		SET `idcard` =#{idcard},`studentName`=#{studentName},`studentsex`=#{studentsex},`campus`=#{campus},`factions`=#{factions},`classNumber`=#{classNumber},`enrollmentYear`=#{enrollmentYear},`major`=#{major},`photoPth`=#{photoPth},`college`=#{college},`examination`=#{examination},`telePhone`=#{telePhone},`classType`=#{classType},`nation`=#{nation}
 		WHERE `id` = #{id}
 	</update>
 

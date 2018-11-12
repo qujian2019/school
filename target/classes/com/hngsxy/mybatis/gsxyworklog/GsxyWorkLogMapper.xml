@@ -37,11 +37,12 @@
 		<if test="userId!=null and userId!=''">
 		 	and userId = #{userId}
 		</if>
+		<include refid="GsxyWorkLog_sql2"></include>
 		ORDER BY writeTime DESC
 		LIMIT #{page},#{limit}) aa
 		<include refid="GsxyWorkLog_sql"></include>
 		)aaa
-		<include refid="GsxyWorkLog_sql2"></include>
+		
 	</select>
 	
 	<!-- 新增员工日志总数  COUNT(1)-->
@@ -56,20 +57,21 @@
 		<if test="userId!=null and userId!=''">
 		 	and userId = #{userId}
 		</if>
+		<include refid="GsxyWorkLog_sql2"></include>
 		ORDER BY writeTime DESC) aa
 		<include refid="GsxyWorkLog_sql"></include>
 		)aaa
-		<include refid="GsxyWorkLog_sql2"></include>
+		
 	</select>
 	<sql id="GsxyWorkLog_sql">
 		<where>
 			<if test="writeTime!=null and writeTime!=''and time2!=null and time2!=''">
-			 	writeTime BETWEEN #{writeTime} AND #{time2}
+			 	writeTime BETWEEN #{time2} AND #{writeTime}
 			</if>
 		</where>
 	</sql>
 	<sql id="GsxyWorkLog_sql2">
-		<where>
+		
 			<if test="deptName!=null and deptName!=''">
 			 	and deptName = #{deptName}
 			</if>
@@ -79,7 +81,7 @@
 			<if test="weeks!=null and weeks!=''">
 			 	and weeks = #{weeks}
 			</if>
-		</where>
+		
 	</sql>
 	
 	<update id="updateWorkLogStatus" parameterType="GsxyWorkLog">

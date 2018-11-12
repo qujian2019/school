@@ -4,7 +4,7 @@
 <html>
 
 	<head>
-		<title>学院后台登录</title>
+		<title>员工管理平台</title>
 		<meta http-equiv="Pragma",content="no-cache">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="renderer" content="webkit" />
@@ -22,7 +22,7 @@
 	<body class="beg-login-bg">
 		<div class="beg-login-box">
 			<header>
-				<h1>学院后台登录</h1>
+				<h1>员工管理平台</h1>
 			</header>
 			<div class="beg-login-main">
 				<span style="color: red;">${msg}</span>

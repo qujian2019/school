@@ -170,9 +170,15 @@
 					<legend>新增用户</legend>
 					<form class="layui-form" action="">
 						<div class="layui-form-item">
-							<label class="layui-form-label">用户名:</label>
+							<label class="layui-form-label">昵称:</label>
 							<div class="layui-input-block">
-								<input type="text" name="userCode" required lay-verify="required" placeholder="姓名建议:XXX_电话号码" autocomplete="off" class="layui-input" style="width: 200px;">
+								<input type="text" name="userName" required lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input" style="width: 200px;">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">账号:</label>
+							<div class="layui-input-block">
+								<input type="text" name="userCode" required lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input" style="width: 200px;">
 							</div>
 						</div>
 						<div class="layui-form-item">
@@ -185,6 +191,12 @@
 							<label class="layui-form-label">用户年龄:</label>
 							<div class="layui-input-block">
 								<input type="text" name="userAge" required lay-verify="required" placeholder="请输入用户年龄" autocomplete="off" class="layui-input" style="width: 200px;">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">身份证:</label>
+							<div class="layui-input-block">
+								<input type="text" name="idCard" required lay-verify="" placeholder="请输入身份证" autocomplete="off" class="layui-input" style="width: 200px;">
 							</div>
 						</div>
 						<div class="layui-form-item">
@@ -665,13 +677,23 @@
 									LAY_CHECKED: false
 								},
 								{
+									field: 'userName',
+									title: '昵称',
+									width: 266
+								},
+								{
 									field: 'userCode',
-									title: '用户名称',
+									title: '账号',
 									width: 266
 								},
 								{
 									field: 'userAge',
 									title: '用户年龄',
+									width: 266
+								},
+								{
+									field: 'idCard',
+									title: '身份证',
 									width: 266
 								},
 								{
@@ -753,9 +775,9 @@
 										offset: 't', //具体配置参考：offset参数项
 										content: '<div style="padding: 20px 80px;">' +
 											'<div class="layui-form-item">' +
-											'<label class="layui-form-label">用户名称:</label>' +
+											'<label class="layui-form-label">账号:</label>' +
 											'<div class="layui-input-block">' +
-											'<input type="text" name="userCode" id="userCode" lay-verify="required|title" required placeholder="请输入用户名称" autocomplete="off" class="layui-input">' +
+											'<input type="text" name="userCode" id="userCode" lay-verify="required|title" required placeholder="请输入账号" autocomplete="off" class="layui-input">' +
 											'</div>' +
 											'</div>' +
 											'</div>',
@@ -918,7 +940,9 @@
 									userPassword: data.field.userPassword,
 									userAge: data.field.userAge,
 									userGender: data.field.userGender,
-									userEntryTime: data.field.userEntryTime
+									userEntryTime: data.field.userEntryTime,
+									userName:data.field.userName,
+									idCard: data.field.idCard
 								},
 								async: true,
 								//timeout:12000,
@@ -1097,7 +1121,6 @@
 					});
 				});
 
-
 					//查询用户角色
 					findUserGsxyRole();
 					
@@ -1106,8 +1129,6 @@
 
 					//查询所有部门用于人员调度
 					//findDeptUserMoveDept();
-					
-
 
 				});
 

@@ -77,12 +77,13 @@
 	
 	<!-- 修改用户信息 -->
 	<update id="updateUserInfo" parameterType="User">
-		UPDATE `gsxy_user` 
+		UPDATE `gsxy_user`
 		 <trim prefix="set" suffixOverrides=",">
 		  <if test="userCode!=null and userCode!=''">userCode = #{userCode},</if>
 		  <if test="userName!=null and userName!=''">userName = #{userName},</if>
 		  <if test="userPhone!=null and userPhone!=''">userPhone = #{userPhone},</if>
 		  <if test="userPassword!=null and userPassword!=''">userPassword = #{userPassword},</if>
+		  <if test="idCard!=null and idCard!=''">idCard = #{idCard},</if>
 		 </trim>
 		WHERE `userId` = #{userId}
 	</update>

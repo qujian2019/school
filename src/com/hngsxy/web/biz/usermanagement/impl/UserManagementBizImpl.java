@@ -77,6 +77,8 @@ public class UserManagementBizImpl implements UserManagementBiz{
 	     Map<String, Object> condtion = new HashMap<String, Object>();
 	        condtion.put("deptno",user.getDeptno());
 	        condtion.put("userCode",user.getUserCode());
+	        condtion.put("userName",user.getUserName());
+	        condtion.put("idCard",user.getIdCard());
 	        condtion.put("limit", limit);
 	        condtion.put("page", page);
 	        ArrayList<User> arr = userManagementMapper.findUserTable(condtion);
@@ -89,6 +91,8 @@ public class UserManagementBizImpl implements UserManagementBiz{
 	     Map<String, Object> condtion = new HashMap<String, Object>();
 	        condtion.put("deptno",user.getDeptno());
 	        condtion.put("userCode",user.getUserCode());
+	        condtion.put("userName",user.getUserName());
+	        condtion.put("idCard",user.getIdCard());
 	        Integer temp  = userManagementMapper.findUserTableTotal(condtion);
 		return temp;
 	}

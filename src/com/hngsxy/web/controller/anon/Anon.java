@@ -1216,14 +1216,5 @@ public class Anon {
 		}
 
 		return temp;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 }

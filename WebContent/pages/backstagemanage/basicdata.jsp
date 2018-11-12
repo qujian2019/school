@@ -46,15 +46,21 @@
 			    </div>
 			  </div>
 			  <div class="layui-form-item">
-			    <label class="layui-form-label">用户名称：</label>
+			    <label class="layui-form-label">昵称：</label>
 			    <div class="layui-input-block">
-			      <input type="text" name="userName" required  lay-verify="required|userCode" placeholder="请输入用户名称" autocomplete="off" class="layui-input" style="width: 230px;">
+			      <input type="text" name="userName" required  lay-verify="required" placeholder="请输入昵称" autocomplete="off" class="layui-input" style="width: 230px;">
 			    </div>
 			  </div>
 			  <div class="layui-form-item">
 			    <label class="layui-form-label">电话号码：</label>
 			    <div class="layui-input-block">
 			      <input type="text" name="userPhone" required  lay-verify="required|phone" placeholder="请输入电话号码" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">身份证：</label>
+			    <div class="layui-input-block">
+			      <input type="text" name="idCard" required  lay-verify="required" placeholder="请输入身份证" autocomplete="off" class="layui-input">
 			    </div>
 			  </div>
 			  <div class="layui-form-item">
@@ -93,7 +99,8 @@
 								userCode:data.field.userCode,
 								userName:data.field.userName,
 								userPhone:data.field.userPhone,
-								userPassword:data.field.userPassword
+								userPassword:data.field.userPassword,
+								idCard:data.field.idCard
 							},
 							async: true,
 							//timeout:1200,

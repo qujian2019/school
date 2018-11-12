@@ -59,7 +59,7 @@
 	
 	<!-- 查询所有部门 用于用户table的操作-->
 	<select id="findUserTable" resultType="User" parameterType="map">
-		SELECT userId,userCode,userAge,LEFT(userEntryTime,10) userEntryTime,deptno
+		SELECT userId,userCode,userName,idCard,userAge,LEFT(userEntryTime,10) userEntryTime,deptno
 		FROM gsxy_user
 		WHERE deptno = #{deptno}
 		<include refid="userCode_sql"></include>
@@ -87,9 +87,9 @@
 	<insert id="insertUser" parameterType="User">
 		INSERT INTO
 		gsxy_user
-		(`userName`,`userCode`,`userPassword`,`userAge`,`salt`,`userEntryTime`,`deptno`,`userGender`,`showv`)
+		(`userName`,`userCode`,`userPassword`,`userAge`,`salt`,`userEntryTime`,`deptno`,`userGender`,`showv`,`idCard`)
 		VALUES
-		(#{userCode},#{userCode},#{userPassword},#{userAge},LEFT(UUID(),8),#{userEntryTime},#{deptno},#{userGender},'2')
+		(#{userName},#{userCode},#{userPassword},#{userAge},LEFT(UUID(),8),#{userEntryTime},#{deptno},#{userGender},'2',#{idCard})
 	</insert>
 	
 	<!-- 用于判断用户是否存在 -->
@@ -103,7 +103,7 @@
 	
 	<!-- 修改用户名字 -->
 	<update id="updateUserCode" parameterType="User">
-		UPDATE `gsxy_user`  SET userCode = #{userCode}
+		UPDATE `gsxy_user` SET userCode = #{userCode}
 		WHERE userId = #{userId}
 	</update>
 	<!-- 删除用户 -->

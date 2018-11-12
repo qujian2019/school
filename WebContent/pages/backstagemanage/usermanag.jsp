@@ -29,8 +29,10 @@
 		</style>
 	</head>
     <body>
+    	<input type="hidden" value="${sessionScope.activeUser.userId}" id="userId" />
 		<div class="layui-btn-container" style="margin: 10px;">
 		  <button class="layui-btn" id="goGWLF">湖南工商职业学院员工工作日志</button> 
+		  <button class="layui-btn" id="wsxxzl">完善我的个人资料</button>
 		</div>
     	
     	<!--<button class="layui-btn" id="goGWLF">湖南工商职业学院员工工作日志</button>-->
@@ -42,8 +44,15 @@
 		<script src="/r3/jquery/jquery-1.8.2.js" type="text/javascript"></script>
 		<script src="/r3/layui-v2.2.5/layui/layui.js"></script>
 		<script>
+			
 			$("#goGWLF").on("click",function(){
 				location.href="/pages/gsxyworklog/GsxyWorkLogFrom.jsp";
-			})
+			});
+			
+			$("#wsxxzl").on("click",function(){
+				var userId = $('#userId').val();
+				//location.href="http://www.hngsxy.com/notH5/xt/mt/p184.html?userId="+userId;
+				location.href="/pages/anon/wswdgrzl/wswdgrzl_1.jsp";
+			});
 		</script>
 </html>

@@ -156,12 +156,13 @@
 				limits: [10, 20, 30],
 				limit: 10,
 				id: 'tableId' //ID
-					,
-				where: {
+				,where: {
 					workLogStatus:'1'
 				} //如果无需传递额外参数，可不加该参数
-				,
-				done: function(res, curr, count) {
+			    ,page: {
+			    curr: 1 //重新从第 1 页开始
+			    }
+			    ,done: function(res, curr, count) {
 
 					//监听表格复选框选择
 					table.on('checkbox(tableId)', function(obj) {

@@ -176,6 +176,11 @@
 		$("#pthdjks").on("click", function() {
 			$("#mianIframe").attr("src", "/pages/GeneralTest/GeneralTestManage.jsp");
 		});
+		
+		$("#wsbxxt").on("click", function() {
+			$("#mianIframe").attr("src", "/pages/wsbxxt/wsbxxt_1.jsp");
+		});
+		
 
 
 	</script>

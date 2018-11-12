@@ -45,6 +45,16 @@ public class User implements Serializable{
 	private String showv;//用于显示页面
 	
 	private String userPhone;//用户手机号码
+	
+	private String idCard;//身份证
+	
+	public String getIdCard() {
+		return idCard;
+	}
+
+	public void setIdCard(String idCard) {
+		this.idCard = idCard;
+	}
 
 	public Integer getUserId() {
 		return userId;

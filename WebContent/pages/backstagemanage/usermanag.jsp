@@ -7,6 +7,7 @@
 			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 			<meta name="renderer" content="webkit">
 			<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=Edge">
+			<meta name="viewport" content="width=device-width,initial-scale=1.0">
 			<link rel="stylesheet" href="/r3/layui-v2.2.5/layui/css/layui.css" />
 			<link rel="shortcut icon" href="http://124.228.83.236/r3/imgs/sign/bitbug_favicon.ico" />
 		<style>

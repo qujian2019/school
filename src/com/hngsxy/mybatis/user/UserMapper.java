@@ -33,4 +33,7 @@ public interface UserMapper{
 	Integer updateUserInfo(User user)throws Exception;//用户修改信息
 	
 	User findMobileUser(@Param("userCode")String userCode,@Param("userPassword")String userPassword)throws Exception;//移动用户
+	
+	
+	
 }

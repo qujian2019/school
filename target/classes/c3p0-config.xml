@@ -3,7 +3,7 @@
 	<!-- 这是默认配置信息 -->
 	<default-config> 
 		<!-- 连接四大参数配置 -->
-		<property name="jdbcUrl">jdbc:mysql://172.16.1.82:3306/schooldata</property>
+		<property name="jdbcUrl">jdbc:mysql://172.16.1.80:3306/schooldata</property>
 		<property name="driverClass">com.mysql.jdbc.Driver</property>
 		<property name="user">root</property>
 		<property name="password">quickjian</property>

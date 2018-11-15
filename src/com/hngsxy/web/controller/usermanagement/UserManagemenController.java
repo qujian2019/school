@@ -74,7 +74,7 @@ public class UserManagemenController {
 			
 			zo.setId(listu.get(i).getUserId()+"");
 			zo.setpId(listu.get(i).getDeptno());
-			zo.setName(listu.get(i).getUserCode());
+			zo.setName(listu.get(i).getUserName());
 			zo.setShowv(listu.get(i).getShowv());
 			listZtreeOrganiza.add(zo);
 			
@@ -416,5 +416,5 @@ public class UserManagemenController {
 		}
 		return temp;
 	}
-
+	
 }

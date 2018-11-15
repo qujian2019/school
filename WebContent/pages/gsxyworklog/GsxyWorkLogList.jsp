@@ -29,17 +29,17 @@
 		</blockquote>
 		<fieldset class="layui-elem-field">
 			<legend>工作日志列表管理</legend>
-			<div class="demoTable">
+<!--			<div class="demoTable">
 				查询数据的时间范围:
 				开始时间-
 				<div class="layui-inline">
-					<input class="layui-input" name="writeTime" id="writeTime" />
+					<input class="layui-input" name="time2" id="time2" />
 				</div>
 				结束时间-
 				<div class="layui-inline">
-					<input class="layui-input" name="time2" id="time2" />
+					<input class="layui-input" name="writeTime" id="writeTime" />
 				</div>
-				<button class="layui-btn" id="findGsxyWorkLogBtn">搜索</button>
+				<button class="layui-btn" id="findGsxyWorkLogBtn">搜索</button>-->
 			</div>
 			<!--描述：文件夹列表 -->
 			<table id="findGsxyWorkLog" lay-filter="tableId"></table>

@@ -84,6 +84,8 @@
 		  <if test="userPhone!=null and userPhone!=''">userPhone = #{userPhone},</if>
 		  <if test="userPassword!=null and userPassword!=''">userPassword = #{userPassword},</if>
 		  <if test="idCard!=null and idCard!=''">idCard = #{idCard},</if>
+		  <if test="userAge!=null and userAge!=''">userAge = #{userAge},</if>
+		  <if test="userGender!=null and userGender!=''">userGender = #{userGender},</if>
 		 </trim>
 		WHERE `userId` = #{userId}
 	</update>

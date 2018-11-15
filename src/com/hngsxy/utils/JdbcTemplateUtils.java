@@ -32,7 +32,7 @@ public class JdbcTemplateUtils {
        
         ds.setDriverClassName("com.mysql.jdbc.Driver");
         //ds.setUrl("jdbc:mysql://localhost:3306/shiro");jdbc:mysql://172.16.1.82:3306/schooldata
-        ds.setUrl("jdbc:mysql://172.16.1.82:3306/schooldata");
+        ds.setUrl("jdbc:mysql://localhost:3306/schooldata");
         ds.setUsername("root");
         ds.setPassword("quickjian");
         

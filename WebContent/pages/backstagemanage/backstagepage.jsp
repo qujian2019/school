@@ -6,11 +6,12 @@
 <html>
 
 	<head>
-		<title>学院后台</title>
+		<title>员工管理平台</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="renderer" content="webkit">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=Edge">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<link rel="stylesheet" href="/r3/layui-v2.2.5/layui/css/layui.css" />
 		<link rel="shortcut icon" href="http://124.228.83.236/r3/imgs/sign/bitbug_favicon.ico" />
 		<style>
@@ -25,14 +26,12 @@
 			}
 		</style>
 	</head>
-
 	<body>
 		<div class="layui-layout layui-layout-admin">
 			<div class="layui-header">
-				<div class="layui-logo">湖南工商职业学院</div>
+				<div class="layui-logo" id="logogsxy">湖南工商职业学院</div>
 				<!-- 头部区域（可配合layui已有的水平导航） -->
 				<ul class="layui-nav layui-layout-left">
-
 				</ul>
 				<ul class="layui-nav layui-layout-right">
 					<li class="layui-nav-item">
@@ -54,8 +53,8 @@
 					</li>
 				</ul>
 			</div>
-
-			<div class="layui-side layui-bg-black">
+			<!-- 导航条 -->
+			<div class="layui-side layui-bg-black" id="dhtZ">
 				<div class="layui-side-scroll">
 					<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 					<ul class="layui-nav layui-nav-tree" lay-filter="test">
@@ -102,12 +101,50 @@
 
 	<script src="/r3/jquery/jquery-1.8.2.js" type="text/javascript"></script>
 	<script src="/r3/layui-v2.2.5/layui/layui.js"></script>
-
+    <script type="text/javascript" language="javascript">        
+//  $(window).unbeforeunload(function(){
+//  alert('xxx');
+//					$.ajax({
+//						type: "post",
+//						url: "/logout",
+//						data: {},
+//						async: true,
+//						dateType: "json",
+//						//timeout:12000,
+//						success: function(data) {
+//						}
+//					});
+//  }); 
+    </script>
 	<script>
+
+//jQuery(window).unload(function(){
+//
+//
+//		});
+
+		$(function(){
+			var left;
+			//隐藏导航卡
+			$('#logogsxy').on('click',function(){
+				$("#dhtZ").toggle(1000,function(){
+					//$('#mianIframe').addClass("layui-col-md12");style="width: 100%;"
+					
+					if(	$(".layui-body").css("left")=="0px"){
+						$(".layui-body").css({"left":left});
+					}else{
+						left=$(".layui-body").css("left");
+						$(".layui-body").css({"left":"0px"});
+					}
+				});
+
+			});
+			
+		});
+
 		//JavaScript代码区域
 		layui.use('element', function() {
 			var element = layui.element;
-
 		});
 
 		//文件管理
@@ -117,7 +154,7 @@
 
 		//新闻管理
 		$("#newRelease").on("click", function() {
-			$("#mianIframe").attr("src", "<%=request.getContextPath()%>/goNews");
+			$("#mianIframe").attr("src", "/goNews");
 		});
 
 		//用户管理
@@ -180,8 +217,6 @@
 		$("#wsbxxt").on("click", function() {
 			$("#mianIframe").attr("src", "/pages/wsbxxt/wsbxxt_1.jsp");
 		});
-		
-
 
 	</script>
 

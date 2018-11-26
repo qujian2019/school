@@ -72,7 +72,7 @@
 					<label class="layui-form-label">新闻类型：</label>
 					<div class="layui-input-inline">
 						<select id="newType" name="newType" lay-filter="aihao" lay-search lay-verify="required">
-							<option value=""></option>
+							<!--<option value=""></option>-->
 							<c:if test="${activeUser.departments!=null }">
 								<c:forEach items="${activeUser.departments}" var="department">
 										${department.permissionUrl}"
@@ -120,6 +120,7 @@
 			var userId = $("#userId").val();
 			//$("#tempppp").hide();
 			//获取路径后的参数
+
 			function parseUrl() {
 				var url = location.href;
 				var i = url.indexOf('?');
@@ -141,10 +142,9 @@
 
 			if(v != null) {
 				var newsId1 = v['newsId'];
-				/*var temp01 = v['temp01'];*/
-				//console.log(temp01) 1:发送 2：编辑
-
+				var temp02 = v['temp02'];
 			}
+
 			//实例化编辑器
 			//建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
 			var ue = UE.getEditor('editor', {
@@ -189,6 +189,8 @@
 			});
 
 			$(function() {
+//---------------------
+				
 //--------------------
 				$("#Return").on("click", function() {
 					var url = "newRelease.jsp";
@@ -208,9 +210,19 @@
 						dateType: "json",
 						//timeout:12000,
 						success: function(data) {
-
+							
 							$("#newsTitle").val(data.newsTitle);
-							$("#newType").val(data.newType);
+							
+							
+							if(temp02){
+								//$("#newType").val(data.newType); <option value=""></option>''
+								$("#newType").html('');
+								var tempNewType = '<option value="'+data.newType+'">修改当前的新闻类型</option>';
+								$("#newType").prepend(tempNewType);
+							}else{
+								$("#newType").val(data.newType);
+							}
+							
 							
 							setTimeout(function(){
 								$("#newsReleaseTime").val(data.newsReleaseTime);
@@ -261,8 +273,7 @@
 					},
 					pass: [/(.+){6,12}$/, '密码必须6到12位']
 				});
-				
-				
+
 				form.on('select(filter)', function(data){
 						//console.log(data.value);
 					$("#newsPush").val(data.value);

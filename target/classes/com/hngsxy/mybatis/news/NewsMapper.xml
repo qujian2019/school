@@ -90,16 +90,16 @@
 	<!-- 修改新闻信息 -->
 	<update id="updateOneNews" parameterType="News">
 		UPDATE gsxy_news
-		SET 
-		newsTitle = #{newsTitle},
-		newType = #{newType},
-		newsContext = #{newsContext},
-		newsAuthor = #{newsAuthor},
-		newsPush = #{newsPush},
-		newsReleaseTime = #{newsReleaseTime},
-		newsSort = #{newsSort},
-		newsCarouselPath = #{newsCarouselPath},
-		newsHyperlink = #{newsHyperlink}
+			SET 
+			newsTitle = #{newsTitle},
+			newType = #{newType},
+			newsContext = #{newsContext},
+			newsAuthor = #{newsAuthor},
+			newsPush = #{newsPush},
+			newsReleaseTime = #{newsReleaseTime},
+			newsSort = #{newsSort},
+			newsCarouselPath = #{newsCarouselPath},
+			newsHyperlink = #{newsHyperlink}
 		WHERE newsId = #{newsId}   
 	</update>
 	

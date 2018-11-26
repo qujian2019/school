@@ -813,12 +813,14 @@
 											<option value="hnsjyt">湖南省教育厅</option>
 											<option value="hnzcjyxxw">湖南职成教育信息网</option>
 											<option value="hnsrlzyshbzt">湖南省人力资源社会保障厅</option>
+											<option value="hnzwffw">湖南政务服务网</option>
 										</select>
 									</div>
 									<div class="layui-input-inline" style="width: 400px;float: left;">
 										<select id="qtwz" name="qtwz" lay-filter="qtwz">
 											<option value="qtwz">其他网站</option>
 											<option value="zggzgzjyw">中国高职高专教育网</option>
+											
 										</select>
 									</div>
 								</div>
@@ -867,11 +869,14 @@
 					window.open("http://zcc.hnedu.cn/");
 				} else if(data.value == 'hnsrlzyshbzt') {
 					window.open("http://www.hnrst.gov.cn/");
+				}else if(data.value == 'hnzwffw') {
+					window.open("http://zwfw-new.hunan.gov.cn/");
 				}
 			});
 
 			form.on('select(qtwz)', function(data) {
-				if(data.value == 'qtwz') {} else if(data.value == 'zggzgzjyw') {
+				if(data.value == 'qtwz') {} //hnzwffw
+				else if(data.value == 'zggzgzjyw') {
 					window.open("http://www.tech.net.cn/web/index.aspx");
 				}
 			});
@@ -1064,7 +1069,7 @@
 			//实例化
 			var laytpl = layui.laytpl;
 
-			//			//学校概况_学院新闻
+			// 学校概况_学院新闻
 			$.ajax({
 				type: "get",
 				url: "/anon/findlunBoTuXinWenNews",

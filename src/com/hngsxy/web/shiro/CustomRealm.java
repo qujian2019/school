@@ -79,8 +79,6 @@ public class CustomRealm extends AuthorizingRealm{
 		activeUser.setDeptno(sysUser.getDeptno());
 		//..
 		
-		
-		
 		//根据用户id取出菜单
 		ArrayList<Permission> menus  = null;
 		try {

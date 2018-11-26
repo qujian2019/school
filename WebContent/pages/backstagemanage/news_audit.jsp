@@ -596,8 +596,9 @@
 								layer.close(index2);
 							});
 						}else if(obj.event === 'edit2') {
+							var dzbgs='dzbgs';
 							//var url = "newseditorpage.jsp?newsId=" + data.newsId+"&temp01="+2;
-							var url = "/pages/news/newseditorpage.jsp?newsId=" + data.newsId+"&temp01="+2;
+							var url = "/pages/news/newseditorpage.jsp?newsId=" + data.newsId+"&temp02="+dzbgs;
 							window.location.href = url;
 						}
 

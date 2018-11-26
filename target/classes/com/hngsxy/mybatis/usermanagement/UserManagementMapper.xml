@@ -103,7 +103,7 @@
 	
 	<!-- 修改用户名字 -->
 	<update id="updateUserCode" parameterType="User">
-		UPDATE `gsxy_user` SET userCode = #{userCode}
+		UPDATE `gsxy_user` SET userName = #{userName},idCard = #{idCard},userPhone = #{userPhone},userAge = #{userAge}
 		WHERE userId = #{userId}
 	</update>
 	<!-- 删除用户 -->

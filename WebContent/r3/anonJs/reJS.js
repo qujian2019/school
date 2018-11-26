@@ -9,7 +9,7 @@ var conf = {
 	request = {
 		send: function(do_url, param, fun) { // 权限请求处理
 			if(do_url.indexOf("http") == -1) {
-				do_url = conf.apiUrl + do_url + "&_dbCongfig=" + conf.dbconfig;
+				do_url = conf.apiUrl + do_url ;//+ "&_dbCongfig=" + conf.dbconfig;
 			}
 			$.ajax({
 				type: "post",

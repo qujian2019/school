@@ -91,15 +91,15 @@
 		<script src="/r3/jquery/jquery-1.8.2.js" type="text/javascript"></script>
 		<script src="/r3/layui-v2.2.5/layui/layui.js"></script>
 		<script>
-//layui.use('form', function(){
-//var form = layui.form;
-//
-////监听提交
-//form.on('submit(formDemo)', function(data){
-//  layer.msg(JSON.stringify(data.field));
-//  return false;
-//});
-//});
+		//layui.use('form', function(){
+		//var form = layui.form;
+		//
+		////监听提交
+		//form.on('submit(formDemo)', function(data){
+		//  layer.msg(JSON.stringify(data.field));
+		//  return false;
+		//});
+		//});
 			
 			
 		layui.use(['table','form'], function() {

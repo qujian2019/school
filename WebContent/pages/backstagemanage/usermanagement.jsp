@@ -570,8 +570,8 @@
 									
 									
 									
-									//										var url = 'filemanage.jsp?fileFolderId='+data.fileFolderId+'&fileFolderName='+data.fileFolderName;
-									//									    window.location.href=url;
+				//										var url = 'filemanage.jsp?fileFolderId='+data.fileFolderId+'&fileFolderName='+data.fileFolderName;
+				//									    window.location.href=url;
 								}
 							});
 						}
@@ -625,10 +625,8 @@
 												}
 
 											});
-
 											//查询ztree
 											ztreeFind();
-
 										}
 									}
 								});
@@ -772,15 +770,28 @@
 									var updateindex = layer.open({
 										title: '修改用户信息',
 										type: 1,
-										offset: 't', //具体配置参考：offset参数项
-										content: '<div style="padding: 20px 80px;">' +
+										offset: 't', //具体配置参考：offset参数项 idCard 用户年龄
+										content: 
+										'<div style="padding: 20px 80px;">' +
 											'<div class="layui-form-item">' +
-											'<label class="layui-form-label">账号:</label>' +
-											'<div class="layui-input-block">' +
-											'<input type="text" name="userCode" id="userCode" lay-verify="required|title" required placeholder="请输入账号" autocomplete="off" class="layui-input">' +
+												'<label class="layui-form-label">姓名:</label>' +
+												'<div class="layui-input-block">' +
+													'<input type="text" name="userName" id="userName" lay-verify="required" required placeholder="请输入姓名" autocomplete="off" class="layui-input">' +
+												'</div>' +
+												'<label class="layui-form-label">身份证:</label>' +
+												'<div class="layui-input-block">' +
+													'<input type="text" name="idCard" id="idCard" lay-verify="required" required placeholder="请输入身份证" autocomplete="off" class="layui-input">' +
+												'</div>' +
+												'<label class="layui-form-label">电话:</label>' +
+												'<div class="layui-input-block">' +
+													'<input type="text" name="userPhone" id="userPhone" lay-verify="required" required placeholder="请输入电话" autocomplete="off" class="layui-input">' +
+												'</div>' +
+												'<label class="layui-form-label">年龄:</label>' +
+												'<div class="layui-input-block">' +
+													'<input type="text" name="userAge" id="userAge" lay-verify="required" required placeholder="请输入年龄" autocomplete="off" class="layui-input">' +
+												'</div>' +
 											'</div>' +
-											'</div>' +
-											'</div>',
+										'</div>',
 										btn: '确定',
 										btnAlign: 'c' //按钮居中
 											,
@@ -788,7 +799,8 @@
 										shade: 0 //不显示遮罩
 											,
 										yes: function() {
-											var userCode = $("#userCode").val();
+											var userName = $("#userName").val();var idCard = $("#idCard").val();
+											var userPhone = $("#userPhone").val();var userAge = $("#userAge").val();
 
 											$.ajax({
 												type: "post",
@@ -796,7 +808,10 @@
 												data: {
 
 													userId: data.userId,
-													userCode: userCode
+													userName: userName,
+													userPhone: userPhone,
+													idCard: idCard,
+													userAge: userAge
 												},
 												async: true,
 												//			timeout:12000,
@@ -1101,7 +1116,7 @@
 //				form.render(null, 'userMoveDeptform');
 				//初始化密码
 				$("#initialization").on("click",function(){
-					var temp = $("#userId").val();
+					var temp =  treeNode.id;
 
 					$.ajax({
 						type: "post",

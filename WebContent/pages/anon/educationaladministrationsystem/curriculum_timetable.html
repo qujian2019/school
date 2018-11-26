@@ -15,17 +15,17 @@
 		</style>
 	</head>
 
-	<body>
+	<body style="padding: 10px;">
 		<h1 style="text-align: center;">课程课表</h1>
 		<hr class="layui-bg-green">
 		<form class="layui-form" action="">
 
 			<div class="layui-form-item inputleng">
-				<label class="layui-form-label">学年学期</label>
+				<label class="layui-form-label">老师</label>
 				<div class="layui-input-block">
 					<select name="semester" lay-verify="required" id="semester" lay-filter="required1">
 						<!--<option value=""></option>-->
-						<!--						<option value="0">北京</option>
+						<!--<option value="0">北京</option>
 						<option value="1">上海</option>
 						<option value="2">广州</option>
 						<option value="3">深圳</option>
@@ -50,9 +50,10 @@
 			</div>
 		</form>
 		<p style="margin-left: 10px;">承担单位：<span style="margin-left: 5px; margin-right: 5px;" id="kcCJDW"></span>课程：<span style="margin-left: 5px; margin-right: 5px;" id="kcName"></span>课时：<span style="margin-left: 5px; margin-right: 5px;" id="kcCout"></span>学分：<span style="margin-left: 5px; margin-right: 5px;" id="kcCredits"></span></p>
-		<table class="layui-table">
+		<table class="layui-table" id="ksbTable" style="display: none;">
 			<colgroup>
 				<col width="100">
+				<col width="300">
 				<col width="300">
 				<col width="300">
 				<col width="300">
@@ -63,7 +64,11 @@
 			</colgroup>
 			<thead>
 				<tr>
-					<th></th>
+					<th colspan="9" data-bind="userId"></th>
+				</tr>
+				<tr>
+					<th>时段</th>
+					<th>课时</th>
 					<th>星期一</th>
 					<th>星期二</th>
 					<th>星期三</th>
@@ -73,25 +78,124 @@
 					<th>星期天</th>
 				</tr>
 			</thead>
-			<tbody id="template">
+			<tbody data-bind='shijian'>
 				<tr>
-					<td data-bind="shangwu"></td>
-					<td data-bind="kZou1"></td>
-					<td data-bind="kZou2"></td>
-					<td data-bind="kZou3"></td>
-					<td data-bind="kZou4"></td>
-					<td data-bind="kZou5"></td>
-					<td data-bind="kZou6"></td>
-					<td data-bind="kZou7"></td>
+					<td data-bind="shiduan">上午</td>
+					<td data-bind="sxXuHao">第一节</td>
+					<td data-bind="星期一"></td>
+					<td data-bind="星期二"></td>
+					<td data-bind="星期三"></td>
+					<td data-bind="星期四"></td>
+					<td data-bind="星期五"></td>
+					<td data-bind="星期六"></td>
+					<td data-bind="星期日"></td>
 				</tr>
 			</tbody>
 		</table>
+		<span id="show">
+			
+		</span>
 	</body>
 	<script src="/r3/jquery/jquery-1.8.2.js" type="text/javascript"></script>
 	<script src="/r3/layui-v2.3.0/layui/layui.js"></script>
 	<script src="/r3/anonJs/reJS.js"></script>
 	<script src="/r3/anonJs/transparency.min.js"></script>
 	<script>
+		
+		function selectUser(userId){
+			
+		}
+		
+		
+		
+		//
+		function selectYWKC(xueqi, userId) {
+			var xinqi = {
+				"星期一": "",
+				"星期二": "",
+				"星期三": "",
+				"星期四": "",
+				"星期五": "",
+				"星期六": "",
+				"星期日": ""
+			};
+			var qihe2 = {};
+			var rendeId = "ksbTable_" + userId;
+			$('#show').append('<table class="layui-table" id="' + rendeId + '">' + $('#ksbTable').html() + "</table>");
+
+			var parm = {
+				"pb_UrlId": 204,
+				"xueQi": xueqi
+			}
+			if(userId) {
+				parm['a1.userId'] = userId;
+			}
+			request.send("xt/man.do?m=get&data=list", parm, function(d1) {
+				qihe2['userId'] =d1.data[0].userName;
+				$(d1.data).each(function(i, v) {
+					var tu = jQuery.extend(true, {}, xinqi);
+					var zheXuhao = -1;
+					if(qihe2.hasOwnProperty('shijian')) {
+						$(qihe2['shijian']).each(function(i1, v1) {
+							if(v1 && v.sxXuHao == v1.sxXuHao) {
+								tu = v1;
+								zheXuhao = i1;
+								return false;
+							}
+
+						});
+
+					} else {
+						qihe2['shijian'] = [];
+					}
+					tu[v.sxZhou] = "班级编号" + v.bjId + ",课程编号" + v.ksId;
+					if(zheXuhao == -1) {
+						tu['sxXuHao'] = v.sxXuHao;
+						var shijian = '晚上'
+						var xuhao = 4;
+						switch(v.sxXuHao) {
+							case '第一节':
+								xuhao = 0;
+								shijian = '上午';
+								break;
+							case '第二节':
+								xuhao = 1;
+								shijian = '上午';
+								break;
+							case '第三节':
+								xuhao = 2;
+								shijian = '下午';
+								break;
+							case '第四节':
+								xuhao = 3;
+								shijian = '下午';
+								break;
+						}
+						tu['shiduan'] = shijian;
+						qihe2['shijian'][xuhao] = tu;
+					} else {
+						qihe2['shijian'][zheXuhao] = tu;
+					}
+				});
+				$('#' + rendeId).render(qihe2, {
+					shijian: {
+						shiduan: {
+							rowspan: function() {
+								if(this.sxXuHao == "第一节" || this.sxXuHao == "第三节") {
+									return 2;
+								}
+							},
+							style: function() {
+								if(this.sxXuHao == "第二节" || this.sxXuHao == "第四节") {
+									return "display:none;";
+								}
+							}
+						}
+					}
+				});
+			});
+		}
+
 		//Demo
 		layui.use('form', function() {
 			var form = layui.form;
@@ -103,101 +207,13 @@
 				return false;
 			});
 
-//			function listTokey(data, keyFile) {
-//				var map = {};
-//				var row;
-//				for(var m in data) {
-//					row = data[m];
-//					if(!map[row[keyFile]]) {
-//						map[row[keyFile]] = row;
-//					}
-//				}
-//				return map;
-//			}
 			var xkMap = {};
 			$(function() {
-				//查询学年学期
-				var xqNo = 0;
-				request.send("xt/man.do?m=get&data=list", {
-					"pb_UrlId": 173
-				}, function(d1) {
-					if(d1.code == 0) {
-						xqNo = d1.data[0].xqNo;
-						var weeksList = [];
-						if(d1.data.length > 0) {
-							for(var a = 0; a < d1.data.length; a++) {
-								weeksList.push('<option value=' + d1.data[a].xqNo + '>' + d1.data[a].xqName + '</option>');
-							}
-						}
-						$("#semester").append(weeksList);
-						form.render('select');
-					} else {}
-
-					//查询课程
-					var kNo = 0;
-					request.send("xt/man.do?m=get&data=list", {
-						"kcXQ": xqNo,
-						"pb_UrlId": 172
-					}, function(d2) {
-						if(d2.code == 0) {
-							kNo = d2.data[0].kcNo;
-
-							form.on('select(required2)', function(data) {
-				
-								kNo = data.value;
-							});
-
-							var weeksList = [];
-							if(d2.data.length > 0) {
-								xkMap = listTokey(d2.data, "kcNo");
-								for(var a = 0; a < d2.data.length; a++) {
-									weeksList.push('<option value=' + d2.data[a].kcNo + '>' + d2.data[a].kcName + '</option>');
-								}
-							}
-							$("#curriculum").append(weeksList);
-							form.render('select');
-						} else {}
-
-						$(".layui-btn").click(function() {
-
-							for(var key in xkMap[kNo]){
-//								if($("#"+key)){
-//								$("#"+key).text("");
-//								$("#"+key).text(xkMap[kNo][key]);
-//								}
-							$("#"+key).text("");
-								$("#"+key).text(xkMap[kNo][key]);
-							}
-							//查询程课表明细
-							request.send("xt/man.do?m=get&data=list", {
-								"kNo": kNo,
-								"pb_UrlId": 170
-							}, function(d3) {
-								//$("#template").html("");
-								if(d3.code == 0) {
-									var s = {
-										"0": "上午",
-										"1": "下午",
-										"2": "晚上"
-									}
-									directives = {
-										shangwu: {
-											text: function(params) {
-												return s[this.kdata];
-											}
-										}
-									};
-
-									$('#template').render(d3.data, directives);
-
-								} else {}
-
-							});
-						});
-
-					});
-
-				});
+				//var laoshi=[1,7];
+				//查询教务
+				//$(laoshi).each(function(i,v){
+				selectYWKC(1, 7);
+				//});
 
 			});
 		});

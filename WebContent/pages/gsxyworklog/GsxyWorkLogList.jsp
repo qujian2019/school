@@ -46,14 +46,15 @@
 			<!--	描述：控制按钮 -->
 			<div class="layui-hide" id="barDemo">
 				<!--	<a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="detail" id="detail">预览</a>-->
-				<a class="layui-btn layui-btn-xs" lay-event="edit" id="edit">编辑</a>
-				<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" id="del">删除</a>
+				<a class="layui-btn layui-btn-xs" lay-event="edit" id="edit">查看</a>
+				<!--<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" id="del">删除</a>-->
 			</div>
 		</fieldset>
  		</body>
 		<script src="/r3/jquery/jquery-1.8.2.js" type="text/javascript"></script>
 		<script src="/r3/layui-v2.2.5/layui/layui.js"></script>
 		<script>
+			
 		layui.use('table', function() {
 
 			//毕业生table
@@ -149,7 +150,8 @@
 								layer.close(index);
 							});
 						} else if(obj.event === 'edit') {
-							window.location.href = "GsxyWorkLogFrom.jsp?workLogId=" + data.workLogId;
+							//window.location.href = "GsxyWorkLogFrom.jsp?workLogId=" + data.workLogId;
+							location.href="http://www.hngsxy.com/notH5/xt/mt/p192.html?workLogId="+data.workLogId;
 						} else if(obj.event === 'shenhe') {}
 					});
 				}

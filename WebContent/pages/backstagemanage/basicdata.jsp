@@ -35,7 +35,7 @@
 
 		</blockquote>
 
-		<fieldset class="layui-elem-field">
+		<fieldset class="layui-elem-field" style="padding: 10px;">
 			<legend>
 				<a name="color-design">修改基本资料</a>
 			</legend>
@@ -45,13 +45,13 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">账号：</label>
 						<div class="layui-input-block">
-							<input id="userCode" type="text" name="userCode" required lay-verify="required" placeholder="请输入用户账号" autocomplete="off" class="layui-input" style="width: 230px;">
+							<input id="userCode" type="text" name="userCode" disabled required lay-verify="required" placeholder="请输入用户账号" autocomplete="off" class="layui-input" style="width: 230px;">
 						</div>
 					</div>
 					<div class="layui-form-item">
-						<label class="layui-form-label">昵称：</label>
+						<label class="layui-form-label">姓名：</label>
 						<div class="layui-input-block">
-							<input id="userName" type="text" name="userName" required lay-verify="required" placeholder="请输入昵称" autocomplete="off" class="layui-input" style="width: 230px;">
+							<input id="userName" type="text" name="userName" required lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input" style="width: 230px;">
 						</div>
 					</div>
 					<div class="layui-form-item">

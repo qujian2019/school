@@ -76,7 +76,7 @@
 			 	and deptName = #{deptName}
 			</if>
 			<if test="workName!=null and workName!=''">
-			 	and workName = #{workName}
+			 	and workName like '%${workName}%'
 			</if>
 			<if test="weeks!=null and weeks!=''">
 			 	and weeks = #{weeks}

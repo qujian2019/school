@@ -74,11 +74,13 @@
 			}
 			
 			
+			
 			layui.use('form', function() {});
 			$(function(){
-				$('#dlbtn').on('click',function(){
-					logout();
-				});
+				logout();
+//				$('#dlbtn').on('click',function(){
+//					logout();
+//				});
 			});
 			
 

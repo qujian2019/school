@@ -51,7 +51,7 @@
 				  <div class="layui-form-item layui-form-text">
 				    <label class="layui-form-label">工作重点:</label>
 				    <div class="layui-input-block">
-				      <textarea name="jobKey" id="focus" placeholder="请输入内容" class="layui-textarea"></textarea>
+				      <textarea style="height: 300px;" name="jobKey" id="focus" placeholder="请输入内容" class="layui-textarea"></textarea>
 				    </div>
 				  </div>
 				  <div class="layui-form-item layui-form-text">
@@ -127,14 +127,19 @@
 						var gsxyWorkLogList_week1 = [];
 						var gsxyWorkLogList_personnelVerification = [];
 						var gsxyWorkLogList_focus = [];
+						//查看单个信息
+						$("#week1").val(data[0].weeks1);
 						$("#deptName").val(data[0].deptName);
 						$("#userName").val(data[0].workName);
+						$('#assessment').val(data[0].personnelVerification2);
+						$('#focus').val(data[0].jobKey);$('#jobOther').val(data[0].jobOther);
+
 							if(data.length > 0){
 								for(var a = 0; a < data.length; a++) {
 									gsxyWorkLogList_week1.push(data[a].week1);
 									gsxyWorkLogList_personnelVerification.push(data[a].personnelVerification);
-									gsxyWorkLogList_focus.push(data[a].jobContent1+",");gsxyWorkLogList_focus.push(data[a].jobContent2+",");
-									gsxyWorkLogList_focus.push(data[a].jobContent3+",");gsxyWorkLogList_focus.push(data[a].jobContent4+",");
+									gsxyWorkLogList_focus.push(data[a].jobContent1+"\r\n");gsxyWorkLogList_focus.push(data[a].jobContent2+"\r\n");
+									gsxyWorkLogList_focus.push(data[a].jobContent3+"\r\n");gsxyWorkLogList_focus.push(data[a].jobContent4+"\r\n");
 									gsxyWorkLogList_focus.push(data[a].jobContent5);
 								}
 							}

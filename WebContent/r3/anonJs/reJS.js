@@ -16,6 +16,7 @@ var conf = {
 				contentType: "application/json",
 				headers: conf.ticket,
 				url: do_url,
+				//async: false,
 				data: JSON.stringify(param),
 				success: function(data) {
 					if(typeof(fun) == "function") {

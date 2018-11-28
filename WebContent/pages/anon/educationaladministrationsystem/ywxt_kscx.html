@@ -5,8 +5,9 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=Edge">
+		
+		<!--<link rel="stylesheet" href="/r3/layui-v2.4.3/layui/css/layui.css" />-->
 		<link rel="shortcut icon" href="http://124.228.83.236/r3/imgs/sign/bitbug_favicon.ico" />
-		<link rel="stylesheet" href="/r3/layui-v2.3.0/layui/css/layui.css" />
 		<title>课程课表</title>
 		<style>
 			.inputleng {
@@ -18,71 +19,209 @@
 	<body style="padding: 10px;">
 		<h1 style="text-align: center;">课程课表</h1>
 		<hr class="layui-bg-green">
-		<form class="layui-form" action="">
-
+		<form class="layui-form">
 			<div class="layui-form-item inputleng">
-				<label class="layui-form-label">老师</label>
+				<label class="layui-form-label">学期</label>
 				<div class="layui-input-block">
-					<select name="semester" lay-verify="required" id="semester" lay-filter="required1">
-						<!--<option value=""></option>-->
-						<!--<option value="0">北京</option>
-						<option value="1">上海</option>
-						<option value="2">广州</option>
-						<option value="3">深圳</option>
-						<option value="4">杭州</option>-->
+					<select name="curriculum4" id="curriculum5" lay-filter="listUser">
+						<option value=""></option>
 					</select>
 				</div>
 			</div>
 			<div class="layui-form-item inputleng">
-				<label class="layui-form-label">课程</label>
+				<label class="layui-form-label">老师</label>
 				<div class="layui-input-block">
-					<select name="curriculum" lay-verify="required" id="curriculum" lay-filter="required2">
-
+					<select name="curriculum1" id="listUser" lay-filter="listUser">
+						<option value=""></option>
+					</select>
+				</div>
+			</div>
+			<div class="layui-form-item inputleng">
+				<label class="layui-form-label">专业</label>
+				<div class="layui-input-block">
+					<select name="curriculum2" id="curriculum2" lay-filter="required2">
+						<option value=""></option>
+					</select>
+				</div>
+			</div>
+			<div class="layui-form-item inputleng">
+				<label class="layui-form-label">班级</label>
+				<div class="layui-input-block">
+					<select name="curriculum3" id="curriculum4" lay-filter="required4">
+						<option value=""></option>
 					</select>
 				</div>
 			</div>
 
 			<div class="layui-form-item">
 				<div class="layui-input-block">
-					<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-					<!--<button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
+					<button class="layui-btn" lay-submit lay-filter="formDemo">立即检索</button>
+					
 				</div>
 			</div>
 		</form>
-		<p style="margin-left: 10px;">承担单位：<span style="margin-left: 5px; margin-right: 5px;" id="kcCJDW"></span>课程：<span style="margin-left: 5px; margin-right: 5px;" id="kcName"></span>课时：<span style="margin-left: 5px; margin-right: 5px;" id="kcCout"></span>学分：<span style="margin-left: 5px; margin-right: 5px;" id="kcCredits"></span></p>
+		
+		<div id="div1"></div>
+		
 		<table class="layui-table" id="ksbTable">
-			<colgroup>
-				<col width="100">
-				<col width="300">
-				<col width="300">
-				<col width="300">
-				<col width="300">
-				<col width="300">
-				<col width="300">
-				<col width="300">
-				<col width="300">
-			</colgroup>
 
 		</table>
 
 	</body>
 	<script src="/r3/jquery/jquery-1.8.2.js" type="text/javascript"></script>
-	<script src="/r3/layui-v2.3.0/layui/layui.js"></script>
 	<script src="/r3/anonJs/reJS.js"></script>
+	<script src="/r3/layui-v2.4.3/layui/layui.js"></script>
 	<script src="/r3/anonJs/transparency.min.js"></script>
 	<script>
-		function selectUser(userId) {
+		function includeLinkStyle(url,fun) {
+			var link = document.createElement("link");
+			link.rel = "stylesheet";
+			link.type = "text/css";
+			link.href = url;
+			document.getElementsByTagName("head")[0].appendChild(link);
+			if(typeof fun =='function'){
+				fun();
+			}
+		}
+       function rendForm(){
+			//Demo
+			layui.use('form', function() {
+				var form = layui.form;
+	
+				//监听提交
+				form.on('submit(formDemo)', function(data) {
+					//layer.msg(JSON.stringify(data.field));
+	
+					//data.field.curriculum1
+					//分别查询:学期,老师,班级,专业
+					selectYWKC(data.field.curriculum1,data.field.curriculum2,data.field.curriculum3,data.field.curriculum4);
+					return false;
+				});
+			
+				//
+				form.render();
+			});
+				//
+		}
+		
+		$(function() {
+			
+			selectFindxgxx();
+
+		});
+		
+		//查询相关信息
+		function selectFindxgxx() {
+			var parmUser = {
+				"pb_UrlId": 203,
+				"pbCol": "userId,userName"
+			}
+			request.send("xt/man.do?m=get&data=list", parmUser, function(d1) {
+				
+				if(d1.code == 0) {
+					var listUser1 = [];
+					
+					$(d1.data).each(function(i, v) {
+						listUser1.push('<option value="' + v.userId + '">' + v.userName + '</option>');
+					});
+					
+					$("#listUser").append(listUser1);
+				}
+
+				includeLinkStyle('/r3/layui-v2.4.3/layui/css/layui.css',function(){
+					rendForm();
+				});
+			});
+			
+			var parmcurriculum2 = {
+				"pb_UrlId": 172,
+				"pbCol": "kcNo,kcCJDW"
+			}
+			request.send("xt/man.do?m=get&data=list", parmcurriculum2, function(d2) {
+				
+				if(d2.code == 0) {
+					var listUser1 = [];
+					
+					$(d2.data).each(function(i, v) {
+						listUser1.push('<option value="' + v.kcNo + '">' + v.kcCJDW + '</option>');
+					});
+					
+					$("#curriculum2").append(listUser1);
+				}
+
+				includeLinkStyle('/r3/layui-v2.4.3/layui/css/layui.css',function(){
+					rendForm();
+				});
+			});
+			var banji = {
+				"pb_UrlId": 200,
+				"pbCol": "bjId,bjName"
+			}
+			request.send("xt/man.do?m=get&data=list", banji, function(d3) {
+				
+				if(d3.code == 0) {
+					var listUser1 = [];
+					
+					$(d3.data).each(function(i, v) {
+						listUser1.push('<option value="' + v.bjId + '">' + v.bjName + '</option>');
+					});
+					
+					$("#curriculum4").append(listUser1);
+				}
+
+				includeLinkStyle('/r3/layui-v2.4.3/layui/css/layui.css',function(){
+					rendForm();
+				});
+			});
+			
+			var xueqi = {
+				"pb_UrlId": 173,
+				"pbCol": "xqNo,xqName"
+			}
+			request.send("xt/man.do?m=get&data=list", xueqi, function(d3) {
+				
+				if(d3.code == 0) {
+					var listUser1 = [];
+					
+					$(d3.data).each(function(i, v) {
+						listUser1.push('<option value="' + v.xqNo + '">' + v.xqName + '</option>');
+					});
+					
+					$("#curriculum5").append(listUser1);
+				}
+
+				includeLinkStyle('/r3/layui-v2.4.3/layui/css/layui.css',function(){
+					rendForm();
+				});
+			});
 
 		}
 
-		//
-		function selectYWKC(xueqi, userId) {
+		//分别查询:学期,老师,班级,专业
+		function selectYWKC(userId,kcNo,bjId,xqNo) {
+			var colgroup = '<colgroup><col width="100"><col width="100"><col width="300"><col width="300"><col width="300"><col width="300"><col width="300"><col width="300"><col width="300"></colgroup>';
+			
+			$('#ksbTable').html('');
+			$('#ksbTable').append(colgroup);
+			
 			var tepName = '';
+
 			var parm = {
 				"pb_UrlId": 204,
-				"xueQi": xueqi,
 				"add": "ORDER BY userName"
 			}
+			
+			if(userId){
+				parm['a1.userId'] = userId;
+			} if(bjId){
+				parm['b2.bjId'] = bjId;
+			} if(kcNo){
+				parm['d4.kcNo'] = kcNo;
+			} if(xqNo){
+				parm['a1.xueQi'] = xqNo;
+			}
+			
+			
 			request.send("xt/man.do?m=get&data=list", parm, function(d1) {
 				if(d1.code == 0) {
 					var dateTemp = d1.data;
@@ -91,213 +230,192 @@
 
 					//
 					for(var i = 0; i < d1.data.length; i++) {
-						//console.log(d1.data[i].userName);
 						//得到表头和教室姓名
 						if(d1.data[i].userName != tepName) {
 							tepName = d1.data[i].userName;
-							
+
 							var nameTr = "<tr><td colspan='9'></td></tr><tr><td colspan='9'>老师：" + d1.data[i].userName + "</td></tr>";
-							var xqytd1='xqy1_1'+d1.data[i].userId;
-							var xqytd2='xqy1_2'+d1.data[i].userId;
-							var xqytd3='xqy1_3'+d1.data[i].userId;
-							var xqytd4='xqy1_4'+d1.data[i].userId;
-							var xqytd5='xqy1_5'+d1.data[i].userId;
-							
-							var xqytd2_1='xqy2_1'+d1.data[i].userId;
-							var xqytd2_2='xqy2_2'+d1.data[i].userId;
-							var xqytd2_3='xqy2_3'+d1.data[i].userId;
-							var xqytd2_4='xqy2_4'+d1.data[i].userId;
-							var xqytd2_5='xqy2_5'+d1.data[i].userId;
-							
-							var xqytd3_1='xqy3_1'+d1.data[i].userId;
-							var xqytd3_2='xqy3_2'+d1.data[i].userId;
-							var xqytd3_3='xqy3_3'+d1.data[i].userId;
-							var xqytd3_4='xqy3_4'+d1.data[i].userId;
-							var xqytd3_5='xqy3_5'+d1.data[i].userId;
-							
-							var xqytd4_1='xqy4_1'+d1.data[i].userId;
-							var xqytd4_2='xqy4_2'+d1.data[i].userId;
-							var xqytd4_3='xqy4_3'+d1.data[i].userId;
-							var xqytd4_4='xqy4_4'+d1.data[i].userId;
-							var xqytd4_5='xqy4_5'+d1.data[i].userId;
-							
-							var xqytd5_1='xqy5_1'+d1.data[i].userId;
-							var xqytd5_2='xqy5_2'+d1.data[i].userId;
-							var xqytd5_3='xqy5_3'+d1.data[i].userId;
-							var xqytd5_4='xqy5_4'+d1.data[i].userId;
-							var xqytd5_5='xqy5_5'+d1.data[i].userId;
-							
-							var xqytd6_1='xqy6_1'+d1.data[i].userId;
-							var xqytd6_2='xqy6_2'+d1.data[i].userId;
-							var xqytd6_3='xqy6_3'+d1.data[i].userId;
-							var xqytd6_4='xqy6_4'+d1.data[i].userId;
-							var xqytd6_5='xqy6_5'+d1.data[i].userId;
-							
-							var xqytd7_1='xqy7_1'+d1.data[i].userId;
-							var xqytd7_2='xqy7_2'+d1.data[i].userId;
-							var xqytd7_3='xqy7_3'+d1.data[i].userId;
-							var xqytd7_4='xqy7_4'+d1.data[i].userId;
-							var xqytd7_5='xqy7_5'+d1.data[i].userId;
-							
-							var sxTime1 = "<tr><td>上午</td><td>第一节</td><td id='"+xqytd1+"'></td><td id='"+xqytd2_1+"'></td><td id='"+xqytd3_1+"'></td><td id='"+xqytd4_1+"'></td><td id='"+xqytd5_1+"'></td><td id='"+xqytd6_1+"'></td><td id='"+xqytd7_1+"'></td></tr>";
-							var sxTime2 = "<tr><td>上午</td><td>第二节</td><td id='"+xqytd2+"'></td><td id='"+xqytd2_2+"'></td><td id='"+xqytd3_2+"'></td><td id='"+xqytd4_2+"'></td><td id='"+xqytd5_2+"'></td><td id='"+xqytd6_2+"'></td><td id='"+xqytd7_2+"'></td></tr>";
-							var sxTime3 = "<tr><td>下午</td><td>第三节</td><td id='"+xqytd3+"'></td><td id='"+xqytd2_3+"'></td><td id='"+xqytd3_3+"'></td><td id='"+xqytd4_3+"'></td><td id='"+xqytd5_3+"'></td><td id='"+xqytd6_3+"'></td><td id='"+xqytd7_3+"'></td></tr>";
-							var sxTime4 = "<tr><td>下午</td><td>第四节</td><td id='"+xqytd4+"'></td><td id='"+xqytd2_4+"'></td><td id='"+xqytd3_4+"'></td><td id='"+xqytd4_4+"'></td><td id='"+xqytd5_4+"'></td><td id='"+xqytd6_4+"'></td><td id='"+xqytd7_4+"'></td></tr>";
-							var sxTime5 = "<tr><td>晚上</td><td>第五节</td><td id='"+xqytd5+"'></td><td id='"+xqytd2_5+"'></td><td id='"+xqytd3_5+"'></td><td id='"+xqytd4_5+"'></td><td id='"+xqytd5_5+"'></td><td id='"+xqytd6_5+"'></td><td id='"+xqytd7_5+"'></td></tr>";
-                           $("#ksbTable").append(nameTr + biaotou+sxTime1 + sxTime2 + sxTime3 + sxTime4 + sxTime5);
+							var xqytd1 = 'xqy1_1' + d1.data[i].userId;
+							var xqytd2 = 'xqy1_2' + d1.data[i].userId;
+							var xqytd3 = 'xqy1_3' + d1.data[i].userId;
+							var xqytd4 = 'xqy1_4' + d1.data[i].userId;
+							var xqytd5 = 'xqy1_5' + d1.data[i].userId;
+
+							var xqytd2_1 = 'xqy2_1' + d1.data[i].userId;
+							var xqytd2_2 = 'xqy2_2' + d1.data[i].userId;
+							var xqytd2_3 = 'xqy2_3' + d1.data[i].userId;
+							var xqytd2_4 = 'xqy2_4' + d1.data[i].userId;
+							var xqytd2_5 = 'xqy2_5' + d1.data[i].userId;
+
+							var xqytd3_1 = 'xqy3_1' + d1.data[i].userId;
+							var xqytd3_2 = 'xqy3_2' + d1.data[i].userId;
+							var xqytd3_3 = 'xqy3_3' + d1.data[i].userId;
+							var xqytd3_4 = 'xqy3_4' + d1.data[i].userId;
+							var xqytd3_5 = 'xqy3_5' + d1.data[i].userId;
+
+							var xqytd4_1 = 'xqy4_1' + d1.data[i].userId;
+							var xqytd4_2 = 'xqy4_2' + d1.data[i].userId;
+							var xqytd4_3 = 'xqy4_3' + d1.data[i].userId;
+							var xqytd4_4 = 'xqy4_4' + d1.data[i].userId;
+							var xqytd4_5 = 'xqy4_5' + d1.data[i].userId;
+
+							var xqytd5_1 = 'xqy5_1' + d1.data[i].userId;
+							var xqytd5_2 = 'xqy5_2' + d1.data[i].userId;
+							var xqytd5_3 = 'xqy5_3' + d1.data[i].userId;
+							var xqytd5_4 = 'xqy5_4' + d1.data[i].userId;
+							var xqytd5_5 = 'xqy5_5' + d1.data[i].userId;
+
+							var xqytd6_1 = 'xqy6_1' + d1.data[i].userId;
+							var xqytd6_2 = 'xqy6_2' + d1.data[i].userId;
+							var xqytd6_3 = 'xqy6_3' + d1.data[i].userId;
+							var xqytd6_4 = 'xqy6_4' + d1.data[i].userId;
+							var xqytd6_5 = 'xqy6_5' + d1.data[i].userId;
+
+							var xqytd7_1 = 'xqy7_1' + d1.data[i].userId;
+							var xqytd7_2 = 'xqy7_2' + d1.data[i].userId;
+							var xqytd7_3 = 'xqy7_3' + d1.data[i].userId;
+							var xqytd7_4 = 'xqy7_4' + d1.data[i].userId;
+							var xqytd7_5 = 'xqy7_5' + d1.data[i].userId;
+
+							var sxTime1 = "<tr><td>上午</td><td>第一节</td><td id='" + xqytd1 + "'></td><td id='" + xqytd2_1 + "'></td><td id='" + xqytd3_1 + "'></td><td id='" + xqytd4_1 + "'></td><td id='" + xqytd5_1 + "'></td><td id='" + xqytd6_1 + "'></td><td id='" + xqytd7_1 + "'></td></tr>";
+							var sxTime2 = "<tr><td>上午</td><td>第二节</td><td id='" + xqytd2 + "'></td><td id='" + xqytd2_2 + "'></td><td id='" + xqytd3_2 + "'></td><td id='" + xqytd4_2 + "'></td><td id='" + xqytd5_2 + "'></td><td id='" + xqytd6_2 + "'></td><td id='" + xqytd7_2 + "'></td></tr>";
+							var sxTime3 = "<tr><td>下午</td><td>第三节</td><td id='" + xqytd3 + "'></td><td id='" + xqytd2_3 + "'></td><td id='" + xqytd3_3 + "'></td><td id='" + xqytd4_3 + "'></td><td id='" + xqytd5_3 + "'></td><td id='" + xqytd6_3 + "'></td><td id='" + xqytd7_3 + "'></td></tr>";
+							var sxTime4 = "<tr><td>下午</td><td>第四节</td><td id='" + xqytd4 + "'></td><td id='" + xqytd2_4 + "'></td><td id='" + xqytd3_4 + "'></td><td id='" + xqytd4_4 + "'></td><td id='" + xqytd5_4 + "'></td><td id='" + xqytd6_4 + "'></td><td id='" + xqytd7_4 + "'></td></tr>";
+							var sxTime5 = "<tr><td>晚上</td><td>第五节</td><td id='" + xqytd5 + "'></td><td id='" + xqytd2_5 + "'></td><td id='" + xqytd3_5 + "'></td><td id='" + xqytd4_5 + "'></td><td id='" + xqytd5_5 + "'></td><td id='" + xqytd6_5 + "'></td><td id='" + xqytd7_5 + "'></td></tr>";
+							$("#ksbTable").append(nameTr + biaotou + sxTime1 + sxTime2 + sxTime3 + sxTime4 + sxTime5);
 
 							for(var x = 0; x < dateTemp.length; x++) {
 								if(tepName == dateTemp[x].userName) {
-									if(dateTemp[x].sxZhou&&dateTemp[x].sxZhou == '星期一') {
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第一节') {
-										  $('#'+xqytd1).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+									if(dateTemp[x].sxZhou && dateTemp[x].sxZhou == '星期一') {
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第一节') {
+											$('#' + xqytd1).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
 										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第二节') {
-										  $('#'+xqytd2).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第二节') {
+											$('#' + xqytd2).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
 										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第三节') {
-										  $('#'+xqytd3).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第三节') {
+											$('#' + xqytd3).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
 										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第四节') {
-										  $('#'+xqytd4).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第四节') {
+											$('#' + xqytd4).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
 										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第五节') {
-										  $('#'+xqytd5).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
-										}
-									}
-									if(dateTemp[x].sxZhou&&dateTemp[x].sxZhou == '星期二') {
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第一节') {
-										  $('#'+xqytd2_1).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
-										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第二节') {
-										  $('#'+xqytd2_2).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
-										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第三节') {
-										  $('#'+xqytd2_3).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
-										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第四节') {
-										  $('#'+xqytd2_4).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
-										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第五节') {
-										  $('#'+xqytd2_5).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第五节') {
+											$('#' + xqytd5).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
 										}
 									}
-									if(dateTemp[x].sxZhou&&dateTemp[x].sxZhou == '星期三') {
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第一节') {
-										  $('#'+xqytd3_1).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+									if(dateTemp[x].sxZhou && dateTemp[x].sxZhou == '星期二') {
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第一节') {
+											$('#' + xqytd2_1).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
 										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第二节') {
-										  $('#'+xqytd3_2).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第二节') {
+											$('#' + xqytd2_2).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
 										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第三节') {
-										  $('#'+xqytd3_3).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第三节') {
+											$('#' + xqytd2_3).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
 										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第四节') {
-										  $('#'+xqytd3_4).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第四节') {
+											$('#' + xqytd2_4).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
 										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第五节') {
-										  $('#'+xqytd3_5).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
-										}
-									}
-									if(dateTemp[x].sxZhou&&dateTemp[x].sxZhou == '星期四') {
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第一节') {
-										  $('#'+xqytd4_1).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
-										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第二节') {
-										  $('#'+xqytd4_2).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
-										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第三节') {
-										  $('#'+xqytd4_3).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
-										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第四节') {
-										  $('#'+xqytd4_4).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
-										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第五节') {
-										  $('#'+xqytd4_5).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第五节') {
+											$('#' + xqytd2_5).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
 										}
 									}
-									if(dateTemp[x].sxZhou&&dateTemp[x].sxZhou == '星期五') {
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第一节') {
-										  $('#'+xqytd5_1).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+									if(dateTemp[x].sxZhou && dateTemp[x].sxZhou == '星期三') {
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第一节') {
+											$('#' + xqytd3_1).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
 										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第二节') {
-										  $('#'+xqytd5_2).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第二节') {
+											$('#' + xqytd3_2).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
 										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第三节') {
-										  $('#'+xqytd5_3).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第三节') {
+											$('#' + xqytd3_3).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
 										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第四节') {
-										  $('#'+xqytd5_4).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第四节') {
+											$('#' + xqytd3_4).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
 										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第五节') {
-										  $('#'+xqytd5_5).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
-										}
-									}
-									if(dateTemp[x].sxZhou&&dateTemp[x].sxZhou == '星期六') {
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第一节') {
-										  $('#'+xqytd6_1).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
-										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第二节') {
-										  $('#'+xqytd6_2).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
-										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第三节') {
-										  $('#'+xqytd6_3).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
-										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第四节') {
-										  $('#'+xqytd6_4).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
-										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第五节') {
-										  $('#'+xqytd6_5).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第五节') {
+											$('#' + xqytd3_5).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
 										}
 									}
-									if(dateTemp[x].sxZhou&&dateTemp[x].sxZhou == '星期日') {
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第一节') {
-										  $('#'+xqytd7_1).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+									if(dateTemp[x].sxZhou && dateTemp[x].sxZhou == '星期四') {
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第一节') {
+											$('#' + xqytd4_1).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
 										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第二节') {
-										  $('#'+xqytd7_2).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第二节') {
+											$('#' + xqytd4_2).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
 										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第三节') {
-										  $('#'+xqytd7_3).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第三节') {
+											$('#' + xqytd4_3).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
 										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第四节') {
-										  $('#'+xqytd7_4).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第四节') {
+											$('#' + xqytd4_4).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
 										}
-										if(dateTemp[x].sxXuHao&&dateTemp[x].sxXuHao == '第五节') {
-										  $('#'+xqytd7_5).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第五节') {
+											$('#' + xqytd4_5).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										}
+									}
+									if(dateTemp[x].sxZhou && dateTemp[x].sxZhou == '星期五') {
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第一节') {
+											$('#' + xqytd5_1).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										}
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第二节') {
+											$('#' + xqytd5_2).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										}
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第三节') {
+											$('#' + xqytd5_3).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										}
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第四节') {
+											$('#' + xqytd5_4).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										}
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第五节') {
+											$('#' + xqytd5_5).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										}
+									}
+									if(dateTemp[x].sxZhou && dateTemp[x].sxZhou == '星期六') {
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第一节') {
+											$('#' + xqytd6_1).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										}
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第二节') {
+											$('#' + xqytd6_2).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										}
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第三节') {
+											$('#' + xqytd6_3).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										}
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第四节') {
+											$('#' + xqytd6_4).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										}
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第五节') {
+											$('#' + xqytd6_5).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										}
+									}
+									if(dateTemp[x].sxZhou && dateTemp[x].sxZhou == '星期日') {
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第一节') {
+											$('#' + xqytd7_1).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										}
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第二节') {
+											$('#' + xqytd7_2).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										}
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第三节') {
+											$('#' + xqytd7_3).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										}
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第四节') {
+											$('#' + xqytd7_4).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
+										}
+										if(dateTemp[x].sxXuHao && dateTemp[x].sxXuHao == '第五节') {
+											$('#' + xqytd7_5).html("教学楼：" + dateTemp[x].ksDiZhi + "</br>教室：" + dateTemp[x].ksName + "</br>教室容纳人数：" + dateTemp[x].ksRenSu + "</br>班级：" + dateTemp[x].bjName + "</br>班级人数：" + dateTemp[x].bjRenShu + "</br>专业：" + dateTemp[x].kcCJDW + "</br>课程：" + dateTemp[x].kcName);
 										}
 									}
 								}
 							}
-							
+
 						}
 
 					}
-
-					
 
 				}
 			});
 
 		}
-
-		//Demo
-		layui.use('form', function() {
-			var form = layui.form;
-
-			//监听提交
-			form.on('submit(formDemo)', function(data) {
-				//layer.msg(JSON.stringify(data.field));
-
-				return false;
-			});
-
-			$(function() {
-
-				selectYWKC(1, 1);
-
-			});
-		});
 	</script>
 
 </html>

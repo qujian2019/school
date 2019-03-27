@@ -13,7 +13,7 @@
 		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=Edge">
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<link rel="stylesheet" href="/r3/layui-v2.2.5/layui/css/layui.css" />
-		<link rel="shortcut icon" href="http://124.228.83.236/r3/imgs/sign/bitbug_favicon.ico" />
+		<link rel="shortcut icon" href="http://www.hngsxy.com/r3/imgs/sign/bitbug_favicon.ico" />
 		<style>
 			body {
 				margin: 0px;
@@ -43,7 +43,7 @@
 							<dd>
 								<a id="basicdata">基本资料</a>
 							</dd>
-							<!--					<dd>
+					<!--<dd>
 							<a href="">安全设置</a>
 						</dd>-->
 						</dl>
@@ -205,11 +205,11 @@
 		$("#certificate_management").on("click", function() {
 			$("#mianIframe").attr("src", "/pages/zhenshu/certificate_management.jsp");
 		});
-		
+		//英语考试
 		$("#yyksgl").on("click", function() {
 			$("#mianIframe").attr("src", "/pages/EnglishTest/EnglishTestManage.jsp");
 		});
-		
+		//普通话考试
 		$("#pthdjks").on("click", function() {
 			$("#mianIframe").attr("src", "/pages/GeneralTest/GeneralTestManage.jsp");
 		});
@@ -217,6 +217,19 @@
 		$("#wsbxxt").on("click", function() {
 			$("#mianIframe").attr("src", "/pages/wsbxxt/wsbxxt_1.jsp");
 		});
+		
+		$("#jwxt_paike").on("click", function() {
+			$("#mianIframe").attr("src", "http://www.hngsxy.com/notH5/xt/jwxt/jwxt_paike.html");
+		});
+		
+		$("#jwxt_xsxxgl").on("click", function() {
+			$("#mianIframe").attr("src", "http://www.hngsxy.com/notH5/xt/jwxt/p211.html");
+		});
+		
+		$("#jwxt_xsxxlr").on("click", function() {
+			$("#mianIframe").attr("src", "http://www.hngsxy.com/notH5/xt/jwxt/p210.html");
+		});
+
 
 	</script>
 

@@ -40,7 +40,7 @@ public class GsxyEnglishExaminationTable implements Serializable{
 	private String examination;
 	private String textPassword;
 	private String nation;
-	private String classType;
+	private String classType;//学制
 	private String telePhone;//学生电话
 	
 	public String getTelePhone() {

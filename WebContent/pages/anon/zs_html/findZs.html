@@ -6,7 +6,7 @@
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=Edge">
 		<link rel="stylesheet" href="../../../r3/layui-v2.2.5/layui/css/layui.css" />
-		<link rel="shortcut icon" href="http://124.228.83.236/r3/imgs/sign/bitbug_favicon.ico" />
+		<link rel="shortcut icon" href="http://www.hngsxy.com/r3/imgs/sign/bitbug_favicon.ico" />
 		<style>
 			body{
 				text-align:center;
@@ -70,7 +70,11 @@
 				<tr>
 					<td>姓 名：</td>
 					<td id="content"></td>
-					<td>性 别：</td>
+					<td rowspan="2">照片：</td>
+					<td rowspan="2"><img id="imgzp" src="" style="margin: auto;" width="98" height="140"/></td>
+				</tr>
+				<tr>
+					<td >性 别：</td>
 					<td id="sex"></td>
 				</tr>
 				<tr>
@@ -92,7 +96,38 @@
 					<td id="classid"></td>
 				</tr>
 			</table>
-			<img id="imgzp" src="" style="margin: auto;" width="98" height="140"/>
+<!--			<table class="layui-table">
+			  <colgroup>
+			    <col width="150">
+			    <col >
+			    <col width="150">
+			    <col>
+			  </colgroup>
+				<tr>
+					<td>姓 名：</td>
+					<td id="content"></td>
+					<td>性 别：</td>
+					<td id="sex"></td>
+				</tr>
+				<tr>
+					<td>出生日期：</td>
+					<td id="yyddmm"></td>
+					<td>发证日期：</td>
+					<td id="data"></td>
+				</tr>
+				<tr>
+					<td>证书编号：</td>
+					<td id="title"></td>
+					<td>身份证号：</td>
+					<td id="idcard"></td>
+				</tr>
+				<tr>
+					<td>文化程度：</td>
+					<td>大专</td>
+					<td>专 业：</td>
+					<td id="classid"></td>
+				</tr>
+			</table>-->
 		</div>
 		
 		
@@ -127,8 +162,8 @@
 						}else{
 							$("#sex").text('女');
 						}
-						$("#yyddmm").text(data.birthday);
-						$("#data").text(data.data);
+						$("#yyddmm").text(data.birthday.substring(0,10));
+						$("#data").text(data.data.substring(0,10));
 						$("#title").text(data.title);
 						$("#idcard").text(data.idcard);
 						

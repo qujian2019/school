@@ -1072,8 +1072,7 @@ public class Anon {
 		Integer temp = null;
 		GsxyEnglishExaminationTable temp1 = null;
 		// 判断是否是空
-		if (StringUtils.isBlank(g.getStudentName()) || StringUtils.isBlank(g.getIdcard())
-				|| StringUtils.isBlank(g.getSchoolNumber()) || StringUtils.isBlank(g.getClassNumber())) {
+		if (StringUtils.isBlank(g.getStudentName()) || StringUtils.isBlank(g.getIdcard())) {
 			return 0;
 		}
 		// 判断是否是身份证号码

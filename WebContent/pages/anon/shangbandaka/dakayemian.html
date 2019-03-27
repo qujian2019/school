@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=Edge">
+		<link rel="shortcut icon" href="http://www.hngsxy.com/r3/imgs/sign/bitbug_favicon.ico" />
+		<link rel="stylesheet" href="/r3/layui-v2.4.3/layui/css/layui.css" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<title>打卡界面</title>
+	</head>
+	<body>
+		<fieldset class="layui-elem-field">
+		  <legend>职工打卡</legend>
+		  <div class="layui-field-box">
+			<form class="layui-form" action="">
+			  <div class="layui-form-item">
+			    <div class="layui-input-block">
+			      <button class="layui-btn" lay-submit lay-filter="formDemo">点击打卡</button>
+			    </div>
+			  </div>
+			</form>
+		  </div>
+		</fieldset>
+	</body>
+	<script src="/r3/jquery/jquery-1.8.2.js" type="text/javascript"></script>
+	<script src="/r3/layui-v2.4.3/layui/layui.js"></script>
+	<script src="/r3/anonJs/reJS.js"></script>
+	<script>
+		//获取路径后的参数
+		function parseUrl() {
+			var url = location.href;
+			var i = url.indexOf('?');
+
+			if(i == -1) return;
+			var querystr = url.substr(i + 1);
+
+			var arr1 = querystr.split('&');
+
+			var arr2 = new Object();
+			for(p in arr1) {
+				var ta = arr1[p].split('=');
+				arr2[ta[0]] = ta[1];
+			}
+			return arr2;
+		}
+		var v = parseUrl(); //解析所有参数
+		// alert(v['fileFolderId']);//就是你要的结果
+
+		if(v != null) {
+			var userId = v['userId'];
+			//console.log(userId)
+		}
+		
+		$(function(){
+			
+		});
+		
+		//Demo
+		layui.use('form', function(){
+		  var form = layui.form;
+		  
+//			var parmcurriculum1 = {
+//				"pb_UrlId": 172
+//				//,"pbCol": "kcNo,kcCJDW"
+//			}
+//			request.send("xt/man.do?m=get&data=list", parmcurriculum1, function(d2) {
+//				if(d2.code == 0) {
+//		
+//				}
+//			});
+		  
+		  //监听提交
+		  form.on('submit(formDemo)', function(data){
+		    layer.msg(JSON.stringify(data.field));
+		    
+		    
+		    
+		    
+		    return false;
+		  });
+		});
+	</script>
+</html>

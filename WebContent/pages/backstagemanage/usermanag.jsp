@@ -9,7 +9,7 @@
 			<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=Edge">
 			<meta name="viewport" content="width=device-width,initial-scale=1.0">
 			<link rel="stylesheet" href="/r3/layui-v2.2.5/layui/css/layui.css" />
-			<link rel="shortcut icon" href="http://124.228.83.236/r3/imgs/sign/bitbug_favicon.ico" />
+			<link rel="shortcut icon" href="http://www.hngsxy.com/r3/imgs/sign/bitbug_favicon.ico" />
 			<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<style>
 			body{margin: 0px;}
@@ -38,6 +38,7 @@
 		  <button class="layui-btn" id="goGWLF">工作日志列表</button> 
 		  <button class="layui-btn" id="goGWLF2">工作日志</button>
 		  <button class="layui-btn" id="wsxxzl">完善我的个人资料</button>
+		  <button class="layui-btn" id="zzdk">职工打卡</button>
 		</div>
     	<!--<button class="layui-btn" id="goGWLF">湖南工商职业学院员工工作日志</button>-->
 <!--    	<div class="userManag1" id="goGWLF">
@@ -68,9 +69,13 @@
 			});
 			
 			$("#wsxxzl").on("click",function(){
-				var userId = $('#userId').val();
+				//var userId = $('#userId').val();
 				//location.href="http://www.hngsxy.com/notH5/xt/mt/p184.html?userId="+userId;
 				location.href="/pages/anon/wswdgrzl/wswdgrzl_1.jsp";
 			});
+/*			//打卡界面
+			$("#zzdk").on("click",function(){
+				location.href="/pages/anon/shangbandaka/dakayemian.html?userId="+userId;
+			});*/
 		</script>
 </html>

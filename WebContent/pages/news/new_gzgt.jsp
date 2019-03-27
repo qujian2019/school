@@ -6,10 +6,12 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="renderer" content="webkit">
+		<meta name="Keywords" content="湖南工商职业学院,湖南工商怎么样,湖南工商,湖南工商如何,工商职业学院,工商职业,工商,职业">
+		<meta name="Description" content="湖南工商职业学院,湖南工商怎么样,湖南工商,湖南工商如何,工商职业学院,工商职业,工商,职业">
 		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=Edge">
 		<title>新闻信息</title>
 		<link rel="stylesheet" href="/r3/layui-v2.2.5/layui/css/layui.css" />
-		<link rel="shortcut icon" href="http://124.228.83.236/r3/imgs/sign/bitbug_favicon.ico" />
+		<link rel="shortcut icon" href="http://www.hngsxy.com/r3/imgs/sign/bitbug_favicon.ico" />
 		<style>
 			body {
 				margin: 0px;

@@ -8,7 +8,7 @@
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=Edge">
 		<link rel="stylesheet" href="/r3/layui-v2.4.3/layui/css/layui.css" />
-		<link rel="shortcut icon" href="http://124.228.83.236/r3/imgs/sign/bitbug_favicon.ico" />
+		<link rel="shortcut icon" href="http://www.hngsxy.com/r3/imgs/sign/bitbug_favicon.ico" />
 		<title>普通话考试管理</title>
 		<style>
 
@@ -55,7 +55,7 @@
 						<label class="layui-form-label">考期:</label>
 						<div class="layui-input-block">
 							<select id="examination" name="examination" lay-verify="required" lay-filter="examination">
-
+								<option value=""></option>
 							</select>
 						</div>
 					</div>
@@ -82,8 +82,8 @@
 			<!--	描述：控制按钮 -->
 			<div class="layui-hide" id="barDemo">
 				<a class="layui-btn layui-btn-xs" lay-event="edit" id="edit">编辑</a>
-				<a class="layui-btn layui-btn-xs" lay-event="fail" id="fail">没通过审核</a>
-				<a class="layui-btn layui-btn-xs" lay-event="adopt" id="adopt">通过审核</a>
+		<!--		<a class="layui-btn layui-btn-xs" lay-event="fail" id="fail">没通过审核</a>
+				<a class="layui-btn layui-btn-xs" lay-event="adopt" id="adopt">通过审核</a>-->
 				<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" id="del">删除</a>
 			</div>
 
@@ -121,12 +121,14 @@
 						{
 							checkbox: true,
 							LAY_CHECKED: false
-						}, {
-							field: 'examinationStatus',
-							title: '审核状态',
-							templet: '#examinationStatusTpl',
-							width: 100
-						}, {
+						}
+//						, {
+//							field: 'examinationStatus',
+//							title: '审核状态',
+//							templet: '#examinationStatusTpl',
+//							width: 100
+//						}
+						,{
 							field: 'idcard',
 							title: '身份证',
 							width: 200

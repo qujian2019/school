@@ -6,7 +6,7 @@
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=Edge">
 		<link rel="stylesheet" href="/r3/layui-v2.2.5/layui/css/layui.css" />
-		<link rel="shortcut icon" href="http://124.228.83.236/r3/imgs/sign/bitbug_favicon.ico" />
+		<link rel="shortcut icon" href="http://www.hngsxy.com/r3/imgs/sign/bitbug_favicon.ico" />
 		<style>
 			body {
 				margin: 0px;
@@ -157,8 +157,37 @@
 				.body1_3{
 				    width: 1000px;
 				    height: 220px;
+				    margin-top: 30px;
 				    
 				}
+				.body1_7{
+				    width: 1000px;
+				    height: 220px;
+				    margin-top: 30px;
+				    
+				}
+					.body1_7_1{
+					    width: 1000px;
+					    height: 210px;
+					    float: left;
+						border-style: solid;
+						border-width: thin;
+						border-color: #9b0000;
+					}
+						.body1_7_1_1{
+						    width: 83px;
+						    height: 210px;
+						    background-color: white;
+						    float: left;
+						    /*border-right:1px solid #000;*/
+						}
+						.body1_7_1_2{
+						    width: 916px;
+						    height: 210px;
+						    border-left:0.1px solid #9b0000;
+						     background-color: white;
+						    float: left;
+						}
 					.body1_3_1{
 					    width: 490px;
 					    height: 210px;
@@ -235,7 +264,37 @@
 						 height: 200px;
 						 float: left;
 					}
+				.body1_5 {
+					margin: 0 auto;
+					width: 1000px;
+					height: 280px;
 					
+				}
+					.body1_5_1{
+					    width: 490px;
+					    height: 280px;
+					    float: left;
+					}
+					.body1_5_2{
+					    width: 490px;
+					    height: 280px;
+					    float: right;
+					}
+						.body1_5_2_1{
+							border-top:0.1px solid #9b0000;
+							border-bottom:0.1px solid #9b0000;
+							border-left:0.1px solid #9b0000;
+						    width: 63px;
+						    height: 280px;
+						    float: left;
+						}
+						.body1_5_2_2{
+						    width: 426px;
+						    height: 280px;
+						   border:0.1px solid #9b0000;
+						   background-color: white;
+						    float: left;
+						}
 				
 			.btnmargin{
 				margin-left: 150px;
@@ -316,7 +375,11 @@
 			    margin: 10px 15px;
 			    float: left;
 			}
-			
+
+			.imgInfo{
+				width: 100%;
+				height: 100%;
+			}
 		</style>
 	</head>
 	<body>
@@ -388,14 +451,74 @@
 					<i class="layui-icon" style="font-size: 30px;color: #000000; ">&#xe658;</i><span style="font-weight: 900; color: #000000;">来校路线</span></button>
 			</div>
 			<div class="jgdiv"></div>
-
+			<div class="body1_5">
+				<div class="layui-carousel body1_5_1" id="test1">
+				  <div carousel-item>
+				    <div><img class="imgInfo" src="http://www.hngsxy.com/temp/img/6a887d05f83349e3b3a5378bad7e8e01"/></div>
+				    <div><img class="imgInfo" src="http://www.hngsxy.com/temp/img/3a0d45216c2548b6a82d8a07fa322d1d"/></div>
+				    <div><img class="imgInfo" src="http://www.hngsxy.com/temp/img/dd5471643306472cb8db826edfec8452"/></div>
+				    <div><img class="imgInfo" src="http://www.hngsxy.com/temp/img/5c8691d13a9344768daaa4d49d040b10"/></div>
+				    <div><img class="imgInfo" src="http://www.hngsxy.com:80/temp/img/653cb90548b44c8aaa8953d289cee262"/></div>
+				    <div><img class="imgInfo" src="http://www.hngsxy.com:80/temp/img/23237474fb84441fb37064d641def187"/></div>
+				    <div><img class="imgInfo" src="http://www.hngsxy.com/temp/img/5ab170612247413996ae8f6e3334ed0a_DN8A0868.jpg"/></div>
+				  </div>
+				</div>
+				<div class="body1_5_2">
+					<div class="body1_5_2_1" style="background: url(/r3/imgs/zsw/lqtz.png);">
+					</div>
+					<div class="body1_5_2_2">
+						<form class="layui-form" action="" style="margin: 10px;">
+						  <div class="layui-form-item">
+						    <label class="layui-form-label">输入姓名：</label>
+						    <div class="layui-input-block">
+						      <input style="width: 248px;" type="text" name="studentName" required  lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+						    </div>
+						  </div>
+						  <div class="layui-form-item">
+						    <label class="layui-form-label">输入考生号：</label>
+						    <div class="layui-input-block">
+						      <input style="width: 248px;" type="text" name="examineeNumber" required  lay-verify="required" placeholder="请输入考生号" autocomplete="off" class="layui-input">
+						    </div>
+						  </div>
+						  <div class="layui-form-item">
+						    <div class="layui-input-block">
+						      <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+						      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						    </div>
+						  </div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="body1_7">
+				<div class="body1_7_1">
+					<div class="body1_7_1_1">
+						<a href="gszxxyZSW_2.html?newType=ZSW12"><img src="/r3/imgs/zsw/zxwzsxw.png"/></a>
+					</div>
+					<div class="body1_7_1_2">
+						<script id="demoZSW12" type="text/html">
+							<ul>
+								{{# layui.each(d.list, function(index, item){ }} 
+								{{# if(index == 7){return true;} }}
+								<li class="liclass">
+									<span class="layui-badge-dot layui-bg-blue"></span>
+									<span class="spandiv">{{ item.newsReleaseTime.substring(0,10)}}</span>
+									<a onclick="selectOne({{ item.newsId}})" title="{{item.newsTitle}}">{{ item.newsTitle.substring(0,30) }}</a>
+								</li>
+								{{# }); }} {{# if(d.list.length === 0){ }} 无数据 {{# } }}
+							</ul>
+						</script>
+						<div id="newsTypeIsZSW12" style="padding: 5px;"></div>
+					</div>
+				</div>
+			</div>
 			<div class="body1_3">
 				<div class="body1_3_1">
 					<div class="body1_3_1_1">
-						<a href="gszxxyZSW_2.html?newType=ZSW14,ZSW15,ZSW16,ZSW17"><img src="/r3/imgs/zsw/zswimg00101.png"/></a>
+						<a href="gszxxyZSW_2.html?newType=ZSW2"><img src="/r3/imgs/btn/zsxx.png"/></a>
 					</div>
 					<div class="body1_3_1_2">
-						<script id="demoZSW14_17" type="text/html">
+						<script id="demoZSW2" type="text/html">
 							<ul>
 								{{# layui.each(d.list, function(index, item){ }} 
 								{{# if(index == 7){return true;} }}
@@ -407,7 +530,7 @@
 								{{# }); }} {{# if(d.list.length === 0){ }} 无数据 {{# } }}
 							</ul>
 						</script>
-						<div id="newsTypeIsZSW14_17"></div>
+						<div id="newsTypeIsZSW2"></div>
 					</div>
 				</div>
 				<div class="body1_3_2">
@@ -443,12 +566,13 @@
 						<div id="newsTypeIsZSW10"></div>
 					</div>
 				</div>
+				
 				<div class="body1_3_2">
 					<div class="body1_3_2_1">
-						<a href="gszxxyZSW_2.html?newType=ZSW2"><img src="/r3/imgs/btn/zsxx.png"/></a>
+						<a href="gszxxyZSW_2.html?newType=ZSW14,ZSW15,ZSW16,ZSW17"><img src="/r3/imgs/zsw/zswimg00101.png"/></a>
 					</div>
 					<div class="body1_3_2_2">
-						<script id="demoZSW2" type="text/html">
+						<script id="demoZSW14_17" type="text/html">
 							<ul>
 								{{# layui.each(d.list, function(index, item){ }} 
 								{{# if(index == 7){return true;} }}
@@ -460,56 +584,7 @@
 								{{# }); }} {{# if(d.list.length === 0){ }} 无数据 {{# } }}
 							</ul>
 						</script>
-						<div id="newsTypeIsZSW2"></div>
-					</div>
-				</div>
-			</div>
-			<div class="body1_3">
-				<div class="body1_3_1">
-					<div class="body1_3_1_1">
-						<a href="gszxxyZSW_2.html?newType=ZSW12"><img src="/r3/imgs/zsw/zxwzsxw.png"/></a>
-					</div>
-					<div class="body1_3_1_2">
-						<script id="demoZSW12" type="text/html">
-							<ul>
-								{{# layui.each(d.list, function(index, item){ }} 
-								{{# if(index == 7){return true;} }}
-								<li class="liclass">
-									<span class="layui-badge-dot layui-bg-blue"></span>
-									<span class="spandiv">{{ item.newsReleaseTime.substring(0,10)}}</span>
-									<a onclick="selectOne({{ item.newsId}})" title="{{item.newsTitle}}">{{ item.newsTitle.substring(0,20) }}</a>
-								</li>
-								{{# }); }} {{# if(d.list.length === 0){ }} 无数据 {{# } }}
-							</ul>
-						</script>
-						<div id="newsTypeIsZSW12" style="padding: 5px;"></div>
-					</div>
-				</div>
-				<div class="body1_3_2">
-					<div class="body1_3_2_1">
-						<img src="/r3/imgs/zsw/zswlqcx.png"/>
-					</div>
-					<div class="body1_3_2_2">
-						<form class="layui-form" action="" style="margin: 10px;">
-						  <div class="layui-form-item">
-						    <label class="layui-form-label">输入姓名：</label>
-						    <div class="layui-input-block">
-						      <input style="width: 248px;" type="text" name="studentName" required  lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
-						    </div>
-						  </div>
-						  <div class="layui-form-item">
-						    <label class="layui-form-label">输入考生号：</label>
-						    <div class="layui-input-block">
-						      <input style="width: 248px;" type="text" name="examineeNumber" required  lay-verify="required" placeholder="请输入考生号" autocomplete="off" class="layui-input">
-						    </div>
-						  </div>
-						  <div class="layui-form-item">
-						    <div class="layui-input-block">
-						      <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-						      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-						    </div>
-						  </div>
-						</form>
+						<div id="newsTypeIsZSW14_17"></div>
 					</div>
 				</div>
 			</div>
@@ -519,14 +594,13 @@
 				<h3 style="margin: 5px 25px;">友情链接</h3>
 				<div style="margin-left:25px;display:inline-block">
 					<a class="bsa" href="http://www.hneao.cn/ks/" target="_blank">湖南省高考招生考试信息管理平台(考生版)</a>
-
 				</div>
 			</div>
 			
 			<div class="jgdiv"></div>
 			<div class="body1_4">
 				<div class="body1_4_1">
-					<video width="280" height="200" controls src="http://124.228.83.236/temp/media/20180322_1521703602295090915.mkv">
+					<video width="280" height="200" controls src="http://www.hngsxy.com/temp/media/hngsxyMin.mp4">
 						您的浏览器不支持Video标签。
 					</video>
 				</div>
@@ -567,7 +641,7 @@
 				<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=43040702000117" target="_blank">湘公网安备 43040702000117号</a> <br />
 			</div>
 		</div>
-		<div id="imgDiv" style="position:absolute;left:50px;top:60px;" class="fyc">
+		<div id="imgDiv" style="position:absolute;left:50px;top:60px;display: none;" class="fyc">
 			<button class="layui-btn layui-btn-danger" style="min-width: 200px;min-height: 65px; background-color: #1E9FFF;">
 				<i class="layui-icon" style="font-size: 30px;color: white; ">&#xe756;</i>
 				<span id="fycText" style="font-weight: 900; color: white"></span>
@@ -625,6 +699,17 @@
 		    
 		    
 		    return false;
+		  });
+		});
+
+		layui.use('carousel', function(){
+		  var carousel = layui.carousel;
+		  //建造实例
+		  carousel.render({
+		    elem: '#test1'
+		    ,width: '' //设置容器宽度
+		    ,arrow: 'always' //始终显示箭头
+		    //,anim: 'updown' //切换动画方式
 		  });
 		});
 

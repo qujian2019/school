@@ -10,6 +10,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=Edge">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/r3/layui-v2.1.5/layui-v2.1.5/layui/css/layui.css" />
 		<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/r3/ueditor1_4_3_3-utf8-jsp/utf8-jsp/ueditor.config.js"></script>
 		<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/r3/ueditor1_4_3_3-utf8-jsp/utf8-jsp/ueditor.all.js"></script>

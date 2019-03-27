@@ -46,7 +46,7 @@
 	</update>
 
 	<select id="findEnglishExamination" parameterType="map" resultType="GsxyEnglishExaminationTable">
-		SELECT * 
+		SELECT distinct * 
 		FROM `gsxy_english_examination_table`
 		where `examinationStatus` in ('1','2','3')
 		<include refid="EnglishTest_sql"></include>
@@ -56,14 +56,14 @@
 	
 	
 	<select id="findEnglishExaminationTotal" parameterType="map" resultType="int">
-		SELECT COUNT(1)
+		SELECT distinct COUNT(1)
 		FROM `gsxy_english_examination_table`
 		where `examinationStatus` in ('1','2','3')
 		<include refid="EnglishTest_sql"></include>
 	</select>
 	
 	<select id="findGeneralTest" parameterType="map" resultType="GsxyEnglishExaminationTable">
-		SELECT * 
+		SELECT distinct * 
 		FROM `gsxy_english_examination_table`
 		where `examinationStatus` in ('11','12','13')
 		<include refid="EnglishTest_sql"></include>
@@ -72,7 +72,7 @@
 	</select>
 	
 	<select id="findGeneralTestTotal" parameterType="map" resultType="int">
-		SELECT COUNT(1)
+		SELECT distinct COUNT(1)
 		FROM `gsxy_english_examination_table`
 		where `examinationStatus` in ('11','12','13')
 		<include refid="EnglishTest_sql"></include>
@@ -80,7 +80,7 @@
 
 	<!-- 用于Excel导出 -->
 	<select id="findEnglishExaminationExcel" parameterType="map" resultType="GsxyEnglishExaminationTable">
-		SELECT * 
+		SELECT distinct * 
 		FROM `gsxy_english_examination_table`
 		where `examinationStatus` in (#{st1},#{st2})
 		<include refid="EnglishTest_sql"></include>
@@ -190,6 +190,8 @@
 		SELECT * 
 		FROM `gsxy_english_examination_table`
 		WHERE `idcard` = #{idcard} AND `examinationStatus` IN ('1','2','3')
+		order by insertTime desc
+		LIMIT 0,1
 	</select>
 	
 	<!-- 查询报考状态 -->
@@ -197,6 +199,8 @@
 		SELECT * 
 		FROM `gsxy_english_examination_table`
 		WHERE `idcard` = #{idcard} AND `examinationStatus` IN ('11','12','13')
+		order by insertTime desc
+		LIMIT 0,1
 	</select>
 	
 	<!-- 根据身份证修改 考试编号,和作为编号 -->

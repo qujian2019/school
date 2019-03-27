@@ -87,11 +87,11 @@ public class EnglishTestController {
 		}
 
 	}
-	
+
 	// 查询普通话测试考试
 	@RequestMapping(value = "/findGeneralTest")
-	public void findGeneralTest(GsxyEnglishExaminationTable gsxyEnglishExaminationTable,
-			HttpServletResponse resp, HttpServletRequest req) {
+	public void findGeneralTest(GsxyEnglishExaminationTable gsxyEnglishExaminationTable, HttpServletResponse resp,
+			HttpServletRequest req) {
 
 		String page = req.getParameter("page");
 		String limit = req.getParameter("limit");
@@ -174,7 +174,7 @@ public class EnglishTestController {
 		return temp;
 
 	}
-	
+
 	// 普通话考试修改
 	@RequestMapping(value = "/updateGeneralTest")
 	public @ResponseBody Integer updateGeneralTest(GsxyEnglishExaminationTable g) {
@@ -199,18 +199,19 @@ public class EnglishTestController {
 		}
 		return temp;
 	}
-	
+
 	// 导出Excel
 	@RequestMapping("/export")
-	public @ResponseBody String export(HttpServletResponse response, GsxyEnglishExaminationTable g,String st1,String st2) {
-			response.setContentType("application/binary;charset=UTF-8");
+	public @ResponseBody String export(HttpServletResponse response, GsxyEnglishExaminationTable g, String st1,
+			String st2) {
+		response.setContentType("application/binary;charset=UTF-8");
 		try {
 			ServletOutputStream out = response.getOutputStream();
 			String fileName = new String(
 					("UserInfo " + new SimpleDateFormat("yyyy-MM-dd").format(new Date())).getBytes(), "UTF-8");
 			response.setHeader("Content-disposition", "attachment; filename=" + fileName + ".xls");
-			String[] titles = { "身份证号", "姓名", "性别", "校区", "学院", "系别", "班级", "学号", "入学年份", "专业"};
-			englishTestBiz.findEnglishExaminationExcel(g, titles, out,st1,st2);
+			String[] titles = { "身份证号", "姓名", "性别", "校区", "学院", "系别", "班级", "学号", "入学年份", "专业", "名族", "学制", "电话号码" };
+			englishTestBiz.findEnglishExaminationExcel(g, titles, out, st1, st2);
 			return "success";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -220,8 +221,7 @@ public class EnglishTestController {
 
 	// 图片信息
 	@RequestMapping(value = "/findSemester")
-	public void findSemester(GsxySemester gsxySemester,
-			HttpServletResponse resp, HttpServletRequest req) {
+	public void findSemester(GsxySemester gsxySemester, HttpServletResponse resp, HttpServletRequest req) {
 
 		String page = req.getParameter("page");
 		String limit = req.getParameter("limit");
@@ -262,8 +262,8 @@ public class EnglishTestController {
 		}
 
 	}
-	
-	//新增考期
+
+	// 新增考期
 	@RequestMapping(value = "/insertSemester")
 	public @ResponseBody Integer insertSemester(GsxySemester gsxySemester) throws Exception {
 		Integer temp = null;
@@ -274,8 +274,8 @@ public class EnglishTestController {
 		}
 		return temp;
 	}
-	
-	//删除一个考期
+
+	// 删除一个考期
 	@RequestMapping(value = "/updateSemesterStatus")
 	public @ResponseBody Integer updateSemesterStatus(GsxySemester gsxySemester) throws Exception {
 		Integer temp = null;
@@ -286,8 +286,8 @@ public class EnglishTestController {
 		}
 		return temp;
 	}
-	
-	//修改一个考期
+
+	// 修改一个考期
 	@RequestMapping(value = "/updateSemesterName")
 	public @ResponseBody Integer updateSemesterName(GsxySemester gsxySemester) throws Exception {
 		Integer temp = null;
@@ -298,19 +298,21 @@ public class EnglishTestController {
 		}
 		return temp;
 	}
-	
-	//报考通过
+
+	// 报考通过
 	@RequestMapping(value = "/updateEnglishTestStateByAdopt")
 	public @ResponseBody Integer updateEnglishTestStateByAdopt(GsxyEnglishExaminationTable g) throws Exception {
 		Integer temp = null;
 
-		if("1".equals(g.getExaminationStatus())||"2".equals(g.getExaminationStatus())||"3".equals(g.getExaminationStatus())) {
+		if ("1".equals(g.getExaminationStatus()) || "2".equals(g.getExaminationStatus())
+				|| "3".equals(g.getExaminationStatus())) {
 			g.setExaminationStatus("3");
-		}else if("11".equals(g.getExaminationStatus())||"12".equals(g.getExaminationStatus())||"13".equals(g.getExaminationStatus())){
+		} else if ("11".equals(g.getExaminationStatus()) || "12".equals(g.getExaminationStatus())
+				|| "13".equals(g.getExaminationStatus())) {
 			g.setExaminationStatus("13");
 		}
 		g.setUnqualifiedReason("通过");
-		
+
 		try {
 			temp = englishTestBiz.updateEnglishTestStateByAdopt(g);
 		} catch (Exception e) {
@@ -318,15 +320,17 @@ public class EnglishTestController {
 		}
 		return temp;
 	}
-	
-	//不通过理由
+
+	// 不通过理由
 	@RequestMapping(value = "/updateEnglishTestUnqualifiedReason")
 	public @ResponseBody Integer updateEnglishTestUnqualifiedReason(GsxyEnglishExaminationTable g) throws Exception {
 		Integer temp = null;
-		
-		if("1".equals(g.getExaminationStatus())||"2".equals(g.getExaminationStatus())||"3".equals(g.getExaminationStatus())) {
+
+		if ("1".equals(g.getExaminationStatus()) || "2".equals(g.getExaminationStatus())
+				|| "3".equals(g.getExaminationStatus())) {
 			g.setExaminationStatus("2");
-		}else if("11".equals(g.getExaminationStatus())||"12".equals(g.getExaminationStatus())||"13".equals(g.getExaminationStatus())){
+		} else if ("11".equals(g.getExaminationStatus()) || "12".equals(g.getExaminationStatus())
+				|| "13".equals(g.getExaminationStatus())) {
 			g.setExaminationStatus("12");
 		}
 
@@ -337,20 +341,21 @@ public class EnglishTestController {
 		}
 		return temp;
 	}
-	
-	//根据身份证修改考试编号,和作为编号
+
+	// 根据身份证修改考试编号,和作为编号
 	// 导入excel单招学生信息
 	@SuppressWarnings("null")
 	@RequestMapping("/updateAdmissionTicket")
-	public @ResponseBody Map<String, String> updateAdmissionTicket(MultipartFile myfile, HttpServletRequest request,String st1,String st2,String examination) {
+	public @ResponseBody Map<String, String> updateAdmissionTicket(MultipartFile myfile, HttpServletRequest request,
+			String st1, String st2, String examination) {
 		Map<String, String> map = new HashMap<String, String>();
 		String originalFilename = null;
-		 Integer tttt = 0;
-		//String result = null;
+		Integer tttt = 0;
+		// String result = null;
 		GsxyEnglishExaminationTable g = new GsxyEnglishExaminationTable();
-		//Student s = null;
+		// Student s = null;
 		if (myfile.isEmpty()) {
-			//result = "模板文件为空,请选择文件";
+			// result = "模板文件为空,请选择文件";
 			return null;
 		} else {
 			originalFilename = myfile.getOriginalFilename();
@@ -360,15 +365,15 @@ public class EnglishTestController {
 			System.out.println("文件类型: " + myfile.getContentType());
 			System.out.println("========================================");
 		}
-		//获取项目路径
+		// 获取项目路径
 		String templl = request.getSession().getServletContext().getRealPath("/");
 		// 图片名 加了UUID处理
 		String savename = IdAndTimeCreateUtil.getUUID() + "_" + originalFilename;
 		// 拼接文件名
 		File destFile = new File(templl + File.separator + "excelFile");
 		destFile.mkdirs();
-		File destFilemlm = new File(destFile,savename);
-		
+		File destFilemlm = new File(destFile, savename);
+
 		// 写入
 		try {
 			String courseFile = destFilemlm.getCanonicalPath();
@@ -392,38 +397,38 @@ public class EnglishTestController {
 
 			e.printStackTrace();
 		}
-		//String filePath = "D:\\test.xlsx";
-		String columns [] = {"身份证号","姓名","性别","校区","学院","系别","班级","学号","入学年份","专业","准考证号","考场编号"};
+		// String filePath = "D:\\test.xlsx";
+		String columns[] = { "身份证号", "姓名", "性别", "校区", "学院", "系别", "班级", "学号", "入学年份", "专业", "准考证号", "考场编号" };
 		// 添加操作
-		ArrayList<Map<String, String>> list =ExcelUtil.analysis(originalFilename, columns);
-		
-        //遍历解析出来的list
-      for (Map<String,String> map1 : list) {
+		ArrayList<Map<String, String>> list = ExcelUtil.analysis(originalFilename, columns);
 
-          for (Entry<String,String> entry : map1.entrySet()) {
-          	//这里可以添加数据到数据库呢~
-             // System.out.print(entry.getKey()+":"+entry.getValue()+",");
-              
-          	if(entry.getKey() == "身份证号") {
-        		g.setIdcard(entry.getValue());
-        	}
-        	if(entry.getKey() == "准考证号") {
-        		g.setAdmissionTicket(entry.getValue());
-        	}
-        	if(entry.getKey() == "考场编号") {
-        		g.setCentreNo(entry.getValue());
-        	}
-          }
-        
-          try {
-        	  //通过身份证修改准考号，考试编号信息
-        	  tttt =  englishTestBiz.updateAdmissionTicket(g,st1,st2,examination);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		// 遍历解析出来的list
+		for (Map<String, String> map1 : list) {
+
+			for (Entry<String, String> entry : map1.entrySet()) {
+				// 这里可以添加数据到数据库呢~
+				// System.out.print(entry.getKey()+":"+entry.getValue()+",");
+
+				if (entry.getKey() == "身份证号") {
+					g.setIdcard(entry.getValue());
+				}
+				if (entry.getKey() == "准考证号") {
+					g.setAdmissionTicket(entry.getValue());
+				}
+				if (entry.getKey() == "考场编号") {
+					g.setCentreNo(entry.getValue());
+				}
+			}
+
+			try {
+				// 通过身份证修改准考号，考试编号信息
+				tttt = englishTestBiz.updateAdmissionTicket(g, st1, st2, examination);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
-
-      }
 
 		try {
 			fis.close();
@@ -431,11 +436,10 @@ public class EnglishTestController {
 
 			e.printStackTrace();
 		}
-		map.put("result","上传成功");
-		
+		map.put("result", "上传成功");
+
 		return map;
 
 	}
-	
-	
+
 }

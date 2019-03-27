@@ -201,6 +201,13 @@ public class EnglishTestBizImpl implements EnglishTestBiz{
 //			                    	 major = g1.getMajor();
 //			                     }
 			                     hssfRow.createCell(9).setCellValue(g1.getMajor());
+			                     
+			                     
+			                     hssfRow.createCell(10).setCellValue(g1.getNation());
+			                     
+			                     hssfRow.createCell(11).setCellValue(g1.getClassType());
+			                     
+			                     hssfRow.createCell(12).setCellValue(g1.getTelePhone());
  
 			                 }
 			             }

@@ -391,6 +391,8 @@
 				<span>顶岗实习制度(实训中心)</span>
 				{{# }else if(d.newType == 'SXZX7'){ }}
 				<span>下载中心(实训中心)</span> 
+				{{# }else if(d.newType == 'SXZX8'){ }}
+				<span>安全中心(实训中心)</span> 
 				
 				{{# }else if(d.newType == 'BWC1'){ }}
 				<span>通知公告(保卫处)</span> 
@@ -408,6 +410,17 @@
 				<span>业务办理(保卫处)</span>
 				{{# }else if(d.newType == 'BWC9'){ }}
 				<span>安全教育(保卫处)</span> 
+				
+				{{# }else if(d.newType == 'ZSXXAPP'){ }}
+				<span>招生APP</span> 
+				{{# }else if(d.newType == 'ZSAPPDSZ'){ }}
+				<span>招生APP董事长</span> 
+				{{# }else if(d.newType == 'ZSAPPZZ'){ }}
+				<span>招生APP组长</span> 
+				{{# }else if(d.newType == 'ZSAPPZY'){ }}
+				<span>招生APP组员</span> 
+				{{# }else if(d.newType == 'ZSAPPZSXS'){ }}
+				<span>招生APP招生学生</span> 
 				
 				{{# } }}
 			</script>

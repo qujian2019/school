@@ -1,0 +1,230 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="/r3/css/mui.min.css" rel="stylesheet" />
+		<link rel="shortcut icon" href="http://www.hngsxy.com/r3/imgs/sign/bitbug_favicon.ico" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">课表查询</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-input-row">
+				<label style="text-align: right;">学期：</label>
+				<select id="xueqi_select">
+				</select>
+			</div>
+			<div class="mui-input-row">
+				<label style="text-align: right;">老师：</label>
+				<input type="text" placeholder="可以输入老师名字查课" id="laoshi_name" onchange="setSelectLaoshi()" style="background-color: white;">
+			</div>
+			<div class="mui-input-row">
+				<label style="text-align: right;">选择教师：</label>
+				<select id="laoshi_select" onchange="setLaoshi()">
+				</select>
+			</div>
+			<div class="mui-input-row">
+				<label style="text-align: right;">教室：</label>
+				<select id="jiaoshi_select">
+				</select>
+			</div>
+			<div class="mui-input-row">
+				<label style="text-align: right;">课程：</label>
+				<select id="kechen_select">
+				</select>
+			</div>
+			<div class="mui-input-row">
+				<label style="text-align: right;">班级：</label>
+				<select id="bj_select">
+				</select>
+			</div>
+			<div class="mui-input-row">
+				<label style="text-align: right;">分组显示：</label>
+				<select id="fz_select">
+					<option value="userName" selected="selected">通过教师</option>
+					<option value="ksName">通过教室</option>
+					<option value="kcName">通过课程</option>
+					<option value="bjName">通过班级</option>
+				</select>
+			</div>
+			<div class="mui-input-row">
+				<button type="button" class="mui-btn mui-btn-blue" onclick="getKeChen()">查询</button>
+			</div>
+			<table id="ksbTable" style="display: none;">
+				<thead>
+					<tr>
+						<td colspan="9" id='showTitle' style="font-size: 20px;"></td>
+					</tr>
+					<tr bgcolor="#CCCCCC" id='zuijia_th'>
+					</tr>
+				</thead>
+				<tbody data-bind='shijian'>
+					<tr id='zuijia_td'>
+					</tr>
+				</tbody>
+			</table>
+			<div id='zhouqi' style="display: none;">
+				老师：<b data-bind="userName"></b>
+				<br/>课室：<b data-bind="ksName"></b>
+				<br/>可容纳人数:<b data-bind="ksRenSu"></b>
+				<br/>班级：<b data-bind="bjName"></b>
+				<br/>实际人数:<b data-bind="bjRenShu"></b>
+				<br/>课程:<b data-bind="kcName"></b>
+			</div>
+			<div class="mui-row" id="show" style="overflow:auto;">
+				通过选择条件查询对应课程
+			</div>
+		</div>
+		<script type="text/javascript" src="/r3/jquery/jquery-1.8.2.js"></script>
+		<script src="/r3/anonJs/mui.js"></script>
+		<script type="text/javascript" src="/r3/anonJs/reJS.js?v=1"></script>
+		<script type="text/javascript" src="/r3/anonJs/transparency.min.js"></script>
+		<script type="text/javascript">
+			//mui.init()
+			var xqi = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"];
+			var qihe2 = [{
+					"shiduan": "上午",
+					"sxXuHao": "第一节"
+				},
+				{
+					"shiduan": "",
+					"sxXuHao": "第二节"
+				},
+				{
+					"shiduan": "下午",
+					"sxXuHao": "第三节"
+				},
+				{
+					"shiduan": "",
+					"sxXuHao": "第四节"
+				},
+				{
+					"shiduan": "晚上",
+					"sxXuHao": "第五节"
+				}
+			];
+			$('#zuijia_th').html('<th>时段</th><th>课时</th>');
+			$('#zuijia_td').html('<td data-bind="shiduan" rowspan=2></td><td data-bind="sxXuHao"></td>');
+			var zhouMap = {};
+			$(xqi).each(function(i1, v1) {
+				zhouMap[v1] = "";
+				$('#zuijia_th').append('<th width="150px">' + v1 + '</th>');
+				$('#zuijia_td').append('<td data-bind="' + v1 + '">' + $('#zhouqi').html() + '</td>');
+			});
+			$(qihe2).each(function(i, v) {
+				jQuery.extend(true, v, zhouMap);
+			});
+			$(function() {
+				request.send("/xt/man.do?m=get&data=list", {
+					"pb_UrlId": 173,
+					"add": "order by xqNo desc"
+				}, function(d1) {
+					$(d1.data).each(function(i, v) {
+						$('#xueqi_select').append('<option value="{id}">{name}</option>'.format({
+							"id": v.xqNo,
+							"name": v.xqName
+						}));
+					});
+				});
+				dataToOption('laoshi_select', 203, 'userId', 'userName');
+				dataToOption('jiaoshi_select', 201, 'ksId', 'ksName');
+				dataToOption('kechen_select', 172, 'kcNo', 'kcName');
+				dataToOption('bj_select', 200, 'bjId', 'bjName');
+			});
+
+			function dataToOption(selectId, pbUrlId, no, name) {
+				request.send("/xt/man.do?m=get&data=list", {
+					"pb_UrlId": pbUrlId
+				}, function(d1) {
+					var op = '<option value="" text=""></option>';
+					$(d1.data).each(function(i, v) {
+						op += '<option value="{id}">{name}</option>'.format({
+							"id": v[no],
+							"name": v[name]
+						});
+					});
+					$('#' + selectId).html(op);
+				});
+			}
+
+			function setSelectLaoshi() {
+				var name = $('#laoshi_name').val();
+				if(name) {
+					$("#laoshi_select").find("option[text=" + name + "]").attr("selected", true);
+				} else {
+					$("#laoshi_select").val('');
+				}
+			}
+
+			function setLaoshi() {
+				$('#laoshi_name').val($('#laoshi_select option:selected').text());
+			}
+
+			function getKeChen() {
+				selectYWKC($('#xueqi_select').val(), $('#laoshi_select').val(), $('#jiaoshi_select').val(), $('#kechen_select').val(), $('#bj_select').val());
+			}
+
+			function selectYWKC(xueqi, userId, ksId, kcNo, bjId) {
+				var parm = {
+					"pb_UrlId": 204,
+					"xueQi": xueqi
+				}
+				if(userId) {
+					parm['a1.userId'] = userId;
+				}
+				if(ksId) {
+					parm['a1.ksId'] = ksId;
+				}
+				if(kcNo) {
+					parm['a1.kcId'] = kcNo;
+				}
+				if(bjId) {
+					parm['a1.bjId'] = bjId;
+				}
+				request.send("/xt/man.do?m=get&data=list", parm, function(d1) {
+					if(!d1.data || d1.data.length == 0) {
+						$('#show').html('<h1>当前没有此信息的安排课程</h1>');
+						return;
+					}
+					$('#show').html('');
+					var users_data = listKeyToList(d1.data, $('#fz_select').val());
+					for(var key in users_data) {
+						var qihe1 = jQuery.extend(true, [], qihe2);
+						var keshi = 0;
+						$(users_data[key]).each(function(i, v) {
+							$(qihe1).each(function(i1, v1) {
+								if(v1 && v.sxXuHao == v1.sxXuHao) {
+									v1[v.sxZhou] = v;
+									keshi += 1;
+									return false;
+								}
+							});
+						});
+						var rendeId = "ksbTable_" + key;
+						$('#show').append('<table border="1" style="margin-top: 20px;width: 1100px;"  cellspacing="0" cellpadding="0"  id="' + rendeId + '">' + $('#ksbTable').html() + "</table>");
+						$("#" + rendeId).render({
+							"showTitle": "{0}【周总课时：{1}节课，共课时：{2}分钟】".format(key, keshi, keshi * 90),
+							"shijian": qihe1
+						}, {
+							shijian: {
+								shiduan: {
+									style: function() {
+										if(!this.shiduan) {
+											return "display:none;";
+										}
+									}
+								}
+							}
+						});
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>

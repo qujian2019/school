@@ -10,6 +10,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=Edge">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<!--<link rel="stylesheet" href="/r3/layui-v2.2.5/layui/css/layui.css" />-->
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/r3/layui-v2.1.5/layui-v2.1.5/layui/css/layui.css" />
 		<style>
@@ -386,6 +387,8 @@
 				<span>顶岗实习制度(实训中心)</span>
 				{{# }else if(d.newType == 'SXZX7'){ }}
 				<span>下载中心(实训中心)</span> 
+				{{# }else if(d.newType == 'SXZX8'){ }}
+				<span>安全中心(实训中心)</span> 
 
 				{{# }else if(d.newType == 'BWC1'){ }}
 				<span>通知公告(保卫处)</span> 
@@ -403,6 +406,18 @@
 				<span>业务办理(保卫处)</span>
 				{{# }else if(d.newType == 'BWC9'){ }}
 				<span>安全教育(保卫处)</span> 
+				
+				{{# }else if(d.newType == 'ZSXXAPP'){ }}
+				<span>招生APP</span> 
+				{{# }else if(d.newType == 'ZSAPPDSZ'){ }}
+				<span>招生APP董事长</span> 
+				{{# }else if(d.newType == 'ZSAPPZZ'){ }}
+				<span>招生APP组长</span> 
+				{{# }else if(d.newType == 'ZSAPPZY'){ }}
+				<span>招生APP组员</span> 
+				{{# }else if(d.newType == 'ZSAPPZSXS'){ }}
+				<span>招生APP招生学生</span> 
+
 				
 				{{# } }}
 			</script>
@@ -689,22 +704,13 @@
 						
 					var url = '/pages/news/advertisement_news.jsp?newsId='+temp;
 					window.location.href = url;
-						
-						
-						
+
 					}else{
 						//console.log('无')
 						layer.msg("没有选中新闻，请选择新闻再进行操作");
 					}
 
-
-
 				});
-				
-				
-				
-				
-				
 
 				//跳到发布编辑页面 +"&temp01="+2
 				$("#release").on("click", function() {

@@ -12,7 +12,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/r3/css/login.css" />
 		<link rel="stylesheet" href="/r3/layui-v2.2.5/layui/css/layui.css" />
-		<link rel="shortcut icon" href="http://124.228.83.236/r3/imgs/sign/bitbug_favicon.ico" />
+		<link rel="shortcut icon" href="http://www.hngsxy.com/r3/imgs/sign/bitbug_favicon.ico" />
 		<style>
 			body {
 				margin: 0px;
@@ -32,19 +32,19 @@
 					<div class="layui-form-item">
 						<label class="beg-login-icon"> <i class="layui-icon">&#xe612;</i>
 					</label>
-						<input type="text" name="username" required lay-verify="required" placeholder="这里输入登录名" autocomplete="off" class="layui-input">
+						<input type="text" id="username" name="username" required lay-verify="required" placeholder="这里输入登录名" autocomplete="off" class="layui-input">
 					</div>
 					<div class="layui-form-item">
 						<label class="beg-login-icon"> <i class="layui-icon">&#xe642;</i>
 					</label>
-						<input type="password" name="password" required lay-verify="required" placeholder="这里输入密码" autocomplete="off" class="layui-input">
+						<input id="password" type="password" name="password" required lay-verify="required" placeholder="这里输入密码" autocomplete="off" class="layui-input">
 					</div>
 					<div class="layui-form-item">
 						<div class="beg-pull-left beg-login-remember">
-							<input type="checkbox" name="rememberMe" title="记住帐号？">
+							<input lay-filter="encrypt" id="rememberMe" type="checkbox" name="rememberMe" title="记住帐号？">
 						</div>
 						<div class="beg-pull-right">
-							<input type="submit" class="layui-btn layui-btn-primary" value="登录" id="dlbtn"></input>
+							<input type="submit"  class="layui-btn layui-btn-primary" value="登录" id="dlbtn"></input>
 						</div>
 						<div class="beg-clear"></div>
 					</div>
@@ -78,6 +78,33 @@
 			layui.use('form', function() {});
 			$(function(){
 				logout();
+				
+			//Demo
+//			layui.use('form', function(){
+//			  var form = layui.form;
+//
+//				form.on('checkbox(encrypt)', function(data){
+//
+//					if(data.elem.checked){
+//						localStorage.username=$("#username").val();
+//						localStorage.setItem("password",$("#password").val());
+//					}else{
+//						$("#username").val("");
+//						$("#password").val("");
+//					}
+//
+//				}); 
+//
+//			});
+				
+				//有缓存就给用户名
+//				if(localStorage.username){
+//					$("#username").val(localStorage.username)
+//				}
+//				if(localStorage.password){
+//					$("#password").val(localStorage.password)
+//				}
+
 //				$('#dlbtn').on('click',function(){
 //					logout();
 //				});
